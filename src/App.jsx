@@ -11,15 +11,14 @@ import RootLayout from "./pages/Root";
 const router = createBrowserRouter([
   {
     path: "/",
-    id: "event-detail",
-
+    id: "main",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader: countriesLoader,
     children: [
       {
         index: true,
         element: <HomePage />,
-        loader: countriesLoader,
       },
       {
         path: ":countName",

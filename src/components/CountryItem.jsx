@@ -12,11 +12,10 @@ function CountryItem({ country }) {
   }
 
   return (
-    <Link to={`/${country.name.common}`}>
-      <article class="dark" id={country.name.common}>
+      <article className="dark" id={country.name.common}>
         <div style={{ backgroundImage: `url(${country.flags.png})` }}> </div>
         <div>
-          <div class="infoBox">
+          <div className="infoBox">
             <h3>{country.name.common}</h3>
             <p>
               <strong>Population: </strong>
@@ -33,7 +32,6 @@ function CountryItem({ country }) {
           </div>
         </div>
       </article>
-    </Link>
   );
 }
 

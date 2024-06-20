@@ -14,9 +14,6 @@ body {
   box-sizing: content-box;
   margin-bottom: 5.625rem;
 }
-main {
-  position: relative;
-}
 /* Navagation========================== */
 nav {
   width: 100%;
@@ -66,7 +63,8 @@ nav {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
+  margin: 3rem auto;
 }
 .marg {
   margin-top: 4rem;
@@ -74,7 +72,7 @@ nav {
 #form {
   position: relative;
 }
-#form > input {
+#form  input {
   padding: 1rem;
   padding-left: 2rem;
   font-family: Arial, FontAwesome;
@@ -82,7 +80,6 @@ nav {
   height: 4rem;
   width: 30rem;
   border-radius: 0.25rem;
-  margin-left: 5rem;
   font-size: 1rem;
 }
 ::placeholder {
@@ -90,7 +87,6 @@ nav {
 }
 #formSelec select {
   padding: 1rem;
-  margin-right: 5rem;
   height: 3rem;
   width: 10rem;
   border: none;
@@ -99,24 +95,18 @@ nav {
 
 /* Main & Cards========================== */
 #main {
-  width: 100%;
+  width: 90%;
+  max-width: 90rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-gap: 3rem;
+  margin: 2rem auto;
   padding-bottom: 5.625rem;
 }
 
 article {
-  float: left;
-  margin-top: 3.625rem;
-  margin-left: 5rem;
-  width: 16.25rem;
-  height: 18.75rem;
-  display: flex;
-  flex-direction: column;
   border-radius: 0.3rem;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0px 0px 0px 0px white;
 }
-
 article > div:first-of-type {
   width: 100%;
   height: 9.375rem;
@@ -478,11 +468,6 @@ article div:last-of-type div p {
     width: 180px;
   }
 
-  article {
-    width: 337px;
-    height: 450px;
-    margin-left: 33px;
-  }
 
   article > div:first-of-type {
     height: 250px;
@@ -596,10 +581,6 @@ article div:last-of-type div p {
   #formSelec select {
     margin-right: 3rem;
   }
-  article {
-    width: 42%;
-    margin-left: 40px;
-  }
   #expand #flag {
     width: 32rem;
   }
@@ -641,10 +622,6 @@ article div:last-of-type div p {
     margin: auto;
   }
 
-  article {
-    width: 28%;
-    margin-left: 40px;
-  }
   #expand #flag {
     width: 32rem;
   }
@@ -666,10 +643,6 @@ article div:last-of-type div p {
 }
 
 @media (min-width: 1300px) and (max-width: 1400px) {
-  article {
-    width: 228px;
-    margin-left: 90px;
-  }
   #holdInf #border .selectBorder {
     width: 110px;
   }

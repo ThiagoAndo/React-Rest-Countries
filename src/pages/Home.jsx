@@ -1,13 +1,12 @@
 import { Suspense } from "react";
-import { useLoaderData, json, defer, Await } from "react-router-dom";
+import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
 import CountryList from "../components/CountryList";
 function HomePage() {
-  const { coutries } = useLoaderData();
-  console.log(coutries);
+  const { countries } = useRouteLoaderData("main");
 
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-      <Await resolve={coutries}>
+      <Await resolve={countries}>
         {(loadedEvents) => <CountryList countries={loadedEvents} />}
       </Await>
     </Suspense>
@@ -34,6 +33,6 @@ async function loadCountries() {
 
 export async function loader() {
   return defer({
-    coutries: loadCountries(),
+    countries: loadCountries(),
   });
 }

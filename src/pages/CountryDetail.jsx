@@ -1,18 +1,28 @@
 import { Suspense } from "react";
-import { useLoaderData, json, defer, Await } from "react-router-dom";
+import {
+  useLoaderData,
+  useRouteLoaderData,
+  json,
+  defer,
+  Await,
+} from "react-router-dom";
 
 import CountryDet from "../components/CountryDet";
 
 function CountryDetail() {
   const { country } = useLoaderData();
 
+
+  let res = null;
   return (
     <>
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-        <Await resolve={country}>
-          {
-            (loadedCount) => { <CountryDet country={loadedCount} />}
-          }
+        <Await resolve={{ country }}>
+          {(loadedCount) => {
+            res = loadCountry;
+
+            // <CountryDet country={loadedCount} />
+          }}
         </Await>
       </Suspense>
       {/* <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
