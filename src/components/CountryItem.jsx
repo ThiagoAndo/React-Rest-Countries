@@ -12,6 +12,7 @@ function CountryItem({ country }) {
   }
 
   return (
+    <Link to={`/${country.name.common}`}>
       <article className="dark" id={country.name.common}>
         <div style={{ backgroundImage: `url(${country.flags.png})` }}> </div>
         <div>
@@ -32,6 +33,7 @@ function CountryItem({ country }) {
           </div>
         </div>
       </article>
+    </Link>
   );
 }
 

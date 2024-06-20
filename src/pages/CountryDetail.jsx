@@ -7,22 +7,15 @@ import {
   Await,
 } from "react-router-dom";
 
-import CountryDet from "../components/CountryDet";
+import Detailed from "../components/Detailed";
 
 function CountryDetail() {
   const { country } = useLoaderData();
-
-
-  let res = null;
   return (
     <>
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
         <Await resolve={{ country }}>
-          {(loadedCount) => {
-            res = loadCountry;
-
-            // <CountryDet country={loadedCount} />
-          }}
+          {(loadedCount) => <Detailed country={loadedCount} />}
         </Await>
       </Suspense>
       {/* <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
