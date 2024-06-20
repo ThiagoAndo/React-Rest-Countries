@@ -8,7 +8,7 @@ function RootLayout() {
   return (
     <>
       <MainNavigation />
-      <main>
+      <main className="bDark">
         <section id="main">
           <Outlet />
         </section>

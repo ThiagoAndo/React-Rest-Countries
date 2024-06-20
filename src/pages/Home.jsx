@@ -1,14 +1,13 @@
 import { Suspense } from "react";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
-
 import CountryList from "../components/CountryList";
-
 function HomePage() {
-  const { events } = useLoaderData();
+  const { coutries } = useLoaderData();
+  console.log(coutries);
 
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-      <Await resolve={events}>
+      <Await resolve={coutries}>
         {(loadedEvents) => <CountryList countries={loadedEvents} />}
       </Await>
     </Suspense>
@@ -17,14 +16,10 @@ function HomePage() {
 
 export default HomePage;
 
-async function loadEvents() {
-  const response = await fetch("http://localhost:8080/events");
+async function loadCountries() {
+  const response = await fetch("https://restcountries.com/v3.1/all");
 
   if (!response.ok) {
-    // return { isError: true, message: 'Could not fetch events.' };
-    // throw new Response(JSON.stringify({ message: 'Could not fetch events.' }), {
-    //   status: 500,
-    // });
     throw json(
       { message: "Could not fetch events." },
       {
@@ -33,12 +28,12 @@ async function loadEvents() {
     );
   } else {
     const resData = await response.json();
-    return resData.events;
+    return resData;
   }
 }
 
-export function loader() {
+export async function loader() {
   return defer({
-    events: loadEvents(),
+    coutries: loadCountries(),
   });
 }

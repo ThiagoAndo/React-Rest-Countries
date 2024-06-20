@@ -1,28 +1,30 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "./pages/Error";
-import EventDetailPage, {
-  loader as eventDetailLoader,
+import CountryDetail, {
+  loader as countryDetailLoader,
   action as deleteEventAction,
-} from "./pages/EventDetail";
-import HomePage, { loader as eventsLoader } from "./pages/Home";
+} from "./pages/CountryDetail";
+import HomePage, { loader as countriesLoader } from "./pages/Home";
 import RootLayout from "./pages/Root";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    id: "event-detail",
+
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <HomePage />,
-        loader: eventsLoader,
+        loader: countriesLoader,
       },
       {
-        path: ":eventId",
-        element: <EventDetailPage />,
-        loader: eventDetailLoader,
+        path: ":countName",
+        element: <CountryDetail />,
+        loader: countryDetailLoader,
       },
     ],
   },
