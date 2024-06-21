@@ -1,16 +1,6 @@
-import { Link, useSubmit } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CountryItem({ country }) {
-  const submit = useSubmit();
-
-  function startDeleteHandler() {
-    const proceed = window.confirm("Are you sure?");
-
-    if (proceed) {
-      submit(null, { method: "delete" });
-    }
-  }
-
   return (
     <Link to={`/${country.name.common}`}>
       <article className="dark" id={country.name.common}>

@@ -1,5 +1,8 @@
 import { useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Clock from "./clock/Clock";
+
 import Borders from "./Borders";
 function Detailed({ country }) {
   let {
@@ -8,18 +11,29 @@ function Detailed({ country }) {
   let bordersArray = [];
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
-  let currencie;
-  let crr;
-  let lang;
-  let lag;
-  let subReg;
-  let capital;
-  currencie = Object.keys(count.currencies)[0];
-  lang = Object.keys(count.languages)[0];
-  lag = count.languages[lang];
-  crr = count.currencies[currencie].name;
-  subReg = count.subregion;
-  capital = count.capital;
+  let crrKey;
+  let crr = "No";
+  let lag = "No";
+  let langKey;
+  let subReg = "No";
+  let capital = "No";
+  if (count?.currencies) {
+    crrKey = Object.keys(count.currencies)[0];
+    crr = count.currencies[crrKey].name;
+  }
+
+  if (count?.languages) {
+    langKey = Object.keys(count?.languages)[0];
+    lag = count?.languages[langKey];
+  }
+
+  if (count?.subregion) {
+    subReg = count.subregion;
+  }
+
+  if (count?.capital) {
+    capital = count.capital;
+  }
 
   let findCountryName = (cca3, data) => {
     let count = -1;
@@ -37,7 +51,6 @@ function Detailed({ country }) {
       if (name.length > 10) {
         for (let index = 0; index <= 10; index++) {
           if (index <= 9) {
-            console.log(name[index]);
             longName += name[index];
           } else if (index === 10) {
             longName += " ...";
@@ -49,7 +62,6 @@ function Detailed({ country }) {
       }
     }
   }
-
 
   useEffect(() => {
     if (!thisCountries) {
@@ -71,17 +83,17 @@ function Detailed({ country }) {
     return (
       <section id="expand">
         <div>
-          <div class="btnExp dark">
+          <Link to={"/"} className="btnExp dark">
             <span>⬅ </span>
             <span>Back</span>
-          </div>
+          </Link>
           <div id="contExp">
             <div
               id="flag"
               style={{ backgroundImage: `url(${count.flags.png})` }}
             ></div>
             <div id="holdInf">
-              <div class="inf">
+              <div className="inf">
                 <h1>{count.name.common}</h1>
                 <p>
                   <strong>Population: </strong>
@@ -96,11 +108,11 @@ function Detailed({ country }) {
                   {subReg}
                 </p>
                 <p>
-                  <strong>Capita: </strong>
+                  <strong>Capital: </strong>
                   {capital}
                 </p>
               </div>
-              <div class="inf">
+              <div className="inf">
                 <h1> </h1>
                 <h1> </h1>
                 <p>
@@ -116,16 +128,19 @@ function Detailed({ country }) {
                   {lag}
                 </p>
               </div>
-              <div id="border">
-                <span id="noBtn">
-                  <strong>Border countries: </strong>
-                </span>
-                <div id="btnBor">
-                  {bordersArray.map((brds) => (
-                    <Borders id={brds.id} name={brds.name} />
-                  ))}
+              {bordersArray.length > 0 ? (
+                <div id="border">
+                  <span id="noBtn">
+                    <strong>Border countries: </strong>
+                  </span>
+                  <div id="btnBor">
+                    {bordersArray.map((brds) => (
+                      <Borders key={brds.id} id={brds.id} name={brds.name} />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : null}
+              <Clock cca2={count.cca2} name={count.name.common}/>
             </div>
           </div>
         </div>
