@@ -1,14 +1,12 @@
 import { useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Borders from "./Borders";
 function Detailed({ country }) {
   let {
     country: [count],
   } = country;
-
-  console.log("count")
-  console.log(count);
+  let bordersArray = [];
   const { countries } = useRouteLoaderData("main");
-
   const [thisCountries, setCoutries] = useState();
   let currencie;
   let crr;
@@ -22,6 +20,36 @@ function Detailed({ country }) {
   crr = count.currencies[currencie].name;
   subReg = count.subregion;
   capital = count.capital;
+
+  let findCountryName = (cca3, data) => {
+    let count = -1;
+    do {
+      count++;
+    } while (data[count].cca3 !== cca3);
+    return data[count].name.common;
+  };
+
+  if (count.borders && thisCountries) {
+    for (let index = 0; index < count.borders.length; index++) {
+      let name = findCountryName(count.borders[index], thisCountries);
+      let longName = "";
+
+      if (name.length > 10) {
+        for (let index = 0; index <= 10; index++) {
+          if (index <= 9) {
+            console.log(name[index]);
+            longName += name[index];
+          } else if (index === 10) {
+            longName += " ...";
+          }
+        }
+        bordersArray.push({ id: name, name: longName });
+      } else {
+        bordersArray.push({ id: name, name });
+      }
+    }
+  }
+
 
   useEffect(() => {
     if (!thisCountries) {
@@ -42,10 +70,10 @@ function Detailed({ country }) {
   } else {
     return (
       <section id="expand">
-        <div class="dark">
+        <div>
           <div class="btnExp dark">
-            <span>⬅</span>
-            <span> Back</span>
+            <span>⬅ </span>
+            <span>Back</span>
           </div>
           <div id="contExp">
             <div
@@ -64,34 +92,39 @@ function Detailed({ country }) {
                   {count.region}
                 </p>
                 <p>
-                  <strong>subregion :</strong>
+                  <strong>subregion: </strong>
                   {subReg}
                 </p>
                 <p>
-                  <strong>Capital :</strong>
+                  <strong>Capita: </strong>
                   {capital}
                 </p>
               </div>
               <div class="inf">
                 <h1> </h1>
+                <h1> </h1>
                 <p>
-                  <strong>Top Level Domain :</strong>
+                  <strong>Top Level Domain: </strong>
                   {count.tld}
                 </p>
                 <p>
-                  <strong>Currencies :</strong>
+                  <strong>Currencies: </strong>
                   {crr}
                 </p>
                 <p>
-                  <strong>Languages :</strong>
+                  <strong>Languages: </strong>
                   {lag}
                 </p>
               </div>
               <div id="border">
                 <span id="noBtn">
-                  <strong>Border countries :</strong>
+                  <strong>Border countries: </strong>
                 </span>
-                <div id="btnBor">{/* ============================ */}</div>
+                <div id="btnBor">
+                  {bordersArray.map((brds) => (
+                    <Borders id={brds.id} name={brds.name} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
