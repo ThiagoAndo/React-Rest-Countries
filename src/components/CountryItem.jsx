@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function CountryItem({ country }) {
-
+console.log(country)
   return (
     <Link to={`/${country.name.common}`}>
       <article className="dark" id={country.name.common}>
