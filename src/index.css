@@ -723,7 +723,10 @@ article div:last-of-type div p {
   position: relative;
   top: 110%;
 }
-
+.clock h5 {
+  position: relative;
+  top: 115%;
+}
 .clock {
   position: absolute;
   right: 20;

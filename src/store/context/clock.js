@@ -2,13 +2,15 @@ import { createContext, useState, useEffect, useRef } from "react";
 
 export const ClockContext = createContext({
   timer: null,
+  city: null,
   setCode: () => {},
   run: () => {},
   stop: () => {},
 });
-let time = null;
+let city = null;
 
 async function loadZoneName(cca2) {
+  let time = null;
   let zone = null;
   const response = await fetch(
     `https://api.timezonedb.com/v2.1/list-time-zone?key=87SX3TYK9QL5&format=json&country=${cca2}`
@@ -16,18 +18,18 @@ async function loadZoneName(cca2) {
   if (response.ok) {
     const resData = await response.json();
     zone = resData?.zones[0]?.zoneName;
-    console.log(zone);
-    console.log("zone");
+    city = resData?.zones[0]?.zoneName.split("/")[1];
     if (zone === undefined) {
       time = "NOT AVAILABLE";
     } else {
-      const time = loadTime(zone);
+      time = loadTime(zone);
       return time;
     }
   }
 }
 
 async function loadTime(zone) {
+  let time = null;
   const response = await fetch(
     `https://api.timezonedb.com/v2.1/get-time-zone?key=87SX3TYK9QL5&format=json&by=zone&zone=${zone}`
   );
@@ -84,6 +86,7 @@ export default function ClockProvider({ children }) {
 
   const ctxValue = {
     timer: timer,
+    city,
     setCode,
     stop,
   };
