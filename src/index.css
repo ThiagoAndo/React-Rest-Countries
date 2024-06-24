@@ -754,8 +754,8 @@ article div:last-of-type div p {
 .hour_hand {
   position: absolute;
   width: 7px;
-  height: 28px;
-  background: #222;
+  height: 38px;
+  background: #000000;
   top: 25%;
   left: 48%;
 
