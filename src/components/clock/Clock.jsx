@@ -35,20 +35,20 @@ function Clock({ cca2, name }) {
   const [hasChang, setHasChang] = useState(false);
   let inter = useRef();
 
-  const startIt = () => {
-    inter.current.clearIterval()
-    inter.current = setInterval(() => {
-      timer.setSeconds(timer.getSeconds() + 1);
-      const thisTime = new Date(
-        `${timer.getFullYear()}-${
-          timer.getMonth() + 1
-        }-${timer.getDate()} ${timer.getHours()}:${timer.getHours()}:${timer.getSeconds()}`
-      );
-      console.log(thisTime);
+  // const startIt = () => {
+  //   clearInterval(inter.current);
+  //   inter.current = setInterval(() => {
+  //     timer.setSeconds(timer.getSeconds() + 1);
+  //     const thisTime = new Date(
+  //       `${timer.getFullYear()}-${
+  //         timer.getMonth() + 1
+  //       }-${timer.getDate()} ${timer.getHours()}:${timer.getHours()}:${timer.getSeconds()}`
+  //     );
+  //     console.log(thisTime);
 
-      setTimer(thisTime);
-    }, 1000);
-  };
+  //     setTimer(thisTime);
+  //   }, 1000);
+  // };
   useEffect(() => {
     async function getTime() {
       if (!hasChang) {
