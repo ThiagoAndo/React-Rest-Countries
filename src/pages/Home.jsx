@@ -1,8 +1,12 @@
 import { Suspense } from "react";
 import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
+import { useContext } from "react";
+import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
 function HomePage() {
   const { countries } = useRouteLoaderData("main");
+  const context = useContext(ClockContext);
+  context.stop();
 
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>

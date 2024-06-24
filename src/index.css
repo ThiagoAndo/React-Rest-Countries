@@ -723,7 +723,10 @@ article div:last-of-type div p {
   position: relative;
   top: 110%;
 }
-
+.clock h5 {
+  position: relative;
+  top: 115%;
+}
 .clock {
   position: absolute;
   right: 20;
@@ -756,7 +759,7 @@ article div:last-of-type div p {
   width: 7px;
   height: 38px;
   background: #000000;
-  top: 25%;
+  top: 24.5%;
   left: 48%;
 
   transform-origin: bottom;
