@@ -140,7 +140,7 @@ function Detailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              <Clock cca2={count.cca2} name={count.name.common}/>
+              <Clock cca2={count.cca2} name={count.name.common} />
             </div>
           </div>
         </div>
