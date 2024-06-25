@@ -226,7 +226,7 @@ article div:last-of-type div p {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
-  grid-template-rows: 2rem 2rem;
+  grid-template-rows: 2rem 2rem 2rem 2rem;
   grid-gap: 1rem;
 }
 
