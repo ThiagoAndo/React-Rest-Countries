@@ -19,6 +19,10 @@ async function loadZoneName(cca2) {
     const resData = await response.json();
     zone = resData?.zones[0]?.zoneName;
     city = resData?.zones[0]?.zoneName.split("/")[1];
+
+    if(city?.includes("_")){
+      city = city.replaceAll("_", " ")
+    }
     if (zone === undefined) {
       time = "NOT AVAILABLE";
     } else {

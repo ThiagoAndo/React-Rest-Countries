@@ -1,5 +1,12 @@
 import { Suspense } from "react";
-import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
+import {
+  useRouteLoaderData,
+  json,
+  defer,
+  Await,
+  ScrollRestoration,
+} from "react-router-dom";
+
 import { useContext } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
@@ -11,7 +18,9 @@ function HomePage() {
   return (
     <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
       <Await resolve={countries}>
-        {(loadedEvents) => <CountryList countries={loadedEvents} />}
+        {(loadedEvents) => (
+            <CountryList countries={loadedEvents} />
+        )}
       </Await>
     </Suspense>
   );
