@@ -12,53 +12,63 @@ let city = null;
 async function loadZoneName(coutry) {
   let time = null;
   let zone = null;
-  const response = await fetch(
-    `https://api.timezonedb.com/v2.1/list-time-zone?key=87SX3TYK9QL5&format=json&country=${coutry?.cca2}`
-  );
-  if (response.ok) {
-    const resData = await response.json();
 
-    // {countryCode: 'AR', countryName: 'Argentina', zoneName: 'America/Argentina/Ushuaia', gmtOffset: -10800, timestamp: 1719990802}
+  try {
+    const response = await fetch(
+      `https://api.timezonedb.com/v2.1/list-time-zone?key=87SX3TYK9QL5&format=json&country=${coutry?.cca2}`
+    );
 
-    const cities = resData.zones.map((zn) => {
-      const cts = zn.zoneName.split("/");
-      return cts[cts.length - 1];
-    });
+    if (response.ok) {
+      const resData = await response.json();
 
-    if (cities.includes(coutry?.capital)) {
-      const zn = cities.indexOf(coutry?.capital);
-      zone = resData?.zones[zn]?.zoneName;
-      console.log(zone);
-      console.log("zone");
-      city = coutry.capital;
-    } else {
-      zone = resData?.zones[0]?.zoneName;
-      city = resData?.zones[0]?.zoneName.split("/")[1];
+      // {countryCode: 'AR', countryName: 'Argentina', zoneName: 'America/Argentina/Ushuaia', gmtOffset: -10800, timestamp: 1719990802}
+
+      const cities = resData.zones.map((zn) => {
+        const cts = zn.zoneName.split("/");
+        return cts[cts.length - 1];
+      });
+
+      if (cities.includes(coutry?.capital)) {
+        const zn = cities.indexOf(coutry?.capital);
+        zone = resData?.zones[zn]?.zoneName;
+        console.log(zone);
+        console.log("zone");
+        city = coutry.capital;
+      } else {
+        zone = resData?.zones[0]?.zoneName;
+        city = resData?.zones[0]?.zoneName.split("/")[1];
+      }
+
+      if (city?.includes("_") || city?.includes("-")) {
+        city = city.replaceAll("_", " ");
+        city = city.replaceAll("-", " ");
+      }
+
+      if (zone === undefined) {
+        time = "NOT AVAILABLE";
+      } else {
+        time = loadTime(zone);
+        return time;
+      }
     }
-
-    if (city?.includes("_") || city?.includes("-")) {
-      city = city.replaceAll("_", " ");
-      city = city.replaceAll("-", " ");
-    }
-
-    if (zone === undefined) {
-      time = "NOT AVAILABLE";
-    } else {
-      time = loadTime(zone);
-      return time;
-    }
+  } catch (error) {
+    console.log("loadZone error: " + error);
   }
 }
 
 async function loadTime(zone) {
-  let time = null;
-  const response = await fetch(
-    `https://api.timezonedb.com/v2.1/get-time-zone?key=87SX3TYK9QL5&format=json&by=zone&zone=${zone}`
-  );
-  if (response.ok) {
-    const resData = await response.json();
-    time = new Date(resData.formatted);
-    return time;
+  try {
+    let time = null;
+    const response = await fetch(
+      `https://api.timezonedb.com/v2.1/get-time-zone?key=87SX3TYK9QL5&format=json&by=zone&zone=${zone}`
+    );
+    if (response.ok) {
+      const resData = await response.json();
+      time = new Date(resData.formatted);
+      return time;
+    }
+  } catch (error) {
+    console.log("loadTime error: " + error);
   }
 }
 
@@ -81,7 +91,7 @@ export default function ClockProvider({ children }) {
   };
 
   function setCode(cca2, capital) {
-    setCountry({ cca2,  capital });
+    setCountry({ cca2, capital });
     hasChang = false;
   }
   function stop() {
