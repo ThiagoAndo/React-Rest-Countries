@@ -140,7 +140,11 @@ function Detailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              <Clock cca2={count.cca2} name={count.name.common} />
+              <Clock
+                cca2={count.cca2}
+                name={count.name.common}
+                capital={capital[0].replace(" ", "_")}
+              />
             </div>
           </div>
         </div>

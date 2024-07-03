@@ -9,20 +9,38 @@ export const ClockContext = createContext({
 });
 let city = null;
 
-async function loadZoneName(cca2) {
+async function loadZoneName(coutry) {
   let time = null;
   let zone = null;
   const response = await fetch(
-    `https://api.timezonedb.com/v2.1/list-time-zone?key=87SX3TYK9QL5&format=json&country=${cca2}`
+    `https://api.timezonedb.com/v2.1/list-time-zone?key=87SX3TYK9QL5&format=json&country=${coutry?.cca2}`
   );
   if (response.ok) {
     const resData = await response.json();
-    zone = resData?.zones[0]?.zoneName;
-    city = resData?.zones[0]?.zoneName.split("/")[1];
 
-    if(city?.includes("_")){
-      city = city.replaceAll("_", " ")
+    // {countryCode: 'AR', countryName: 'Argentina', zoneName: 'America/Argentina/Ushuaia', gmtOffset: -10800, timestamp: 1719990802}
+
+    const cities = resData.zones.map((zn) => {
+      const cts = zn.zoneName.split("/");
+      return cts[cts.length - 1];
+    });
+
+    if (cities.includes(coutry?.capital)) {
+      const zn = cities.indexOf(coutry?.capital);
+      zone = resData?.zones[zn]?.zoneName;
+      console.log(zone);
+      console.log("zone");
+      city = coutry.capital;
+    } else {
+      zone = resData?.zones[0]?.zoneName;
+      city = resData?.zones[0]?.zoneName.split("/")[1];
     }
+
+    if (city?.includes("_") || city?.includes("-")) {
+      city = city.replaceAll("_", " ");
+      city = city.replaceAll("-", " ");
+    }
+
     if (zone === undefined) {
       time = "NOT AVAILABLE";
     } else {
@@ -62,8 +80,8 @@ export default function ClockProvider({ children }) {
     setTimer(thisTime);
   };
 
-  function setCode(cca2) {
-    setCountry(cca2);
+  function setCode(cca2, capital) {
+    setCountry({ cca2,  capital });
     hasChang = false;
   }
   function stop() {
