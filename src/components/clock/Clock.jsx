@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ClockContext } from "../../store/context/clock";
 function Clock({ cca2, name, capital }) {
   const context = useContext(ClockContext);
@@ -14,19 +14,25 @@ function Clock({ cca2, name, capital }) {
           <div
             className="hour_hand"
             style={{
-              transform: `rotateZ(${context.timer.getHours() * 30}deg)`,
+              transform: `rotateZ(${
+                context.timer != null ? context.timer.getHours() * 30 : 0
+              }deg)`,
             }}
           />
           <div
             id="min_hand"
             style={{
-              transform: `rotateZ(${context.timer.getMinutes() * 6}deg)`,
+              transform: `rotateZ(${
+                context.timer != null ? context.timer.getMinutes() * 6 : 0
+              }deg)`,
             }}
           />
           <div
             className="sec_hand"
             style={{
-              transform: `rotateZ(${context.timer.getSeconds() * 6}deg)`,
+              transform: `rotateZ(${
+                context.timer != null ? context.timer.getSeconds() * 6 : 0
+              }deg)`,
             }}
           />
         </>

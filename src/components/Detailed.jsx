@@ -2,8 +2,8 @@ import { useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Clock from "./clock/Clock";
-
 import Borders from "./Borders";
+import ForecastApp from "./ForecastApp";
 function Detailed({ country }) {
   let {
     country: [count],
@@ -140,6 +140,7 @@ function Detailed({ country }) {
                   </div>
                 </div>
               ) : null}
+              <ForecastApp cap={capital} />
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}

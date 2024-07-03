@@ -143,12 +143,13 @@ article div:last-of-type div p {
 
 /* Expand Section========================== */
 .weather_cont {
-  margin-top: 5rem;
   width: 15rem;
   height: 18rem;
   box-shadow: 1px 2px 30px #00000033;
   border-radius: 1rem;
   padding: 0.5rem;
+  grid-area: 1/4/3/3;
+  margin-left: 1rem;
 }
 #expand {
   width: 100%;
@@ -156,8 +157,8 @@ article div:last-of-type div p {
 }
 
 #expand > div {
-  width: 65%;
-  margin: 0px 0px 0px 80px;
+  width: 90%;
+  margin: 0px 0px 0px 40px;
   padding-top: 3.5rem;
   height: 100vh;
 }
@@ -189,7 +190,7 @@ article div:last-of-type div p {
   width: 100%;
   height: 50vh;
   margin-top: 3rem;
-  justify-content: space-evenly;
+  gap: 10px;
 }
 
 #expand #flag {
@@ -202,7 +203,7 @@ article div:last-of-type div p {
 
 #expand #holdInf {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
   grid-template-rows: 1fr 3fr;
   gap: 1rem;
   width: 45rem;
@@ -271,7 +272,6 @@ article div:last-of-type div p {
 .bDark {
   background-color: #202c37;
   color: #ffffff;
-  height: 3000px;
 }
 
 .dark {
@@ -691,7 +691,7 @@ article div:last-of-type div p {
   }
 
   #expand #flag {
-    width: 32rem;
+    width: 19rem;
   }
 
   #holdInf .inf {
