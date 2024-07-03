@@ -13,7 +13,7 @@ import {
   getWeekForecastWeather,
 } from "./utilities/DataUtils";
 import { fetchCities } from "./api/OpenWeatherService";
-function ForecastApp() {
+function ForecastApp({cap}) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -21,13 +21,15 @@ function ForecastApp() {
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
-  const searchChangeHandler = async (enteredData) => {
-    console.log(enteredData[7]?.capital);
+  const searchChangeHandler = async () => {
+   
     let citiesList;
 
     try {
-      citiesList = await fetchCities(enteredData[7]?.capital);
-      if (!citiesList) {
+      citiesList = await fetchCities(cap);
+      console.log(citiesList);
+      console.log("citiesList");
+      if (!citiesList.data.legth===0) {
         setNotFound(true);
       }
     } catch (error) {
@@ -85,9 +87,7 @@ function ForecastApp() {
 
   useEffect(() => {
     async function loadCoutry() {
-      const data = await fetch("https://restcountries.com/v3.1/all");
-      const dataParse = await data.json();
-      searchChangeHandler(dataParse);
+      searchChangeHandler();
     }
 
     loadCoutry();
@@ -105,9 +105,7 @@ function ForecastApp() {
     );
   }
 
-  console.log(error);
 
-  console.log("error sdfaasdfsadfasdgsdfs");
   if (error) {
     appContent = (
       <ErrorBox

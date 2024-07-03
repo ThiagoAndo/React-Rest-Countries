@@ -46,12 +46,11 @@ function HomePage() {
     };
   }, []);
   return (
-    // <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-    //   <Await resolve={countries}>
-    //     {(loadedEvents) => <CountryList countries={loadedEvents} />}
-    //   </Await>
-    // </Suspense>
-      <ForecastApp />
+    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+      <Await resolve={countries}>
+        {(loadedEvents) => <CountryList countries={loadedEvents} />}
+      </Await>
+    </Suspense>
   );
 }
 
@@ -62,7 +61,7 @@ async function loadCountries() {
 
   if (!response.ok) {
     throw json(
-      { message: "Could not fetch events." },
+      { message: "Could not fetch countries." },
       {
         status: 500,
       }
