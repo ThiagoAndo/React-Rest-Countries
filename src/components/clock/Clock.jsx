@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../../store/context/clock";
-function Clock({ cca2, name }) {
+function Clock({ cca2, name, capital }) {
   const context = useContext(ClockContext);
-  
+
   useEffect(() => {
-    context.setCode(cca2);
+    context.setCode(cca2, capital);
   }, []);
 
   return (
