@@ -142,6 +142,14 @@ article div:last-of-type div p {
 }
 
 /* Expand Section========================== */
+.weather_cont {
+  margin-top: 5rem;
+  width: 15rem;
+  height: 18rem;
+  box-shadow: 1px 2px 30px #00000033;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
 #expand {
   width: 100%;
   position: relative;
@@ -263,6 +271,7 @@ article div:last-of-type div p {
 .bDark {
   background-color: #202c37;
   color: #ffffff;
+  height: 3000px;
 }
 
 .dark {
@@ -735,6 +744,7 @@ article div:last-of-type div p {
   height: 150px;
   border-radius: 50%;
   transform: translate(0%, 0%);
+
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
   font-size: 15px;
   text-align: center;
