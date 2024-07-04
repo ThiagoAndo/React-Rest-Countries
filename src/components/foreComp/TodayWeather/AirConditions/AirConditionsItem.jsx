@@ -1,9 +1,10 @@
 import { Box, Grid, SvgIcon } from '@mui/material';
-import React from 'react';
+
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AirIcon from '@mui/icons-material/Air';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
-import { ReactComponent as HumidityIcon } from '../../../assets/humidity.svg';
+import OpacityIcon from "@mui/icons-material/Opacity";
+// import { ReactComponent as HumidityIcon } from '../../../assets/humidity.svg';
 
 const AirConditionsItem = (props) => {
   let iconContent;
@@ -15,13 +16,8 @@ const AirConditionsItem = (props) => {
   else if (props.type === 'clouds')
     iconContent = <FilterDramaIcon sx={{ fontSize: '12px' }} />;
   else if (props.type === 'humidity')
-    iconContent = (
-      <SvgIcon
-        component={HumidityIcon}
-        inheritViewBox
-        sx={{ fontSize: '12px' }}
-      />
-    );
+     iconContent = <OpacityIcon sx={{ fontSize: "12px" }} />;
+
 
   return (
     <Grid

@@ -83,11 +83,11 @@ function ForecastApp({ cap }) {
 
   useEffect(() => {
     async function loadCoutry() {
-      searchChangeHandler();
+      searchChangeHandler(cap);
     }
 
     loadCoutry();
-  }, []);
+  }, [cap]);
 
   let appContent = null;
 

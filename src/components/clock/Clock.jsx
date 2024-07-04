@@ -1,22 +1,20 @@
 import { useContext, useEffect } from "react";
-import { ClockContext } from "../../store/context/clock";
+import { ClockContext } from "../../../src/store/context/clock";
+let hasChanged ;
+
 function Clock({ cca2, name, capital }) {
   const context = useContext(ClockContext);
 
   useEffect(() => {
-    context.setCode(cca2, capital);
-    var perfEntries = performance.getEntriesByType("navigation");
-
-    perfEntries.forEach((entry) => {
-      if (entry.type === "reload") {
-        console.log(`${entry.name} was reloaded!`);
-        console.log(entry);
-      }
-    });
-  }, []);
+    hasChanged = false;
+    setTimeout(() => {
+      context.setCode(cca2, capital);
+      hasChanged = true;
+    }, 1500); // Timer Add to comply with API rate limit
+  }, [cca2, capital]);
   return (
     <div className="clock">
-      {context.timer && (
+      {hasChanged && (
         <>
           <div
             className="hour_hand"

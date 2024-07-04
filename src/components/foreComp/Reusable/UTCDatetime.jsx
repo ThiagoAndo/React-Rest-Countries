@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import React from "react";
 import { useContext } from "react";
 import { ClockContext } from "../../../store/context/clock";
 
