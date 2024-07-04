@@ -8,7 +8,7 @@ import RootLayout from "./pages/Root";
 
 const router = createBrowserRouter([
   {
-    path: "/React-Rest-Countries",
+    path: "/",
     id: "main",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
