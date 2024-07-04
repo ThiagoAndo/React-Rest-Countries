@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ThiagoAndo/React-Rest-Countries/static/css/main.4464f85e.css",
+    "main.js": "/ThiagoAndo/React-Rest-Countries/static/js/main.47ebfb40.js",
+    "static/media/humidity.svg": "/ThiagoAndo/React-Rest-Countries/static/media/humidity.6499a5cec9fcc141b70dcdb6a54adc66.svg",
+    "index.html": "/ThiagoAndo/React-Rest-Countries/index.html",
+    "static/media/Eclipse-1s-200px.svg": "/ThiagoAndo/React-Rest-Countries/static/media/Eclipse-1s-200px.9dfa254269eac525a850.svg",
+    "static/media/moon.svg": "/ThiagoAndo/React-Rest-Countries/static/media/moon.7bdc22d5dc9770b97be8.svg",
+    "main.4464f85e.css.map": "/ThiagoAndo/React-Rest-Countries/static/css/main.4464f85e.css.map",
+    "main.47ebfb40.js.map": "/ThiagoAndo/React-Rest-Countries/static/js/main.47ebfb40.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4464f85e.css",
+    "static/js/main.47ebfb40.js"
+  ]
+}
