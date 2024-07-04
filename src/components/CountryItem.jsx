@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function CountryItem({ country }) {
   return (
-    <Link to={`/React-Rest-Countries/${country.name.common}`}>
+    <Link to={`/${country.name.common}`}>
       <article className="dark" id={country.name.common}>
         <div style={{ backgroundImage: `url(${country.flags.png})` }}> </div>
         <div>

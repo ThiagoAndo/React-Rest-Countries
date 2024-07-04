@@ -83,7 +83,7 @@ function Detailed({ country }) {
     return (
       <section id="expand">
         <div>
-          <Link to={"/React-Rest-Countries"} className="btnExp dark">
+          <Link to={"/"} className="btnExp dark">
             <span>⬅ </span>
             <span>Back</span>
           </Link>
