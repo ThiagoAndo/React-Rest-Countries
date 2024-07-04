@@ -115,7 +115,7 @@ export default function ClockProvider({ children }) {
       }
     }
     getTime();
-  }, [hasChang]);
+  }, []);
 
   const ctxValue = {
     timer: timer,
