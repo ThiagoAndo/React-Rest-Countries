@@ -13,7 +13,7 @@ import {
   getWeekForecastWeather,
 } from "./utilities/DataUtils";
 import { fetchCities } from "./api/OpenWeatherService";
-function ForecastApp({cap}) {
+function ForecastApp({ cap }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -22,14 +22,11 @@ function ForecastApp({cap}) {
   const [notFound, setNotFound] = useState(false);
 
   const searchChangeHandler = async () => {
-   
     let citiesList;
 
     try {
       citiesList = await fetchCities(cap);
-      console.log(citiesList);
-      console.log("citiesList");
-      if (!citiesList.data.legth===0) {
+      if (!citiesList.data.legth === 0) {
         setNotFound(true);
       }
     } catch (error) {
@@ -38,7 +35,6 @@ function ForecastApp({cap}) {
     }
 
     if (citiesList?.data?.length > 0) {
-      console.log(citiesList);
       const dataRet = {
         options: citiesList?.data.map((city) => {
           return {
@@ -104,7 +100,6 @@ function ForecastApp({cap}) {
       </React.Fragment>
     );
   }
-
 
   if (error) {
     appContent = (

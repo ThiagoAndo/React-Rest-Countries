@@ -5,11 +5,18 @@ function Clock({ cca2, name, capital }) {
 
   useEffect(() => {
     context.setCode(cca2, capital);
-  }, []);
+    var perfEntries = performance.getEntriesByType("navigation");
 
+    perfEntries.forEach((entry) => {
+      if (entry.type === "reload") {
+        console.log(`${entry.name} was reloaded!`);
+        console.log(entry);
+      }
+    });
+  }, []);
   return (
     <div className="clock">
-      {context.timer === undefined ? null : (
+      {context.timer && (
         <>
           <div
             className="hour_hand"
