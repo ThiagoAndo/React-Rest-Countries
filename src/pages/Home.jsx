@@ -3,7 +3,6 @@ import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
-import ForecastApp from "../components/ForecastApp";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
