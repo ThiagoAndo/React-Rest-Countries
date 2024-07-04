@@ -6,23 +6,23 @@ import { ClockContext } from "../../../store/context/clock";
 const UTCDatetime = () => {
   const context = useContext(ClockContext);
 
-  let hour = null;
-  let minute = null;
-  let sec = null;
+  let hour = undefined;
+  let minute = undefined;
+  let sec = undefined;
 
-  if (context.timer !==undefined) {
-    if (context.timer.getHours() < 9) {
+  if (context.timer) {
+    if (context.timer.getHours() <= 9) {
       hour = "0" + context.timer.getHours();
     } else if (context.timer.getHours() > 9) {
       hour = context.timer.getHours();
     }
-    if (context.timer.getMinutes() < 9) {
-      minute =  "0" + context.timer.getMinutes();
+    if (context.timer.getMinutes() <= 9) {
+      minute = "0" + context.timer.getMinutes();
     } else if (context.timer.getMinutes() > 9) {
       minute = context.timer.getMinutes();
     }
 
-    if (context.timer.getSeconds() < 9) {
+    if (context.timer.getSeconds() <= 9) {
       sec = "0" + context.timer.getSeconds();
     } else if (context.timer.getSeconds() > 9) {
       sec = context.timer.getSeconds();
@@ -42,7 +42,7 @@ const UTCDatetime = () => {
         fontFamily: "Poppins",
       }}
     >
-      {hour +":" + minute +":" +sec}
+      {hour && hour + ":" + minute + ":" + sec}
     </Typography>
   );
   return utcTimeValue;
