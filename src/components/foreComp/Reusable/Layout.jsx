@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import React from 'react';
 import SectionHeader from './SectionHeader';
 
 const Layout = ({ content, title, sx, mb, sectionSubHeader }) => {

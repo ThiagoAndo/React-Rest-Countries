@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ErrorBox from '../../Reusable/ErrorBox';
 import AirConditionsItem from './AirConditionsItem';
 import Layout from '../../Reusable/Layout';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -6,12 +5,12 @@ import { Typography } from '@mui/material';
 export default function ErrorBox(props) {
   return (
     <Box
-      display={props.display || 'flex'}
-      justifyContent={props.justifyContent || 'center'}
-      alignItems={props.alignItems || 'center'}
-      margin={props.margin || 'auto'}
+      display={'flex'}
+      justifyContent={  'center'}
+      alignItems={ 'center'}
+      margin={ 'auto'}
       marginLeft={5.5}
-      gap={props.gap || '8px'}
+      gap={'8px'}
       sx={{
         padding: '1rem',
         flexDirection: { xs: 'column', sm: 'row' },

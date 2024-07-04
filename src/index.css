@@ -739,8 +739,8 @@ article div:last-of-type div p {
 }
 .clock {
   position: absolute;
-  right: 20;
-  top: 20;
+  right: 20px;
+  top: 20px;
   width: 150px;
   height: 150px;
   border-radius: 50%;
