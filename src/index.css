@@ -196,10 +196,11 @@ article div:last-of-type div p {
 }
 
 #expand #flag {
-  width: 35rem;
-  height: 50vh;
-  background-size: contain;
-  background-repeat: no-repeat;
+    width: 25rem;
+    height: 36vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #expand #holdInf {
@@ -207,7 +208,6 @@ article div:last-of-type div p {
   grid-template-columns: 1fr 1fr 2fr;
   grid-template-rows: 1fr 3fr;
   gap: 1rem;
-  width: 45rem;
   height: 50vh;
   margin-left: 0.5rem;
 }
@@ -235,7 +235,7 @@ article div:last-of-type div p {
 #btnBor {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
   grid-template-rows: 2rem 2rem 2rem 2rem;
   grid-gap: 1rem;
 }
@@ -257,7 +257,7 @@ article div:last-of-type div p {
   align-items: center;
   justify-content: center;
   border-radius: 0.3rem;
-  font-size: 1rem;
+  font-size: .8rem;
   box-shadow: 0px 0px 4px 0px black;
 }
 
@@ -716,7 +716,7 @@ article div:last-of-type div p {
 
 @media (min-width: 1300px) and (max-width: 1400px) {
   #holdInf #border .selectBorder {
-    width: 110px;
+    width: 84px;
   }
 
   #expand {
