@@ -1,14 +1,15 @@
-import { Outlet, useNavigation } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
+import { ModeAction } from "../store/context/mode";
+import { useContext } from "react";
 import MainNavigation from "../components/MainNavigation";
 function RootLayout() {
-  // const navigation = useNavigation();
+  const context = useContext(ModeAction);
 
   return (
     <>
-      <main id="container" className="bDark">
+      <main id="container" className={context.mode ? "bDark" : "blight"}>
         <MainNavigation />
-          <Outlet />
+        <Outlet />
       </main>
     </>
   );

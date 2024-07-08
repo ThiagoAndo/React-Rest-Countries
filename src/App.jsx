@@ -5,6 +5,8 @@ import CountryDetail, {
 } from "./pages/CountryDetail";
 import HomePage, { loader as countriesLoader } from "./pages/Home";
 import RootLayout from "./pages/Root";
+import { useContext } from "react";
+import { ModeAction } from "./store/context/mode";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const mode = useContext(ModeAction);
   return <RouterProvider router={router} />;
 }
 
