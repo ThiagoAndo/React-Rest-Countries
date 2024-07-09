@@ -14,8 +14,6 @@ export default function ClockProvider({ children }) {
   const [change, setChange] = useState(false);
   let timeInter = useRef();
 const WEATHER_API_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
-console.log("WEATHER_API_KEY");
-console.log(WEATHER_API_KEY);
 
 
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
