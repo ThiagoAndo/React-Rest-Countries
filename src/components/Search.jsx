@@ -1,11 +1,69 @@
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { ModeAction } from "../store/context/mode";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Search() {
   const context = useContext(ModeAction);
+  const { countries } = useRouteLoaderData("main");
+  const [coutry, sentCountry] = useState();
+    const navigate = useNavigate();
+  async function resolveCoutries(con) {
+    let count = await con;
+    
+    count = count.map((cnt) => {
+      const obj = {};
+      obj.id = cnt.altSpellings[0];
+      obj.name = cnt.name.common;
+      return obj
+    });
+    sentCountry(count);
+  }
+
+  useEffect(() => {
+    resolveCoutries(countries);
+  }, []);
+
+  const formatResult = (item) => {
+    return (
+      <div className="result-wrapper">
+        <span className="result-span">{item.name}</span>
+      </div>
+    );
+  };
+  const handleOnSelect = (item) => {
+    navigate(`/${item.name}`);
+    console.log(item.name);
+  };
 
   return (
     <section id="srch" className="marg">
-      <form role="search-role" id="form" autoComplete="off">
+      <ReactSearchAutocomplete
+        className={"form"}
+        items={coutry}
+        onSelect={handleOnSelect}
+        formatResult={formatResult}
+        onKeyDown={(e) => {
+          hadleKey(e);
+        }}
+        placeholder={"Search for a country..."}
+        autoFocus
+        styling={{
+          height: "39px",
+          border: context.mode ? "1px solid black" : "1px solid white",
+          borderRadius: "8px",
+          backgroundColor: context.mode ? "#ffffff" : "#202c37",
+          hoverBackgroundColor: "#ff9b05",
+          color: context.mode ? "black" : "white",
+          fontSize: "20px",
+          iconColor: context.mode ? "black" : "white",
+          lineColor: "#f9b241",
+          placeholderColor: context.mode ? "black" : "white",
+          clearIconMargin: "3px 8px 0 0",
+          zIndex: "2",
+        }}
+      />
+      {/* <form role="search-role" id="form" autoComplete="off">
         <div className="autocomplete">
           <input
             className={context.mode ? "light" : "dark"}
@@ -21,11 +79,11 @@ function Search() {
             autoComplete="false"
             id="myInput"
             name="myCountry"
-            placeholder="&#61442; Search for a country..."
+            placeholder="🔍 Search for a country..."
             aria-label="Search through the content of the site"
           />
         </div>
-      </form>
+      </form> */}
       <form action="/" id="formSelec">
         <select
           name="type"
