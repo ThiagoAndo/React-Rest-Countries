@@ -1,9 +1,23 @@
 import { Link } from "react-router-dom";
-
+import { ModeAction } from "../store/context/mode";
+import { useContext } from "react";
 function CountryItem({ country }) {
+  const context = useContext(ModeAction);
+
   return (
     <Link to={`/${country.name.common}`}>
-      <article className="dark" id={country.name.common}>
+      <article
+        className={context.mode ? "light" : "dark"}
+        style={
+          context.mode
+            ? {
+                border: "black solid 1px",
+                boxShadow: "0px 0px 4px 0px #888888",
+              }
+            : null
+        }
+        id={country.name.common}
+      >
         <div style={{ backgroundImage: `url(${country.flags.png})` }}> </div>
         <div>
           <div className="infoBox">

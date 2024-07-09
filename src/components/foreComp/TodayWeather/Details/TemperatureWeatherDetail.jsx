@@ -1,6 +1,10 @@
 import { Box, Typography } from '@mui/material';
+import { ModeAction } from "../../../../store/context/mode";
+import { useContext } from "react";
 
 const TemperatureWeatherDetail = (props) => {
+  const context = useContext(ModeAction);
+
   return (
     <Box
       sx={{
@@ -18,7 +22,7 @@ const TemperatureWeatherDetail = (props) => {
         sx={{
           fontWeight: "600",
           fontSize: { xs: "6px", sm: "8px", md: "12px" },
-          color: "white",
+          color: context.mode ? "black" : "white",
           textTransform: "uppercase",
           lineHeight: 1,
           marginBottom: "8px",
@@ -32,7 +36,7 @@ const TemperatureWeatherDetail = (props) => {
         component="h4"
         sx={{
           fontSize: { xs: "6px", sm: "8px", md: "10px" },
-          color: "rgba(255,255,255, .7)",
+          color: context.mode ? "black" : "white",
           lineHeight: 1,
           letterSpacing: { xs: "1px", sm: "0" },
           fontFamily: "Roboto Condensed",
