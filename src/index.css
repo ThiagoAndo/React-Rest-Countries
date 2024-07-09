@@ -156,6 +156,7 @@ article div:last-of-type div p {
 #expand {
   width: 100%;
   position: relative;
+  height: 120vh;
 }
 
 #expand > div {
@@ -196,11 +197,11 @@ article div:last-of-type div p {
 }
 
 #expand #flag {
-    width: 25rem;
-    height: 36vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  width: 25rem;
+  height: 36vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #expand #holdInf {
@@ -236,7 +237,7 @@ article div:last-of-type div p {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  grid-template-rows: 2rem 2rem 2rem 2rem;
+  grid-template-rows: 2rem 2rem 2rem 2rem 2rem 2rem;
   grid-gap: 1rem;
 }
 
@@ -257,7 +258,7 @@ article div:last-of-type div p {
   align-items: center;
   justify-content: center;
   border-radius: 0.3rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
   box-shadow: 0px 0px 4px 0px black;
 }
 

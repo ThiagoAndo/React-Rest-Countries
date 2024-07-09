@@ -7,7 +7,7 @@ function RootLayout() {
 
   return (
     <>
-      <main id="container" className={context.mode ? "bDark" : "blight"}>
+      <main id="container" className={context.mode ? "blight" : "bDark"}>
         <MainNavigation />
         <Outlet />
       </main>

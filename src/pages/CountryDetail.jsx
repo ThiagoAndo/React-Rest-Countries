@@ -1,15 +1,15 @@
 import { Suspense } from "react";
-import {
-  useLoaderData,
-  json,
-  defer,
-  Await,
-} from "react-router-dom";
-
+import { useLoaderData, json, defer, Await } from "react-router-dom";
+import { useEffect } from "react";
 import Detailed from "../components/Detailed";
 
 function CountryDetail() {
   const { country } = useLoaderData();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, []);
   return (
     <>
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
@@ -44,7 +44,6 @@ async function loadCountry(name) {
     return resData;
   }
 }
-
 
 export async function loader({ request, params }) {
   const name = params.countName;

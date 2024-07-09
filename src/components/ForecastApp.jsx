@@ -26,6 +26,7 @@ function ForecastApp({ cap }) {
 
     try {
       citiesList = await fetchCities(cap);
+      
       if (!citiesList.data.legth === 0) {
         setNotFound(true);
       }
@@ -59,7 +60,6 @@ function ForecastApp({ cap }) {
           currentDate,
           dt_now
         );
-
         const all_week_forecasts_list = getWeekForecastWeather(
           weekForecastResponse,
           ALL_DESCRIPTIONS
