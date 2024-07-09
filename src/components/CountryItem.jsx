@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 import { ModeAction } from "../store/context/mode";
 import { useContext } from "react";
+import { motion, useAnimate, stagger } from "framer-motion";
+
 function CountryItem({ country }) {
   const context = useContext(ModeAction);
 
   return (
     <Link to={`/${country.name.common}`}>
-      <article
+      <motion.article
+        variants={{
+          hidden: { opacity: 0, scale: 0.5 },
+          visible: { opacity: 1, scale: [0.8, 1.3, 1] },
+        }}
+        exit={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring" }}
+        key={country.name.common}
+        whileHover={{
+          scale: [0.95, 1.3, 1],
+          boxShadow: "0px 0px 6px 0px #888888",
+        }}
         className={context.mode ? "light" : "dark"}
         style={
           context.mode
@@ -36,7 +49,7 @@ function CountryItem({ country }) {
             </p>
           </div>
         </div>
-      </article>
+      </motion.article>
     </Link>
   );
 }
