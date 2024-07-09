@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
 import { Triangle } from "react-loader-spinner";
+import RegionProvider from "../store/context/fetchRegion";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -62,7 +63,11 @@ function HomePage() {
       }
     >
       <Await resolve={countries}>
-        {(loadedEvents) => <CountryList countries={loadedEvents} />}
+        {(loadedEvents) => (
+          <RegionProvider>
+            <CountryList countries={loadedEvents} />
+          </RegionProvider>
+        )}
       </Await>
     </Suspense>
   );
@@ -71,8 +76,6 @@ function HomePage() {
 export default HomePage;
 
 async function loadCountries() {
-
-  
   const response = await fetch("https://restcountries.com/v3.1/all");
 
   if (!response.ok) {

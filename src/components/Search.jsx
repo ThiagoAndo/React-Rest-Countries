@@ -3,19 +3,22 @@ import { ModeAction } from "../store/context/mode";
 import { useContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { fRegion } from "../store/context/fetchRegion";
+
 function Search() {
   const context = useContext(ModeAction);
+  const regionctx = useContext(fRegion);
   const { countries } = useRouteLoaderData("main");
   const [coutry, sentCountry] = useState();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   async function resolveCoutries(con) {
     let count = await con;
-    
+
     count = count.map((cnt) => {
       const obj = {};
       obj.id = cnt.altSpellings[0];
       obj.name = cnt.name.common;
-      return obj
+      return obj;
     });
     sentCountry(count);
   }
@@ -24,17 +27,22 @@ function Search() {
     resolveCoutries(countries);
   }, []);
 
-  const formatResult = (item) => {
+  function formatResult(item) {
     return (
       <div className="result-wrapper">
         <span className="result-span">{item.name}</span>
       </div>
     );
-  };
-  const handleOnSelect = (item) => {
+  }
+  function handleOnSelect(item) {
     navigate(`/${item.name}`);
     console.log(item.name);
-  };
+  }
+
+  function handleEvent(e) {
+    console.log(e.target.value);
+    regionctx.changeRegion(e.target.value);
+  }
 
   return (
     <section id="srch" className="marg">
@@ -63,29 +71,10 @@ function Search() {
           zIndex: "2",
         }}
       />
-      {/* <form role="search-role" id="form" autoComplete="off">
-        <div className="autocomplete">
-          <input
-            className={context.mode ? "light" : "dark"}
-            style={
-              context.mode
-                ? {
-                    border: "black solid 1px",
-                    boxShadow: "0px 0px 4px 0px #888888",
-                  }
-                : null
-            }
-            type="text"
-            autoComplete="false"
-            id="myInput"
-            name="myCountry"
-            placeholder="🔍 Search for a country..."
-            aria-label="Search through the content of the site"
-          />
-        </div>
-      </form> */}
+
       <form action="/" id="formSelec">
         <select
+          onChange={handleEvent}
           name="type"
           className={context.mode ? "light" : "dark"}
           style={
@@ -101,19 +90,19 @@ function Search() {
           <option value="DEFAULT" disabled>
             Filter by Region
           </option>
-          <option value="Africa" name="reg">
+          <option value="africa" name="reg">
             Africa
           </option>
-          <option value="Americas" name="reg">
+          <option value="americas" name="reg">
             America
           </option>
-          <option value="Asia" name="reg">
+          <option value="asia" name="reg">
             Asia
           </option>
-          <option value="Europe" name="reg">
+          <option value="europe" name="reg">
             Europe
           </option>
-          <option value="Oceania" name="reg">
+          <option value="oceania" name="reg">
             Oceania
           </option>
           <option value="all" name="all">
