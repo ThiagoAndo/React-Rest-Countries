@@ -19,7 +19,6 @@ function CountryList({ countries }) {
 
   return (
     <>
-      <button>Click me</button>
       <Search />
       <section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (
