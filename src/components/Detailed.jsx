@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import Clock from "./clock/Clock";
 import Borders from "./Borders";
 import ForecastApp from "./ForecastApp";
+import { Triangle } from "react-loader-spinner";
+import { ModeAction } from "../store/context/mode";
+import { useContext } from "react";
+
 function Detailed({ country }) {
+  const context = useContext(ModeAction);
+
   let {
     country: [count],
   } = country;
@@ -75,15 +81,26 @@ function Detailed({ country }) {
 
   if (thisCountries === null) {
     return (
-      <h1 style={{ color: "red", fontFamily: "5rem", margin: "auto" }}>
-        Loading...
-      </h1>
+      <div id="loading">
+        <Triangle
+          visible={true}
+          height="300"
+          width="300"
+          color="#4fa94d"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
     );
   } else {
     return (
       <section id="expand">
         <div>
-          <Link to={"/"} className="btnExp dark">
+          <Link
+            to={"/"}
+            className={context.mode ? "btnExp light" : "btnExp dark"}
+          >
             <span>⬅ </span>
             <span>Back</span>
           </Link>

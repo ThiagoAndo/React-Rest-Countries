@@ -3,6 +3,7 @@ import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
+import { Triangle } from "react-loader-spinner";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -45,7 +46,21 @@ function HomePage() {
     };
   }, []);
   return (
-    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+    <Suspense
+      fallback={
+        <div id="loading">
+          <Triangle
+            visible={true}
+            height="300"
+            width="300"
+            color="#4fa94d"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      }
+    >
       <Await resolve={countries}>
         {(loadedEvents) => <CountryList countries={loadedEvents} />}
       </Await>

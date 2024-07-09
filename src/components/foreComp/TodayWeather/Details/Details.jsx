@@ -5,6 +5,8 @@ import CityDateDetail from "./CityDateDetail";
 import TemperatureWeatherDetail from "./TemperatureWeatherDetail";
 import Layout from "../../Reusable/Layout";
 
+
+
 const dayMonth = getDayMonthFromDate();
 
 const Details = ({ data }) => {

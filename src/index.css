@@ -20,6 +20,15 @@ body {
 .content {
   text-align: center;
 }
+
+#loading{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+}
 /* Navagation========================== */
 nav {
   width: 100%;
@@ -202,6 +211,7 @@ article div:last-of-type div p {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  box-shadow: #000000 0px 0px 4px 0px;
 }
 
 #expand #holdInf {
@@ -289,6 +299,7 @@ article div:last-of-type div p {
 .light {
   background-color: #ffffff;
   color: hsl(200, 15%, 8%);
+  border-bottom: #000000 solid 1px;
 }
 
 .light::placeholder {

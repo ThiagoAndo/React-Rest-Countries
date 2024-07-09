@@ -1,13 +1,16 @@
 import { Box, Grid, SvgIcon } from '@mui/material';
-
+import { ModeAction } from '../../../../store/context/mode';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AirIcon from '@mui/icons-material/Air';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import OpacityIcon from "@mui/icons-material/Opacity";
+import { useContext } from "react";
+
 // import { ReactComponent as HumidityIcon } from '../../../assets/humidity.svg';
 
 const AirConditionsItem = (props) => {
   let iconContent;
+  const context = useContext(ModeAction);
 
   if (props.type === 'temperature')
     iconContent = <ThermostatIcon sx={{ fontSize: '12px' }} />;
@@ -44,7 +47,7 @@ const AirConditionsItem = (props) => {
           sx={{
             display: "flex",
             alignItems: "center",
-            color: "rgba(255, 255, 255, .7)",
+            color: context.mode ? "black" : "white",
             padding: 0,
           }}
         >
@@ -52,7 +55,7 @@ const AirConditionsItem = (props) => {
         </Box>
         <Box
           sx={{
-            color: "rgba(255, 255, 255, .7)",
+            color: context.mode ? "black" : "white",
             fontSize: { xs: "6px", sm: "8px", md: "10px" },
 
             paddingLeft: { xs: "0px", sm: "4px", md: "6px" },
@@ -78,7 +81,7 @@ const AirConditionsItem = (props) => {
             fontWeight: "600",
             fontSize: { xs: "6px", sm: "8px", md: "10px" },
 
-            color: "white",
+            color: context.mode ? "black" : "white",
             lineHeight: 1,
           }}
         >
