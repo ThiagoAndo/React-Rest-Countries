@@ -87,11 +87,11 @@ nav {
   margin-top: 4rem;
 }
 
-#form {
+.form {
   position: relative;
 }
 
-#form input {
+.form input {
   padding: 1rem;
   padding-left: 2rem;
   font-family: Arial, FontAwesome;
@@ -375,11 +375,11 @@ article div:last-of-type div p {
     width: 340px;
   }
 
-  #form {
+  .form {
     width: 100%;
   }
 
-  #form > input {
+  .form > input {
     width: 300px;
     padding: 5px;
     margin-left: 20px;
@@ -507,11 +507,11 @@ article div:last-of-type div p {
     width: 100%;
   }
 
-  #form {
+  .form {
     width: 100%;
   }
 
-  #form > input {
+  .form > input {
     width: 364px;
     padding: 5px;
     margin-left: 20px;
@@ -634,11 +634,11 @@ article div:last-of-type div p {
     margin-right: 3rem;
   }
 
-  #form {
+  .form {
     width: 325px;
   }
 
-  #form > input {
+  .form > input {
     margin-left: 3rem;
     width: 16rem;
     width: 255px;
@@ -687,11 +687,11 @@ article div:last-of-type div p {
     width: 100%;
   }
 
-  #form {
+  .form {
     width: 325px;
   }
 
-  #form > input {
+  .form > input {
     width: 16rem;
     width: 420px;
   }

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { useRouteLoaderData, json, defer, Await } from "react-router-dom";
+import { useRouteLoaderData, json, Await } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
@@ -71,6 +71,8 @@ function HomePage() {
 export default HomePage;
 
 async function loadCountries() {
+
+  
   const response = await fetch("https://restcountries.com/v3.1/all");
 
   if (!response.ok) {
@@ -87,7 +89,7 @@ async function loadCountries() {
 }
 
 export async function loader() {
-  return defer({
+  return {
     countries: loadCountries(),
-  });
+  };
 }
