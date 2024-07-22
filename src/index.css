@@ -22,13 +22,12 @@ body {
   text-align: center;
 }
 
-#loading{
+#loading {
   height: 100vh;
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: center;
-
 }
 /* Navagation========================== */
 nav {
@@ -43,8 +42,6 @@ nav {
 #mainTxt {
   margin-left: 5rem;
 }
-
-
 
 #btn {
   display: flex;
@@ -87,7 +84,7 @@ nav {
 
 .form {
   position: relative;
-  width: 325px
+  width: 325px;
 }
 
 .form input {
@@ -104,9 +101,6 @@ nav {
 ::placeholder {
   color: #ffffff;
 }
-
-
-
 
 #formSelec select {
   padding: 1rem;
@@ -135,7 +129,7 @@ article > div:first-of-type {
   height: 9.375rem;
   background-size: cover;
   background-position: center;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 }
 
 article div:last-of-type div {
@@ -429,7 +423,7 @@ article div:last-of-type div p {
   #expand {
     width: 340px;
     background-color: #202c37;
-    height: 1020px;
+    height: 1300px;
   }
 
   .btnExp {
@@ -441,6 +435,7 @@ article div:last-of-type div p {
     flex-direction: column;
     width: 100%;
     height: 98vh;
+    margin: auto;
     margin-top: 70px;
   }
 
@@ -542,7 +537,13 @@ article div:last-of-type div p {
   #mainTxt {
     margin-left: 10px;
   }
-
+  #btnBor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   #btn {
     margin-right: 10px;
     justify-content: space-around;
@@ -555,7 +556,7 @@ article div:last-of-type div p {
   /* Expand screen======================================= */
   #expand {
     width: 400px;
-    height: 1020px;
+    height: 1300px;
     top: -16px;
   }
 
@@ -578,45 +579,50 @@ article div:last-of-type div p {
   }
 
   #expand #holdInf {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
+    display: flex;
+    flex-direction: column;
     width: 300px;
   }
-
+  .clock {
+    display: none;
+  }
+  #root {
+    height: 3000px;
+  }
   #holdInf #border {
     margin-left: 0px;
-    margin-top: 5rem;
     grid-area: 3/1/4/2;
     grid-template-columns: 1fr;
-    margin-top: 100px;
   }
 
   #holdInf #border #noBtn {
     height: 50px;
   }
 
-  #holdInf div:first-child {
+  /* #holdInf div:first-child {
     margin-top: 50px;
-  }
+  } */
 
   #holdInf div:first-child h1 {
     margin-bottom: 18px;
   }
 
-  #holdInf div:nth-child(2) {
+  /* #holdInf div:nth-child(2) {
     margin: 0px 0px -60px 0px;
     height: 105px;
     gap: 10px;
-  }
+  } */
 
   #holdInf .inf {
     margin-left: 0px;
+    gap: 1rem;
   }
 
   #holdInf #border .selectBorder {
     width: 90px;
     margin-left: 0;
     margin-bottom: 0;
+    height: 2rem;
   }
 }
 
@@ -729,7 +735,7 @@ article div:last-of-type div p {
   }
 }
 
-@media (min-width: 1300px) and (max-width: 1400px) {
+/* @media (min-width: 1300px) and (max-width: 1400px) {
   #holdInf #border .selectBorder {
     width: 84px;
   }
@@ -737,7 +743,7 @@ article div:last-of-type div p {
   #expand {
     height: 112vh;
   }
-}
+} */
 
 /* Clock ======================================= */
 
