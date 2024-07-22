@@ -6,12 +6,12 @@ function Borders({ id, name }) {
 
   return (
     <Link to={`/${id}`}>
-      <span
+      <p
         className={context.mode ? "selectBorder light" : "selectBorder dark"}
         id={id}
       >
         {name}
-      </span>
+      </p>
     </Link>
   );
 }
