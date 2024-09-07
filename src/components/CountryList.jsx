@@ -7,8 +7,6 @@ import { useContext } from "react";
 function CountryList({ countries }) {
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
-  console.log(regionCtx.data);
-  console.log("regionCtx.data");
   let thisContries;
   if (regionCtx.data === undefined) thisContries = countries;
   else thisContries = regionCtx.data;

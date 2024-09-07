@@ -13,16 +13,21 @@ export default function ClockProvider({ children }) {
   const [country, setCountry] = useState(null);
   const [change, setChange] = useState(false);
   let timeInter = useRef();
-const WEATHER_API_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
 
-
+  const key = import.meta.env.VITE_TIME_ZONE_KEY;
+  console.log("key");
+  console.log(key);
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
     let time = null;
     let zone = null;
     let response;
+    console.log("coutry?.cca2");
+    console.log(
+      `https://api.timezonedb.com/v2.1/list-time-zone?key=${key}&format=json&country=${coutry?.cca2}`
+    );
     try {
       response = await fetch(
-        `${WEATHER_API_KEY}${coutry?.cca2}`
+        `https://api.timezonedb.com/v2.1/list-time-zone?key=${key}&format=json&country=${coutry?.cca2}`
       );
     } catch (error) {
       console.log("loadZone error: " + error);
@@ -66,7 +71,7 @@ const WEATHER_API_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
 
     try {
       response = await fetch(
-        `https://api.timezonedb.com/v2.1/get-time-zone?key=87SX3TYK9QL5&format=json&by=zone&zone=${zone}`
+        `https://api.timezonedb.com/v2.1/get-time-zone?key=${key}&format=json&by=zone&zone=${zone}`
       );
     } catch (error) {
       console.log("loadTime error: " + error);
@@ -103,6 +108,7 @@ const WEATHER_API_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
     async function getTime() {
       if (!change) {
         const timeComp = await loadZoneName(country);
+
         if (timeComp !== undefined) {
           setTimer(timeComp);
           setChange(true);
