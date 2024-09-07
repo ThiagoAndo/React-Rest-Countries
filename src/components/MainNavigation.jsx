@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect} from "react";
 import { ModeAction } from "../store/context/mode";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
+import {motion} from "framer-motion"
 
 function MainNavigation() {
   const context = useContext(ModeAction);
@@ -26,7 +27,9 @@ return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
         <div id="mainTxt" onClick={myLocation}>
-          <h2>What about my location?</h2>
+          <motion.h2
+          
+          >What about my location?</motion.h2>
         </div>
         <div id="btn" onClick={context.changeMode}>
           <div className={context.mode ? "" : "filt"}></div>

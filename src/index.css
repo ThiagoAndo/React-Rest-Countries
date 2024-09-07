@@ -41,6 +41,11 @@ nav {
 
 #mainTxt {
   margin-left: 5rem;
+  cursor:pointer;
+}
+#mainTxt {
+  margin-left: 5rem;
+  cursor:pointer;
 }
 
 #btn {
