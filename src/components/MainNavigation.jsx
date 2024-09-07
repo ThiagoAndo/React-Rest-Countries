@@ -1,13 +1,32 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect} from "react";
 import { ModeAction } from "../store/context/mode";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function MainNavigation() {
   const context = useContext(ModeAction);
+  const navigate = useNavigate();
 
-  return (
+ const [locationData, setLocationData] = useState(null);
+ useEffect(() => {
+   getLocation();
+ }, []);
+  async function getLocation() {
+   // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+    const res = await axios.get("http://ip-api.com/json");
+    console.log(res);
+    if (res.status === 200) setLocationData(res.data);
+  }
+
+  function myLocation(){
+    navigate(`/${locationData.country}`);
+  }
+  console.log(locationData);
+return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt">
-          <h2>Where in the world?</h2>
+        <div id="mainTxt" onClick={myLocation}>
+          <h2>What about my location?</h2>
         </div>
         <div id="btn" onClick={context.changeMode}>
           <div className={context.mode ? "" : "filt"}></div>

@@ -355,6 +355,143 @@ article div:last-of-type div p {
   color: #ffffff;
 }
 
+/* Clock ======================================= */
+
+.App {
+  font-family: sans-serif;
+}
+.clock h3 {
+  position: relative;
+  top: 110%;
+}
+.clock h5 {
+  position: relative;
+  top: 115%;
+}
+.clock {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  transform: translate(0%, 0%);
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  text-align: center;
+}
+
+.clock::after {
+  background: #aaa;
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #fff;
+}
+
+.hour_hand {
+  position: absolute;
+  width: 7px;
+  height: 38px;
+  background: #000000;
+  top: 24.5%;
+  left: 48%;
+
+  transform-origin: bottom;
+}
+
+#min_hand {
+  position: absolute;
+  width: 4px;
+  height: 42px;
+  background: #444;
+  top: 22%;
+  left: 49%;
+  transform-origin: bottom;
+}
+
+.sec_hand {
+  position: absolute;
+  width: 2px;
+  height: 56px;
+  background: red;
+  top: 12.5%;
+  left: 50%;
+  transform-origin: bottom;
+}
+
+.clock span {
+  position: absolute;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+}
+
+.twelve {
+  top: 7px;
+  left: 46%;
+}
+
+.one {
+  top: 10%;
+  right: 26%;
+}
+
+.eleven {
+  top: 10%;
+  left: 26%;
+}
+
+.two {
+  top: 25%;
+  right: 10%;
+}
+
+.three {
+  right: 7px;
+  top: 46%;
+}
+
+.four {
+  right: 18px;
+  top: 66%;
+}
+
+.five {
+  right: 39px;
+  top: 80%;
+}
+
+.six {
+  bottom: 3px;
+  left: 48%;
+}
+
+.seven {
+  left: 39px;
+  top: 80%;
+}
+
+.eight {
+  left: 16px;
+  top: 67%;
+}
+
+.nine {
+  left: 6px;
+  top: 46%;
+}
+
+.ten {
+  top: 25%;
+  left: 10%;
+}
+
 @media (max-width: 340px) {
   body {
     font-size: 12px;
@@ -711,11 +848,18 @@ article div:last-of-type div p {
     overflow: hidden;
     margin: auto;
   }
-
   #expand #flag {
     width: 19rem;
   }
-
+  #expand > div {
+    width: 120%;
+  }
+  #expand #holdInf {
+    margin-left: 2rem;
+  }
+  .weather_cont {
+    margin-left: 1rem;
+  }
   #holdInf .inf {
     font-size: 0.7rem;
     margin-left: 1rem;
@@ -733,152 +877,25 @@ article div:last-of-type div p {
   .btnExp {
     width: 7rem;
   }
+  .clock {
+    right: 80px;
+    top: 140px;
+  }
 }
 
-/* @media (min-width: 1300px) and (max-width: 1400px) {
-  #holdInf #border .selectBorder {
-    width: 84px;
+@media (min-width: 1300px) {
+  .clock {
+    right: 100px;
+    top: 140px;
+  }
+  #expand > div {
+    width: 150%;
+  }
+  #expand #holdInf {
+    margin-left: 5rem;
   }
 
-  #expand {
-    height: 112vh;
+  .weather_cont {
+    margin-left: 2rem;
   }
-} */
-
-/* Clock ======================================= */
-
-.App {
-  font-family: sans-serif;
-}
-.clock h3 {
-  position: relative;
-  top: 110%;
-}
-.clock h5 {
-  position: relative;
-  top: 115%;
-}
-.clock {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  transform: translate(0%, 0%);
-
-  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
-  font-size: 15px;
-  text-align: center;
-}
-
-.clock::after {
-  background: #aaa;
-  content: "";
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid #fff;
-}
-
-.hour_hand {
-  position: absolute;
-  width: 7px;
-  height: 38px;
-  background: #000000;
-  top: 24.5%;
-  left: 48%;
-
-  transform-origin: bottom;
-}
-
-#min_hand {
-  position: absolute;
-  width: 4px;
-  height: 42px;
-  background: #444;
-  top: 22%;
-  left: 49%;
-  transform-origin: bottom;
-}
-
-.sec_hand {
-  position: absolute;
-  width: 2px;
-  height: 56px;
-  background: red;
-  top: 12.5%;
-  left: 50%;
-  transform-origin: bottom;
-}
-
-.clock span {
-  position: absolute;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 700;
-}
-
-.twelve {
-  top: 7px;
-  left: 46%;
-}
-
-.one {
-  top: 10%;
-  right: 26%;
-}
-
-.eleven {
-  top: 10%;
-  left: 26%;
-}
-
-.two {
-  top: 25%;
-  right: 10%;
-}
-
-.three {
-  right: 7px;
-  top: 46%;
-}
-
-.four {
-  right: 18px;
-  top: 66%;
-}
-
-.five {
-  right: 39px;
-  top: 80%;
-}
-
-.six {
-  bottom: 3px;
-  left: 48%;
-}
-
-.seven {
-  left: 39px;
-  top: 80%;
-}
-
-.eight {
-  left: 16px;
-  top: 67%;
-}
-
-.nine {
-  left: 6px;
-  top: 46%;
-}
-
-.ten {
-  top: 25%;
-  left: 10%;
 }

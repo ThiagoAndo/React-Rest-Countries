@@ -15,13 +15,10 @@ export default function ClockProvider({ children }) {
   let timeInter = useRef();
 
   const key = import.meta.env.VITE_TIME_ZONE_KEY;
-  console.log("key");
-  console.log(key);
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
     let time = null;
     let zone = null;
     let response;
-    console.log("coutry?.cca2");
     console.log(
       `https://api.timezonedb.com/v2.1/list-time-zone?key=${key}&format=json&country=${coutry?.cca2}`
     );
