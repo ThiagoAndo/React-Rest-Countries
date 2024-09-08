@@ -9,13 +9,15 @@ import Logo from "./assets/logo.png";
 import ErrorBox from "./foreComp/Reusable/ErrorBox";
 import { getTodayForecastWeather } from "./utilities/DataUtils";
 import { fetchCities } from "./api/OpenWeatherService";
+import { useSelector } from "react-redux";
 function ForecastApp({ cap }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
-
+  const location = useSelector((state)=> state.location.loc)
+  console.log(location)
   const searchChangeHandler = async () => {
     let citiesList;
 

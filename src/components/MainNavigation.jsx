@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { ModeAction } from "../store/context/mode";
 import axios from "axios";
-import { useNavigate, useNavigation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { locAction } from "../store/redux/location";
 function MainNavigation() {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [locationData, setLocationData] = useState(null);
   useEffect(() => {
@@ -14,15 +16,16 @@ function MainNavigation() {
   async function getLocation() {
     // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
     const res = await axios.get("http://ip-api.com/json");
-    if (res.status === 200) setLocationData(res.data);
+    if (res.status === 200) {
+      dispatch(locAction.setLoc({ lon: res.data.lon, lat: res.data.lat }));
+      setLocationData(res.data);
+      console.log(res.data);
+    }
   }
 
   function myLocation() {
     navigate(`/${locationData.country}`);
   }
-
-  
-
 
   return (
     <header>
