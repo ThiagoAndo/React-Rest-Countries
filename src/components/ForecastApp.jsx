@@ -16,11 +16,10 @@ function ForecastApp({ cap }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  const location = useSelector((state)=> state.location.loc)
-  console.log(location)
+  const location = useSelector((state) => state.location.loc);
+
   const searchChangeHandler = async () => {
     let citiesList;
-
     try {
       citiesList = await fetchCities(cap);
 
@@ -41,10 +40,15 @@ function ForecastApp({ cap }) {
           };
         }),
       };
-      const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
+      let [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
+      if (location.lat != null) {
+        latitude = location.lat;
+        longitude = location.lon;
+      }
 
+      console.log('latitude + " " + longitude');
+      console.log(latitude + " " + longitude);
       setIsLoading(true);
-
       const currentDate = transformDateFormat();
       const date = new Date();
       let dt_now = Math.floor(date.getTime() / 1000);

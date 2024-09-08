@@ -5,11 +5,13 @@ import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/CountryList";
 import { Triangle } from "react-loader-spinner";
 import RegionProvider from "../store/context/fetchRegion";
+import { useDispatch } from "react-redux";
+import { locAction } from "../store/redux/location";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
-
-  const { countries } = useRouteLoaderData("main");
+  const dispatch = useDispatch();
   const context = useContext(ClockContext);
+  const { countries } = useRouteLoaderData("main");
   context.stop();
 
   const handleScroll = () => {
@@ -31,6 +33,8 @@ function HomePage() {
   }, [scrollPosition]);
 
   useEffect(() => {
+    dispatch(locAction.setLoc({ lon: null, lat: null }));
+
     let position = localStorage.getItem("position");
     if (!position) {
       position = window.scrollY;

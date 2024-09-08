@@ -17,16 +17,15 @@ function MainNavigation() {
     // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
     const res = await axios.get("http://ip-api.com/json");
     if (res.status === 200) {
-      dispatch(locAction.setLoc({ lon: res.data.lon, lat: res.data.lat }));
       setLocationData(res.data);
-      console.log(res.data);
     }
   }
-
   function myLocation() {
+    dispatch(
+      locAction.setLoc({ lon: locationData.lon, lat: locationData.lat })
+    );
     navigate(`/${locationData.country}`);
   }
-
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>

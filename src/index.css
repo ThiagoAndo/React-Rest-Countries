@@ -8,7 +8,6 @@
 }
 
 html {
-  height: 100%;
   color: #2d5eb8;
 }
 
@@ -16,7 +15,6 @@ body {
   font-size: 16px;
   font-family: "Ubuntu", sans-serif;
   box-sizing: content-box;
-  margin-bottom: 5.625rem;
 }
 .content {
   text-align: center;
@@ -182,14 +180,13 @@ article div:last-of-type div p {
 #expand {
   width: 100%;
   position: relative;
-  height: 120vh;
+  height: 100vh;
 }
 
 #expand > div {
   width: 90%;
   margin: 0px 0px 0px 40px;
   padding-top: 3.5rem;
-  height: 100vh;
 }
 
 .btnExp {
@@ -214,8 +211,9 @@ article div:last-of-type div p {
 }
 
 #expand #contExp {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-auto-rows: 1fr;
   width: 100%;
   height: 50vh;
   margin-top: 3rem;
@@ -248,12 +246,13 @@ article div:last-of-type div p {
   margin: 0;
   height: 23vh;
   display: flex;
+  gap: 1rem;
   flex-direction: column;
   justify-content: space-between;
 }
 
 #holdInf #border {
-  margin-top: 1rem;
+  margin-top: 2rem;
   grid-area: 2/1/3/3;
   display: flex;
   flex-direction: column;
@@ -263,8 +262,8 @@ article div:last-of-type div p {
 #btnBor {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-  grid-template-rows: 2rem 2rem 2rem 2rem 2rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+  grid-template-rows: 2rem 2rem 2rem 2rem ;
   grid-gap: 1rem;
 }
 
@@ -580,7 +579,7 @@ article div:last-of-type div p {
   #expand {
     width: 340px;
     background-color: #202c37;
-    height: 1300px;
+    height: 150vh;
   }
 
   .btnExp {
@@ -589,7 +588,11 @@ article div:last-of-type div p {
   }
 
   #expand #contExp {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 3fr;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 3fr;
     width: 100%;
     height: 98vh;
     margin: auto;
@@ -713,7 +716,7 @@ article div:last-of-type div p {
   /* Expand screen======================================= */
   #expand {
     width: 400px;
-    height: 1300px;
+    height: 150vh;
     top: -16px;
   }
 
@@ -723,9 +726,12 @@ article div:last-of-type div p {
   }
 
   #expand #contExp {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 3fr;
+    gap: 1rem;
     width: 100%;
-    height: 98vh;
+    height: 1100px;
     margin-top: 70px;
   }
 
@@ -739,6 +745,9 @@ article div:last-of-type div p {
     display: flex;
     flex-direction: column;
     width: 300px;
+  }
+  .weather_cont {
+    margin-top: 2rem;
   }
   .clock {
     display: none;
@@ -871,18 +880,14 @@ article div:last-of-type div p {
   #expand #flag {
     width: 19rem;
   }
-  #expand > div {
-    width: 120%;
-  }
+
   #expand #holdInf {
     margin-left: 2rem;
   }
   .weather_cont {
-    margin-left: 1rem;
   }
   #holdInf .inf {
     font-size: 0.7rem;
-    margin-left: 1rem;
   }
 
   #holdInf #border {
@@ -898,7 +903,7 @@ article div:last-of-type div p {
     width: 7rem;
   }
   .clock {
-    right: 80px;
+    right: 40px;
     top: 140px;
   }
 }
@@ -908,11 +913,11 @@ article div:last-of-type div p {
     right: 100px;
     top: 140px;
   }
-  #expand > div {
-    width: 150%;
+  #btnBor {
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
   }
   #expand #holdInf {
-    margin-left: 5rem;
+    margin-left: 2rem;
   }
 
   .weather_cont {

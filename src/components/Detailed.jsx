@@ -7,7 +7,6 @@ import ForecastApp from "./ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../store/context/mode";
 import { useContext } from "react";
-
 function Detailed({ country }) {
   const context = useContext(ModeAction);
 
@@ -68,7 +67,6 @@ function Detailed({ country }) {
       }
     }
   }
-
   useEffect(() => {
     if (!thisCountries) {
       async function parse() {
