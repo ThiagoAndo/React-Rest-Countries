@@ -41,11 +41,25 @@ nav {
 
 #mainTxt {
   margin-left: 5rem;
-  cursor:pointer;
+  cursor: pointer;
 }
 #mainTxt {
   margin-left: 5rem;
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.mainTxt_h {
+  color: #000000;
+}
+
+.mainTxt_h2 {
+  color: #ffffff;
+}
+.mainTxt_h:hover {
+  text-shadow: 0.5px 0 1px #000000;
+}
+.mainTxt_h2:hover {
+  text-shadow: 0.5px 0 1px #ffffff;
 }
 
 #btn {
@@ -117,6 +131,7 @@ nav {
 
 /* Main & Cards========================== */
 #main {
+  padding: 1rem;
   width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));

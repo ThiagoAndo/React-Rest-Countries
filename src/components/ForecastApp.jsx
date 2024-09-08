@@ -7,16 +7,11 @@ import UTCDatetime from "./foreComp/Reusable/UTCDatetime";
 import LoadingBox from "./foreComp/Reusable/LoadingBox";
 import Logo from "./assets/logo.png";
 import ErrorBox from "./foreComp/Reusable/ErrorBox";
-import { ALL_DESCRIPTIONS } from "./utilities/DateConstants";
-import {
-  getTodayForecastWeather,
-  getWeekForecastWeather,
-} from "./utilities/DataUtils";
+import { getTodayForecastWeather } from "./utilities/DataUtils";
 import { fetchCities } from "./api/OpenWeatherService";
 function ForecastApp({ cap }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
-  const [weekForecast, setWeekForecast] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -26,7 +21,7 @@ function ForecastApp({ cap }) {
 
     try {
       citiesList = await fetchCities(cap);
-      
+
       if (!citiesList.data.legth === 0) {
         setNotFound(true);
       }
@@ -60,19 +55,11 @@ function ForecastApp({ cap }) {
           currentDate,
           dt_now
         );
-        const all_week_forecasts_list = getWeekForecastWeather(
-          weekForecastResponse,
-          ALL_DESCRIPTIONS
-        );
 
         setTodayForecast([...all_today_forecasts_list]);
         setTodayWeather({
           city: dataRet?.options[0]?.label,
           ...todayWeatherResponse,
-        });
-        setWeekForecast({
-          city: dataRet?.options[0]?.label,
-          list: all_week_forecasts_list,
         });
       } catch (error) {
         setError(true);
@@ -91,7 +78,7 @@ function ForecastApp({ cap }) {
 
   let appContent = null;
 
-  if (todayWeather && todayForecast && weekForecast) {
+  if (todayWeather && todayForecast) {
     appContent = (
       <React.Fragment>
         <Grid item xs={12}>
