@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useRef, useCallback } from "react";
+const key = import.meta.env.VITE_TIME_ZONE_KEY;
 
 export const ClockContext = createContext({
   timer: null,
@@ -14,7 +15,6 @@ export default function ClockProvider({ children }) {
   const [change, setChange] = useState(false);
   let timeInter = useRef();
 
-  const key = import.meta.env.VITE_TIME_ZONE_KEY;
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
     let time = null;
     let zone = null;

@@ -4,7 +4,7 @@ import Details from './Details/Details';
 
 const TodayWeather = ({ data }) => {
   return (
-    <Grid container sx={{ padding: '1rem 0rem 0rem' }}>
+    <Grid container sx={{ padding: '2rem 0rem 0rem' }}>
       <Details data={data} />
       <AirConditions data={data} />
     </Grid>

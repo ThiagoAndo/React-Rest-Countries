@@ -31,13 +31,33 @@ function MainNavigation() {
   
   useEffect(() => {
     getLocation();
+    getLocationInfo();
   }, []);
+  async function getLocation() {
+    // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+    const res = await axios.get(
+      `https://api.ipgeolocation.io/ipgeo?apiKey=${key}`
+    );
+    if (res.status === 200) {
+    }
+  }
 
+  async function getLocationInfo() {
+    // // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+    // const res = await axios.get(
+    //   "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_Counties/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+    // );
+    // if (res.status === 200) {
+    // }
 
-  
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    function showPosition(position) {
+      setLocationData(position.coords);
+    }
+  }
 
-
-  console.log(locationName);
   function setLocation() {
     dispatch(
       locAction.setLoc({
@@ -49,7 +69,6 @@ function MainNavigation() {
       state: locationData.city,
     });
   }
-
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>

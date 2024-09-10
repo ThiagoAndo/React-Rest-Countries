@@ -34,7 +34,7 @@ const UTCDatetime = () => {
       component="h3"
       sx={{
         fontWeight: "400",
-        fontSize: { xs: "10px", sm: "12px" },
+        fontSize: { xs: "17px", sm: "17px" },
         color: "rgba(255, 255, 255, .7)",
         lineHeight: 1,
         paddingRight: "2px",

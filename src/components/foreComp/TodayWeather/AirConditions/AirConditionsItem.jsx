@@ -56,8 +56,7 @@ const AirConditionsItem = (props) => {
         <Box
           sx={{
             color: context.mode ? "black" : "white",
-            fontSize: { xs: "6px", sm: "8px", md: "10px" },
-
+            fontSize: { xs: "12px", sm: "17px", md: "10px" },
             paddingLeft: { xs: "0px", sm: "4px", md: "6px" },
             paddingTop: { xs: "2px", sm: "0px" },
             display: "flex",
@@ -79,7 +78,7 @@ const AirConditionsItem = (props) => {
           sx={{
             fontFamily: "Poppins",
             fontWeight: "600",
-            fontSize: { xs: "6px", sm: "8px", md: "10px" },
+            fontSize: { xs: "12px", sm: "17px", md: "13px" },
 
             color: context.mode ? "black" : "white",
             lineHeight: 1,

@@ -10,13 +10,14 @@ import ErrorBox from "./foreComp/Reusable/ErrorBox";
 import { getTodayForecastWeather } from "./utilities/DataUtils";
 import { fetchCities } from "./api/OpenWeatherService";
 import { useSelector } from "react-redux";
-function ForecastApp({ cap }) {
+function ForecastApp({ cap, userCity }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const location = useSelector((state) => state.location.loc);
+
 
   const searchChangeHandler = async () => {
     let citiesList;
@@ -46,8 +47,6 @@ function ForecastApp({ cap }) {
         longitude = location.lon;
       }
 
-      console.log('latitude + " " + longitude');
-      console.log(latitude + " " + longitude);
       setIsLoading(true);
       const currentDate = transformDateFormat();
       const date = new Date();
