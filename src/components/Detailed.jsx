@@ -55,9 +55,9 @@ function Detailed({ country }) {
 
       if (name.length > 10) {
         for (let index = 0; index <= 10; index++) {
-          if (index <= 9) {
+          if (index <= 7) {
             longName += name[index];
-          } else if (index === 10) {
+          } else if (index === 8) {
             longName += " ...";
           }
         }

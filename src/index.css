@@ -853,7 +853,7 @@ article div:last-of-type div p {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1300px) {
+@media (min-width: 769px) and (max-width: 1400px) {
   nav {
     width: 100%;
   }
@@ -896,7 +896,7 @@ article div:last-of-type div p {
   }
 
   #holdInf #border .selectBorder {
-    font-size: 0.6rem;
+    font-size: .7rem;
   }
 
   .btnExp {
@@ -908,7 +908,7 @@ article div:last-of-type div p {
   }
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1400px) {
   .clock {
     right: 100px;
     top: 140px;

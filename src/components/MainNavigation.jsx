@@ -10,16 +10,16 @@ function MainNavigation() {
   const dispatch = useDispatch();
 
   const [locationData, setLocationData] = useState(null);
-  useEffect(() => {
-    getLocation();
-  }, []);
-  async function getLocation() {
-    // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
-    const res = await axios.get("http://ip-api.com/json");
-    if (res.status === 200) {
-      setLocationData(res.data);
-    }
-  }
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
+  // async function getLocation() {
+  //   // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+  //   const res = await axios.get("http://ip-api.com/json");
+  //   if (res.status === 200) {
+  //     setLocationData(res.data);
+  //   }
+  // }
   function myLocation() {
     dispatch(
       locAction.setLoc({ lon: locationData.lon, lat: locationData.lat })
