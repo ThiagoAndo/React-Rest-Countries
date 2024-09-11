@@ -1,62 +1,51 @@
 import { useContext, useState, useEffect } from "react";
 import { ModeAction } from "../store/context/mode";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { locAction } from "../store/redux/location";
-import {  preparName } from "./utilities/userLocation";
+import { getInfo, preparName } from "./utilities/userLocation";
 const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 
 function MainNavigation() {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [locationName, setLocationName] = useState(null);
+  const [locationData, setLocationData] = useState(null);
+  const [locationName, setLocationName] = useState(undefined);
+  useEffect(() => {
+    if (locationName === undefined) getLocationName();
+  }, []);
 
-  function getLocation() {
+ 
+
+  async function getLocationName() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async function showPosition( position) {
+      navigator.geolocation.getCurrentPosition(async function showPosition(
+        position
+      ) {
         const { latitude: lat, longitude: lon } = position.coords;
         const res = await axios.get(
           `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
         );
         if (res.status === 200) {
-          setLocationName(preparName(getLocation()));
+          setLocationName(preparName(res.data[0].name));
+          getLocationInfo( preparName(res.data[0].name));
         }
-        
       });
     }
   }
+   async function getLocationInfo(place) {
+     // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+     const res = await axios.get(
+       "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_ED/FeatureServer/0/query?where=1%3D1&outFields=ED_ENGLISH,T1_1AGETM,T1_1AGETF,T1_1AGETT,T1_2SGLM,T1_2SGLF,T1_2TF,COUNTY,CONTAE,PROVINCE,T1_2TM,T1_2SGLT&returnGeometry=false&outSR=4326&f=json"
+     );
+     if (res.status === 200) {
+       setLocationData(getInfo(res.data, place));
+     }
+   }
+console.log(locationData);
 
-  
-  useEffect(() => {
-    getLocation();
-    getLocationInfo();
-  }, []);
-  async function getLocation() {
-    // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
-    const res = await axios.get(
-      `https://api.ipgeolocation.io/ipgeo?apiKey=${key}`
-    );
-    if (res.status === 200) {
-    }
-  }
-
-  async function getLocationInfo() {
-    // // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
-    // const res = await axios.get(
-    //   "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_Counties/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-    // );
-    // if (res.status === 200) {
-    // }
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    }
-    function showPosition(position) {
-      setLocationData(position.coords);
-    }
-  }
 
   function setLocation() {
     dispatch(
@@ -69,6 +58,8 @@ function MainNavigation() {
       state: locationData.city,
     });
   }
+  // console.log('locationData');
+  // console.log(locationData?.latitude);
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>

@@ -5,6 +5,7 @@ import CountryDetail, {
 } from "./pages/CountryDetail";
 import HomePage, { loader as countriesLoader } from "./pages/Home";
 import RootLayout from "./pages/Root";
+// import UserLoc from "./pages/userLocation";
 import { useContext } from "react";
 import { ModeAction } from "./store/context/mode";
 
@@ -24,6 +25,23 @@ const router = createBrowserRouter([
         path: ":countName",
         element: <CountryDetail />,
         loader: countryDetailLoader,
+      },
+      {
+        path: "myArea",
+        // element: <UserLoc />,
+        id: "userLoc",
+        // loader: eventDetailLoader,
+        children: [
+          // {
+          //   index: true,
+          //   element: <EventDetailPage />,
+          // },
+          // {
+          //   path: "edit",
+          //   element: <EditEventPage />,
+          //   action: manipulateEventAction,
+          // },
+        ],
       },
     ],
   },

@@ -9,6 +9,7 @@
 
 html {
   color: #2d5eb8;
+  color: ;
 }
 
 body {
@@ -37,10 +38,6 @@ nav {
   justify-content: space-between;
 }
 
-#mainTxt {
-  margin-left: 5rem;
-  cursor: pointer;
-}
 #mainTxt {
   margin-left: 5rem;
   cursor: pointer;
@@ -865,7 +862,7 @@ article div:last-of-type div p {
 }
 
 @media (min-width: 769px) and (max-width: 1400px) {
-  * {
+  body{
     font-size: 1rem;
   }
   nav {
@@ -919,10 +916,11 @@ article div:last-of-type div p {
     right: 40px;
     top: 140px;
   }
+
 }
 
 @media (min-width: 1400px) {
-  * {
+  body{
     font-size: 1rem;
   }
   .clock {
