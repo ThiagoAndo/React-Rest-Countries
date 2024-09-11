@@ -1,37 +1,68 @@
 import { useContext, useState, useEffect } from "react";
 import { ModeAction } from "../store/context/mode";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { locAction } from "../store/redux/location";
+import {  preparName } from "./utilities/userLocation";
+const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
+
 function MainNavigation() {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [locationName, setLocationName] = useState(null);
 
-  const [locationData, setLocationData] = useState(null);
-  // useEffect(() => {
-  //   getLocation();
-  // }, []);
-  // async function getLocation() {
-  //   // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
-  //   const res = await axios.get("http://ip-api.com/json");
-  //   if (res.status === 200) {
-  //     setLocationData(res.data);
-  //   }
-  // }
-  function myLocation() {
-    dispatch(
-      locAction.setLoc({ lon: locationData.lon, lat: locationData.lat })
-    );
-    navigate(`/${locationData.country}`);
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async function showPosition( position) {
+        const { latitude: lat, longitude: lon } = position.coords;
+        const res = await axios.get(
+          `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
+        );
+        if (res.status === 200) {
+          setLocationName(preparName(getLocation()));
+        }
+        
+      });
+    }
   }
+
+  
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+
+  
+
+
+  console.log(locationName);
+  function setLocation() {
+    dispatch(
+      locAction.setLoc({
+        lon: locationData.longitude,
+        lat: locationData.latitude,
+      })
+    );
+    navigate(`/${locationData.country_name_official}`, {
+      state: locationData.city,
+    });
+  }
+
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt" onClick={myLocation}>
+        <div id="mainTxt" onClick={setLocation}>
           <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-            {`Show me  ${locationData && locationData.city}`}
+            {locationName != null ? (
+              <>
+                <span>Show me </span>
+                <span style={{ color: "#f5163b" }}>{locationName}</span>
+              </>
+            ) : (
+              <span>No conection to the internet</span>
+            )}
           </h2>
         </div>
         <div id="btn" onClick={context.changeMode}>
