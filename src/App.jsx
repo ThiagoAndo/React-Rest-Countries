@@ -5,7 +5,7 @@ import CountryDetail, {
 } from "./pages/CountryDetail";
 import HomePage, { loader as countriesLoader } from "./pages/Home";
 import RootLayout from "./pages/Root";
-// import UserLoc from "./pages/userLocation";
+import DistrictList from "./pages/Ireland";
 import { useContext } from "react";
 import { ModeAction } from "./store/context/mode";
 
@@ -27,20 +27,14 @@ const router = createBrowserRouter([
         loader: countryDetailLoader,
       },
       {
-        path: "myArea",
-        // element: <UserLoc />,
+        path: "Ireland",
+        element: <DistrictList />,
         id: "userLoc",
-        // loader: eventDetailLoader,
         children: [
-          // {
-          //   index: true,
-          //   element: <EventDetailPage />,
-          // },
-          // {
-          //   path: "edit",
-          //   element: <EditEventPage />,
-          //   action: manipulateEventAction,
-          // },
+          {
+            path: ":countyName",
+            element: <CountryDetail />,
+          },
         ],
       },
     ],

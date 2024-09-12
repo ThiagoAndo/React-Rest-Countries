@@ -5,10 +5,14 @@ const locationSlice = createSlice({
   name: "myLocation",
   initialState: {
     loc: { lon: null, lat: null },
+    districts: [],
   },
   reducers: {
     setLoc(state, action) {
       state.loc = action.payload;
+    },
+    setDistricts(state, action) {
+      state.districts = action.payload;
     },
   },
 });

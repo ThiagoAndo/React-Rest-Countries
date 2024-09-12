@@ -11,8 +11,7 @@ function MainNavigation() {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [locationData, setLocationData] = useState(null);
-  const [locationName, setLocationName] = useState(undefined);
+    const [locationName, setLocationName] = useState(undefined);
   useEffect(() => {
     if (locationName === undefined) getLocationName();
   }, []);
@@ -23,6 +22,7 @@ function MainNavigation() {
         position
       ) {
         const { latitude: lat, longitude: lon } = position.coords;
+        dispatch(locAction.setLoc({ lon, lat }));
         const res = await axios.get(
           `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
         );
@@ -39,28 +39,18 @@ function MainNavigation() {
       "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_ED/FeatureServer/0/query?where=1%3D1&outFields=ED_ENGLISH,T1_1AGETM,T1_1AGETF,T1_1AGETT,T1_2SGLM,T1_2SGLF,T1_2TF,COUNTY,CONTAE,PROVINCE,T1_2TM,T1_2SGLT&returnGeometry=false&outSR=4326&f=json"
     );
     if (res.status === 200) {
-      setLocationData(getInfo(res.data, place));
+      dispatch(locAction.setDistricts(getInfo(res.data, place)));
     }
   }
-  console.log(locationData);
 
-  function setLocation() {
-    dispatch(
-      locAction.setLoc({
-        lon: locationData.longitude,
-        lat: locationData.latitude,
-      })
-    );
-    navigate(`/${locationData.country_name_official}`, {
-      state: locationData.city,
-    });
+  function setNavigation() {
+    navigate("/Ireland");
   }
-  // console.log('locationData');
-  // console.log(locationData?.latitude);
+
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt" onClick={setLocation}>
+        <div id="mainTxt" onClick={setNavigation}>
           <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
             {locationName != null ? (
               <>
