@@ -27,7 +27,7 @@ function MainNavigation() {
           `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
         );
         if (res.status === 200) {
-          console.log(preparName(res.data[0].name));
+          console.log(res.data);
           setLocationName(preparName(res.data[0].name));
           getLocationInfo(preparName(res.data[0].name));
         }

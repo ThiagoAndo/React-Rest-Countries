@@ -6,6 +6,7 @@ const locationSlice = createSlice({
   initialState: {
     loc: { lon: null, lat: null },
     districts: [],
+    group: [],
   },
   reducers: {
     setLoc(state, action) {
@@ -15,6 +16,7 @@ const locationSlice = createSlice({
       state.districts = action.payload.sort((a, b) =>
         a.ED_ENGLISH > b.ED_ENGLISH ? 1 : -1
       );
+
     },
   },
 });

@@ -7,8 +7,6 @@
   text-decoration: none;
 }
 
-
-
 body {
   font-size: 16px;
   font-family: "Ubuntu", sans-serif;
@@ -114,10 +112,9 @@ nav {
 }
 
 #formSelec select {
-  padding: 1rem;
+  padding: 0.5rem;
   height: 3rem;
   width: 10rem;
-  border: none;
   border-radius: 0.25rem;
 }
 
@@ -127,6 +124,17 @@ nav {
   width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-gap: 3rem;
+  margin: 2rem auto;
+  padding-bottom: 5.625rem;
+}
+#main > a:hover {
+}
+#main_district {
+  padding: 1rem;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   grid-gap: 3rem;
   margin: 2rem auto;
   padding-bottom: 5.625rem;
@@ -147,10 +155,10 @@ article > div:first-of-type {
 article div:last-of-type div {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   width: 14.25rem;
   margin-top: 0.6875rem;
-  margin: 1.5rem;
+  margin: 1.5rem 0 1.5rem 1rem;
 }
 
 article div:last-of-type div h3 {
@@ -159,6 +167,11 @@ article div:last-of-type div h3 {
 
 article div:last-of-type div p {
   margin-bottom: 0.5rem;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Expand Section========================== */
@@ -544,159 +557,18 @@ article div:last-of-type div p {
   margin-top: -50px;
 }
 
-@media (max-width: 340px) {
-  body {
-    font-size: 12px;
-    width: 340px;
-  }
 
-  #srch {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    width: 100%;
-  }
-
-  nav {
-    width: 340px;
-  }
-
-  .form {
-    width: 100%;
-  }
-
-  .form > input {
-    width: 300px;
-    padding: 5px;
-    margin-left: 20px;
-  }
-
-  #formSelec > select {
-    margin-left: 20px;
-    margin-top: 40px;
-  }
-
-  article {
-    width: 270px;
-    height: 450px;
-    margin-left: 33px;
-  }
-
-  article > div:first-of-type {
-    height: 250px;
-  }
-
-  article div:last-of-type div {
-    margin: 34px 24px 0px 24px;
-  }
-
-  article div:last-of-type div h3 {
-    margin-top: 15px;
-    margin-bottom: 22px;
-  }
-
-  #mainTxt {
-    margin-left: 10px;
-  }
-
-  #btn {
-    margin-right: 10px;
-    justify-content: space-around;
-  }
-
-  #btn div:first-of-type {
-    margin-left: 56px;
-  }
-
-  /* Expand screen======================================= */
-  #expand {
-    width: 340px;
-    background-color: #202c37;
-    height: 150vh;
-  }
-
-  .btnExp {
-    width: 117px;
-    height: 35px;
-  }
-
-  #expand > div {
-  margin: auto ;
-}
-
-  #expand #contExp {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: 1fr 3fr;
-    grid-template-columns: 1fr;
-    grid-auto-rows: 1fr 3fr;
-    width: 100%;
-    height: 98vh;
-    margin: auto;
-    margin-top: 70px;
-  }
-
-  #expand #flag {
-    width: 100%;
-    height: 223px;
-    background-size: cover;
-  }
-
-  #expand #holdInf {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 2fr;
-    width: 300px;
-  }
-
-  #holdInf #border {
-    margin-left: 0px;
-    margin-top: 5rem;
-    grid-area: 3/1/4/2;
-    grid-template-columns: 1fr;
-    margin-top: 100px;
-  }
-
-  #holdInf #border #noBtn {
-    height: 50px;
-  }
-
-  #holdInf div:first-child {
-    margin-top: 50px;
-  }
-
-  #holdInf div:first-child h1 {
-    margin-bottom: 18px;
-  }
-
-  #holdInf div:nth-child(2) {
-    margin: 0px 0px -60px 0px;
-    height: 105px;
-    gap: 10px;
-  }
-
-  #holdInf .inf {
-    margin-left: 0px;
-  }
-
-  #holdInf #border .selectBorder {
-    width: 90px;
-    margin-left: 0;
-    margin-bottom: 0;
-  }
-  .infoBox {
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 341px) and (max-width: 490px) {
+@media (min-width: 330px) and (max-width: 490px) {
   body {
     font-size: 12px;
     width: 401px;
   }
 
   #srch {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: 3rem;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
     margin-top: 20px;
     width: 100%;
   }
@@ -708,17 +580,22 @@ article div:last-of-type div p {
   .form {
     width: 100%;
   }
-
+  .src-container {
+    width: 80%;
+    margin: auto;
+  }
   .form > input {
     width: 364px;
     padding: 5px;
     margin-left: 20px;
   }
+  #formSelec {
+    margin: auto;
+    width: 80%;
+  }
 
   #formSelec > select {
-    margin-left: 20px;
-    margin-top: 40px;
-    width: 180px;
+    width: 100%;
   }
 
   article > div:first-of-type {
@@ -760,8 +637,8 @@ article div:last-of-type div p {
     top: -16px;
   }
   #expand > div {
-  margin: auto ;
-}
+    margin: auto;
+  }
   .btnExp {
     width: 117px;
     height: 35px;
@@ -808,20 +685,14 @@ article div:last-of-type div p {
     height: 50px;
   }
 
-  /* #holdInf div:first-child {
-    margin-top: 50px;
-  } */
-
   #holdInf div:first-child h1 {
     margin-bottom: 18px;
   }
 
-  /* #holdInf div:nth-child(2) {
-    margin: 0px 0px -60px 0px;
-    height: 105px;
-    gap: 10px;
-  } */
-
+  .src-container {
+    width: 80%;
+    margin: auto;
+  }
   #holdInf .inf {
     margin-left: 0px;
     gap: 1rem;
@@ -904,7 +775,7 @@ article div:last-of-type div p {
 }
 
 @media (min-width: 769px) and (max-width: 1400px) {
-  body{
+  body {
     font-size: 1rem;
   }
   nav {
@@ -930,6 +801,10 @@ article div:last-of-type div p {
     overflow: hidden;
     margin: auto;
   }
+
+  #expand {
+    height: 120vh;
+  }
   #expand #flag {
     width: 19rem;
   }
@@ -945,7 +820,7 @@ article div:last-of-type div p {
 
   #holdInf #border {
     font-size: 0.7rem;
-    margin-top: 3rem;
+    margin-top: 9rem;
   }
 
   #holdInf #border .selectBorder {
@@ -956,20 +831,19 @@ article div:last-of-type div p {
     width: 7rem;
   }
   .clock {
-    right: 40px;
-    top: 140px;
+    right: 20px;
+    top: 20px;
   }
 
   #expand > div {
-  width: 90%;
-  margin: 0px 0px 0px 40px;
-  padding-top: 3.5rem;
-}
-
+    width: 90%;
+    margin: 0px 0px 0px 40px;
+    padding-top: 3.5rem;
+  }
 }
 
 @media (min-width: 1400px) {
-  body{
+  body {
     font-size: 1rem;
   }
   .clock {
@@ -987,19 +861,18 @@ article div:last-of-type div p {
     margin-left: 2rem;
   }
 
-   #holdInf .inf {
+  #holdInf .inf {
     font-size: 1rem;
   }
 
   #expand > div {
-  width: 90%;
-  margin: 0px 0px 0px 40px;
-  padding-top: 3.5rem;
-}
-
-#holdInf #border {
-    font-size: 0.7rem;
-    margin-top: 3rem;
+    width: 90%;
+    margin: 0px 0px 0px 40px;
+    padding-top: 3.5rem;
   }
 
+  #holdInf #border {
+    font-size: 0.7rem;
+    margin-top: 5rem;
+  }
 }

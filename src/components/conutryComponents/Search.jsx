@@ -5,7 +5,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { fRegion } from "../../store/context/fetchRegion";
 
-function Search({opt, call}) {
+function Search({ opt, call }) {
   const context = useContext(ModeAction);
   const regionctx = useContext(fRegion);
   const { countries } = useRouteLoaderData("main");
@@ -45,32 +45,33 @@ function Search({opt, call}) {
 
   return (
     <section id="srch" className="marg">
-      <ReactSearchAutocomplete
-        className={"form"}
-        items={coutry}
-        onSelect={handleOnSelect}
-        formatResult={formatResult}
-        onKeyDown={(e) => {
-          hadleKey(e);
-        }}
-        placeholder={"Search for a country..."}
-        autoFocus
-        styling={{
-          height: "39px",
-          border: context.mode ? "1px solid black" : "1px solid white",
-          borderRadius: "8px",
-          backgroundColor: context.mode ? "#ffffff" : "#202c37",
-          hoverBackgroundColor: "#2d5eb8",
-          color: context.mode ? "black" : "white",
-          fontSize: "20px",
-          iconColor: context.mode ? "black" : "white",
-          lineColor: context.mode ? "black" : "white",
-          placeholderColor: context.mode ? "black" : "white",
-          clearIconMargin: "3px 8px 0 0",
-          zIndex: "2",
-        }}
-      />
-
+      <div className="src-container">
+        <ReactSearchAutocomplete
+          className={"form"}
+          items={coutry}
+          onSelect={handleOnSelect}
+          formatResult={formatResult}
+          onKeyDown={(e) => {
+            hadleKey(e);
+          }}
+          placeholder={"Search for a country..."}
+          autoFocus
+          styling={{
+            height: "39px",
+            border: context.mode ? "1px solid black" : "1px solid white",
+            borderRadius: "8px",
+            backgroundColor: context.mode ? "#ffffff" : "#202c37",
+            hoverBackgroundColor: "#2d5eb8",
+            color: context.mode ? "black" : "white",
+            fontSize: "20px",
+            iconColor: context.mode ? "black" : "white",
+            lineColor: context.mode ? "black" : "white",
+            placeholderColor: context.mode ? "black" : "white",
+            clearIconMargin: "3px 8px 0 0",
+            zIndex: "2",
+          }}
+        />
+      </div>
       <form action="/" id="formSelec">
         <select
           onChange={handleEvent}
