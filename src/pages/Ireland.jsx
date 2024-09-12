@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 export default function DistrictList() {
   const districts = useSelector((state) => state.location.districts);
-
+console.log(districts);
+console.log("districts");
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
   let thisContries;
@@ -13,13 +14,12 @@ export default function DistrictList() {
 
   return (
     // <>
-    //   <Search />
+      <Search />
     //   <section id="main" className={context.mode ? "blight" : "bDark"}>
     //     {coutrySort.map((cou) => (
     //       <CountryItem key={cou.name.common} country={cou} />
     //     ))}
     //   </section>
     // </>
-    null
   );
 }

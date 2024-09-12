@@ -28,10 +28,11 @@ export function getInfo(data, place) {
 }
 
 export function preparName(place) {
-  if (place.indexOf(" ")) {
+  if (place.includes(" ")) {
     const idnx = place.lastIndexOf(" ");
     return place.slice(idnx, place.length);
   }
+  return place;
 }
 
 export function totalPopulation(data, place) {

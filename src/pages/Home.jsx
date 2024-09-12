@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { useRouteLoaderData, json, Await } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
-import CountryList from "../components/contryComponents/CountryList";
+import CountryList from "../components/conutryComponents/CountryList";
 import { Triangle } from "react-loader-spinner";
 import RegionProvider from "../store/context/fetchRegion";
 import { useDispatch } from "react-redux";

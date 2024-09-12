@@ -11,7 +11,7 @@ function MainNavigation() {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-    const [locationName, setLocationName] = useState(undefined);
+  const [locationName, setLocationName] = useState(undefined);
   useEffect(() => {
     if (locationName === undefined) getLocationName();
   }, []);
@@ -27,6 +27,7 @@ function MainNavigation() {
           `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
         );
         if (res.status === 200) {
+          console.log(preparName(res.data[0].name));
           setLocationName(preparName(res.data[0].name));
           getLocationInfo(preparName(res.data[0].name));
         }

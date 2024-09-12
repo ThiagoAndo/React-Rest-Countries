@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
 import { useEffect } from "react";
-import Detailed from "../components/contryComponents/Detailed";
+import CountryDetailed from "../components/conutryComponents/Detailed";
 import { Triangle } from "react-loader-spinner";
 
 function CountryDetail() {
@@ -29,7 +29,7 @@ function CountryDetail() {
         }
       >
         <Await resolve={{ country }}>
-          {(loadedCount) => <Detailed country={loadedCount} />}
+          {(loadedCount) => <CountryDetailed country={loadedCount} />}
         </Await>
       </Suspense>
     </>
@@ -60,23 +60,5 @@ export async function loader({ request, params }) {
 
   return defer({
     country: await loadCountry(name),
-    // time: loadTime(),
   });
 }
-
-// export async function action({ params, request }) {
-//   const eventId = params.eventId;
-//   const response = await fetch("http://localhost:8080/events/" + eventId, {
-//     method: request.method,
-//   });
-
-//   if (!response.ok) {
-//     throw json(
-//       { message: "Could not delete event." },
-//       {
-//         status: 500,
-//       }
-//     );
-//   }
-//   return redirect("/events");
-// }
