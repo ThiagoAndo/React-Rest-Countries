@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-import { ModeAction } from "../store/context/mode";
+import { ModeAction } from "../../store/context/mode";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { locAction } from "../store/redux/location";
-import { getInfo, preparName } from "./utilities/userLocation";
+import { locAction } from "../../store/redux/location";
+import { getInfo, preparName } from "../utilities/userLocation";
 const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 
 function MainNavigation() {
@@ -17,8 +17,6 @@ function MainNavigation() {
     if (locationName === undefined) getLocationName();
   }, []);
 
- 
-
   async function getLocationName() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async function showPosition(
@@ -30,22 +28,21 @@ function MainNavigation() {
         );
         if (res.status === 200) {
           setLocationName(preparName(res.data[0].name));
-          getLocationInfo( preparName(res.data[0].name));
+          getLocationInfo(preparName(res.data[0].name));
         }
       });
     }
   }
-   async function getLocationInfo(place) {
-     // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
-     const res = await axios.get(
-       "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_ED/FeatureServer/0/query?where=1%3D1&outFields=ED_ENGLISH,T1_1AGETM,T1_1AGETF,T1_1AGETT,T1_2SGLM,T1_2SGLF,T1_2TF,COUNTY,CONTAE,PROVINCE,T1_2TM,T1_2SGLT&returnGeometry=false&outSR=4326&f=json"
-     );
-     if (res.status === 200) {
-       setLocationData(getInfo(res.data, place));
-     }
-   }
-console.log(locationData);
-
+  async function getLocationInfo(place) {
+    // resource https://dev.to/abidullah786/how-to-access-user-location-in-react-3odj
+    const res = await axios.get(
+      "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_ED/FeatureServer/0/query?where=1%3D1&outFields=ED_ENGLISH,T1_1AGETM,T1_1AGETF,T1_1AGETT,T1_2SGLM,T1_2SGLF,T1_2TF,COUNTY,CONTAE,PROVINCE,T1_2TM,T1_2SGLT&returnGeometry=false&outSR=4326&f=json"
+    );
+    if (res.status === 200) {
+      setLocationData(getInfo(res.data, place));
+    }
+  }
+  console.log(locationData);
 
   function setLocation() {
     dispatch(

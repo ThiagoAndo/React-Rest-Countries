@@ -1,7 +1,7 @@
 import CountryItem from "./CountryItem";
-import Search from "../components/Search";
-import { ModeAction } from "../store/context/mode";
-import { fRegion } from "../store/context/fetchRegion";
+import Search from "./Search";
+import { ModeAction } from "../../store/context/mode";
+import { fRegion } from "../../store/context/fetchRegion";
 import { useContext } from "react";
 
 function CountryList({ countries }) {

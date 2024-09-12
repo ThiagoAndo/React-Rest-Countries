@@ -7,10 +7,7 @@
   text-decoration: none;
 }
 
-html {
-  color: #2d5eb8;
-  color: ;
-}
+
 
 body {
   font-size: 16px;
@@ -182,7 +179,7 @@ article div:last-of-type div p {
 
 #expand > div {
   width: 90%;
-  margin: 0px 0px 0px 40px;
+  margin: auto;
   padding-top: 3.5rem;
 }
 
@@ -584,6 +581,10 @@ article div:last-of-type div p {
     height: 35px;
   }
 
+  #expand > div {
+  margin: auto ;
+}
+
   #expand #contExp {
     display: grid;
     grid-template-columns: 1fr;
@@ -719,7 +720,9 @@ article div:last-of-type div p {
     height: 150vh;
     top: -16px;
   }
-
+  #expand > div {
+  margin: auto ;
+}
   .btnExp {
     width: 117px;
     height: 35px;
@@ -894,15 +897,16 @@ article div:last-of-type div p {
 
   #expand #holdInf {
     margin-left: 2rem;
+    width: 100%;
   }
 
   #holdInf .inf {
-    font-size: 0.7rem;
+    font-size: 1rem;
   }
 
   #holdInf #border {
     font-size: 0.7rem;
-    margin-left: 1rem;
+    margin-top: 3rem;
   }
 
   #holdInf #border .selectBorder {
@@ -916,6 +920,12 @@ article div:last-of-type div p {
     right: 40px;
     top: 140px;
   }
+
+  #expand > div {
+  width: 90%;
+  margin: 0px 0px 0px 40px;
+  padding-top: 3.5rem;
+}
 
 }
 
@@ -937,4 +947,20 @@ article div:last-of-type div p {
   .weather_cont {
     margin-left: 2rem;
   }
+
+   #holdInf .inf {
+    font-size: 1rem;
+  }
+
+  #expand > div {
+  width: 90%;
+  margin: 0px 0px 0px 40px;
+  padding-top: 3.5rem;
+}
+
+#holdInf #border {
+    font-size: 0.7rem;
+    margin-top: 3rem;
+  }
+
 }

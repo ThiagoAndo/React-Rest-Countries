@@ -1,13 +1,13 @@
 import { useRouteLoaderData, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Clock from "./clock/Clock";
+import Clock from "../clock/Clock";
 import Borders from "./Borders";
 import ForecastApp from "./ForecastApp";
 import { Triangle } from "react-loader-spinner";
-import { ModeAction } from "../store/context/mode";
+import { ModeAction } from "../../store/context/mode";
 import { useContext } from "react";
-function Detailed({ country }) {
+function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
   const { state } = useLocation();
 
@@ -171,4 +171,4 @@ function Detailed({ country }) {
   }
 }
 
-export default Detailed;
+export default CountryDetailed;

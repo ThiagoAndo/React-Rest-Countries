@@ -1,9 +1,9 @@
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { ModeAction } from "../store/context/mode";
+import { ModeAction } from "../../store/context/mode";
 import { useContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { fRegion } from "../store/context/fetchRegion";
+import { fRegion } from "../../store/context/fetchRegion";
 
 function Search() {
   const context = useContext(ModeAction);

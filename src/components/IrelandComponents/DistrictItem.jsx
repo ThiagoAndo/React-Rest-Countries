@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { ModeAction } from "../store/context/mode";
+import { ModeAction } from "../../store/context/mode";
 import { useContext } from "react";
 import { motion } from "framer-motion";
-function CountryItem({ country }) {
+function DistrictItem({ country }) {
   const context = useContext(ModeAction);
 
   return (
@@ -48,4 +48,4 @@ function CountryItem({ country }) {
   );
 }
 
-export default CountryItem;
+export default DistrictItem;
