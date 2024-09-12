@@ -12,7 +12,9 @@ const locationSlice = createSlice({
       state.loc = action.payload;
     },
     setDistricts(state, action) {
-      state.districts = action.payload;
+      state.districts = action.payload.sort((a, b) =>
+        a.ED_ENGLISH > b.ED_ENGLISH ? 1 : -1
+      );
     },
   },
 });

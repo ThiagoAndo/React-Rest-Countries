@@ -10,7 +10,7 @@ export default function RegionProvider({ children }) {
 
   async function changeRegion(region) {
     let url;
-    if(region !="all" ) url = `https://restcountries.com/v3.1/region/${region}`;
+    if(region !="all regions" ) url = `https://restcountries.com/v3.1/region/${region}`;
     else url = "https://restcountries.com/v3.1/all";
 
     const response = await fetch(url);

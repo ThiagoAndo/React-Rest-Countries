@@ -2,21 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TodayWeather from "../foreComp/TodayWeather/TodayWeather";
 import { fetchWeatherData } from "../api/OpenWeatherService";
-import { transformDateFormat } from "../utilities/DatetimeUtils";
+import { transformDateFormat } from "../../utilities/DatetimeUtils";
 import UTCDatetime from "../foreComp/Reusable/UTCDatetime";
 import LoadingBox from "../foreComp/Reusable/LoadingBox";
 import Logo from "../assets/logo.png";
 import ErrorBox from "../foreComp/Reusable/ErrorBox";
-import { getTodayForecastWeather } from "../utilities/DataUtils";
+import { getTodayForecastWeather } from "../../utilities/DataUtils";
 import { fetchCities } from "../api/OpenWeatherService";
-import { useSelector } from "react-redux";
-function ForecastApp({ cap, userCity }) {
+function ForecastApp({ cap, location }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  const location = useSelector((state) => state.location.loc);
 
   const searchChangeHandler = async () => {
     let citiesList;
@@ -40,8 +38,9 @@ function ForecastApp({ cap, userCity }) {
           };
         }),
       };
+
       let [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
-      if (location.lat != null) {
+      if (location?.lat != null) {
         latitude = location.lat;
         longitude = location.lon;
       }

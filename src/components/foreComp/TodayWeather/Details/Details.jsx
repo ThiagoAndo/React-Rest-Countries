@@ -1,14 +1,10 @@
 import { Grid } from "@mui/material";
-import { getDayMonthFromDate } from "../../../utilities/DatetimeUtils";
+import { getDayMonthFromDate } from "../../../../utilities/DatetimeUtils";
 import ErrorBox from "../../Reusable/ErrorBox";
 import CityDateDetail from "./CityDateDetail";
 import TemperatureWeatherDetail from "./TemperatureWeatherDetail";
 import Layout from "../../Reusable/Layout";
-
-
-
 const dayMonth = getDayMonthFromDate();
-
 const Details = ({ data }) => {
   const noDataProvided =
     !data || Object.keys(data).length === 0 || data.cod === "404";

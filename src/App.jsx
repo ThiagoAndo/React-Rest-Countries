@@ -27,12 +27,12 @@ const router = createBrowserRouter([
         loader: countryDetailLoader,
       },
       {
-        path: "Ireland",
+        path: "ireland",
         element: <DistrictList />,
         id: "userLoc",
         children: [
           {
-            path: ":countyName",
+            path: ":locName",
             element: <CountryDetail />,
           },
         ],
