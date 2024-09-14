@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
 import { useEffect } from "react";
-import CountryDetailed from "../components/conutryComponents/Detailed";
+import CountryDetailed from "../components/countryComponents/Detailed";
 import { Triangle } from "react-loader-spinner";
 
 function CountryDetail() {

@@ -1,4 +1,4 @@
-import MainNavigation from "../components/conutryComponents/MainNavigation";
+import MainNavigation from "../components/countryComponents/MainNavigation";
 import ErrorContent from "../components/error/errorPage";
 function ErrorPage() {
   return (

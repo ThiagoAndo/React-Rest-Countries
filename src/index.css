@@ -125,18 +125,24 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   grid-gap: 3rem;
-  margin: 2rem auto;
+  margin: 2rem auto 0;
   padding-bottom: 5.625rem;
 }
+
 #main > a:hover {
+  color: inherit;
 }
+
+
 #main_district {
   padding: 1rem;
   width: 90%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  height: fit-content;
   grid-gap: 3rem;
-  margin: 2rem auto;
+  margin: 2rem auto 0;
   padding-bottom: 5.625rem;
 }
 
@@ -555,6 +561,18 @@ a:hover {
 }
 .contant_box_404 {
   margin-top: -50px;
+}
+
+/* Ireland Cards ========================== */
+.active-dark{
+background-color: #171f27;
+display: block;
+color: white;
+
+}
+
+.card{
+  height: fit-content;
 }
 
 

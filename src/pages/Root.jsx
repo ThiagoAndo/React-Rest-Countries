@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { ModeAction } from "../store/context/mode";
 import { useContext } from "react";
-import MainNavigation from "../components/conutryComponents/MainNavigation";
+import MainNavigation from "../components/countryComponents/MainNavigation";
 function RootLayout() {
   const context = useContext(ModeAction);
 

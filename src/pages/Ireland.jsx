@@ -1,12 +1,16 @@
 import { ModeAction } from "../store/context/mode";
-import { fRegion } from "../store/context/fetchRegion";
+import DistrictItem from "../components/IrelandComponents/DistrictItem";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import Search from "../components/conutryComponents/Search";
+import Search from "../components/countryComponents/Search";
 export default function DistrictList() {
   const districts = useSelector((state) => state.location.districts);
-  const sl = districts.slice(0, 8);
+  const sl = districts.slice(0, 3);
   const context = useContext(ModeAction);
+  console.log('sl');
+  console.log(sl);
+
+  const arr = []
 
   return (
     <>
@@ -15,13 +19,13 @@ export default function DistrictList() {
         call={"c"}
       />
 
-      <section id="main" className={context.mode ? "blight" : "bDark"}>
-        {districts.map((dis) => (
-          <div style={{ background: "red" }}>
-            <h3>{dis.ED_ENGLISH}</h3>
-            <h3>{dis.COUNTY}</h3>
-          </div>
-        ))}
+      <section id="main_district" className={context.mode ? "blight" : "bDark"}>
+        {
+          sl.map((contae,i) => (
+            <DistrictItem key={i} county={contae} />
+          
+          ))
+        }
       </section>
     </>
   );
