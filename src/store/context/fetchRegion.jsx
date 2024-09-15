@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { fetchRegion } from "../../helpers/HTTP";
 
 export const fRegion = createContext({
   data: null,
@@ -6,28 +7,14 @@ export const fRegion = createContext({
 });
 
 export default function RegionProvider({ children }) {
-  const [data, setData] = useState();
+  const [data, setData] = useState(undefined);
 
   async function changeRegion(region) {
-    let url;
-    if(region !="all regions" ) url = `https://restcountries.com/v3.1/region/${region}`;
-    else url = "https://restcountries.com/v3.1/all";
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw json(
-        { message: "Could not fetch countries." },
-        {
-          status: 500,
-        }
-      );
-    } else {
-      const resData = await response.json();
-      
-      setData(resData);
-    }
+      console.log(region);
+      console.log("egionCtx.data");
+    const resData = await fetchRegion(region);
+    setData(resData);
   }
-
   const ctxValue = {
     data,
     changeRegion,

@@ -2,18 +2,14 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { locAction } from "../store/redux/location";
 import { preparName, getInfo } from "./userLocation";
-const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
+const WEATHER_KEY = import.meta.env.VITE_WEATHER_SECRETE_KEY;
+const TIME_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
 
 export async function loadCountries() {
   const response = await axios.get("https://restcountries.com/v3.1/all");
-
-if (response.status === 200) {
-  return response.data;
-  
-} else {
-
-  throw json({ message: "Could not fetch countries." }, { status: 500 });
-}
+  if (response.status === 200) {
+    return response.data;
+  }
 }
 
 export async function useGetLocationName() {
@@ -27,7 +23,7 @@ export async function useGetLocationName() {
     ) {
       const { latitude: lat, longitude: lon } = position.coords;
       weatherResp = await axios.get(
-        `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
+        `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${WEATHER_KEY}`
       );
       if (weatherResp.status === 200) {
         censusResp = await axios.get(
@@ -47,5 +43,52 @@ export async function useGetLocationName() {
         }
       }
     });
+  }
+}
+
+export async function fetchRegion(region) {
+  let url;
+  if (region != "all regions")
+    url = `https://restcountries.com/v3.1/region/${region}`;
+  else url = "https://restcountries.com/v3.1/all";
+
+  const response = await axios.get(url);
+  if (response.status === 200) {
+    return response.data;
+  }
+}
+
+export async function fetchZone(coutry) {
+  let response;
+  try {
+    response = await fetch(
+      `https://api.timezonedb.com/v2.1/list-time-zone?key=${TIME_KEY}&format=json&country=${coutry?.cca2}`
+    );
+  } catch (error) {
+    console.log("loadZone error: " + error);
+  }
+  if (response?.ok) {
+    const resData = await response.json();
+    return resData;
+  } else {
+    return undefined;
+  }
+}
+
+export async function loadTimeZone(zone) {
+  let response;
+  try {
+    response = await fetch(
+      `https://api.timezonedb.com/v2.1/get-time-zone?key=${TIME_KEY}&format=json&by=zone&zone=${zone}`
+    );
+  } catch (error) {
+    console.log("loadTime error: " + error);
+  }
+
+  if (response?.ok) {
+    const resData = await response.json();
+    return resData;
+  } else {
+    return undefined;
   }
 }

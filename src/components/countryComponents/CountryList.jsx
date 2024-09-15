@@ -15,7 +15,10 @@ function CountryList({ countries }) {
   );
   return (
     <>
-      <Search opt={["africa", "americas" ,"asia" ,"europe", "oceania", "all regions"]} call={"c"}/>
+      <Search
+        opt={["africa", "americas", "asia", "europe", "oceania", "all regions"]}
+        call={"c"}
+      />
       <section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (
           <CountryItem key={cou.name.common} country={cou} />

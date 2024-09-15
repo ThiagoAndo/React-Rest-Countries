@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useRef, useCallback } from "react";
+import { fetchZone, loadTimeZone } from "../../helpers/HTTP";
 const key = import.meta.env.VITE_TIME_ZONE_KEY;
 
 export const ClockContext = createContext({
@@ -18,21 +19,10 @@ export default function ClockProvider({ children }) {
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
     let time = null;
     let zone = null;
-    let response;
-    console.log(
-      `https://api.timezonedb.com/v2.1/list-time-zone?key=${key}&format=json&country=${coutry?.cca2}`
-    );
-    try {
-      response = await fetch(
-        `https://api.timezonedb.com/v2.1/list-time-zone?key=${key}&format=json&country=${coutry?.cca2}`
-      );
-    } catch (error) {
-      console.log("loadZone error: " + error);
-    }
+    let resData;
 
-    if (response?.ok) {
-      const resData = await response.json();
-
+    resData = await fetchZone(coutry);
+    if (resData != undefined) {
       const cities = resData.zones.map((zn) => {
         const cts = zn.zoneName.split("/");
         return cts[cts.length - 1];
@@ -63,18 +53,11 @@ export default function ClockProvider({ children }) {
   }, []);
 
   async function loadTime(zone) {
-    let response;
+    let resData;
     let time = null;
+    resData = await loadTimeZone(zone);
 
-    try {
-      response = await fetch(
-        `https://api.timezonedb.com/v2.1/get-time-zone?key=${key}&format=json&by=zone&zone=${zone}`
-      );
-    } catch (error) {
-      console.log("loadTime error: " + error);
-    }
-    if (response?.ok) {
-      const resData = await response.json();
+    if (resData != undefined) {
       time = new Date(resData.formatted);
       return time;
     }
