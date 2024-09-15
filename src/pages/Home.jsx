@@ -5,14 +5,14 @@ import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/countryComponents/CountryList";
 import { Triangle } from "react-loader-spinner";
 import RegionProvider from "../store/context/fetchRegion";
-import { useDispatch } from "react-redux";
-import { locAction } from "../store/redux/location";
+import { useSelector } from "react-redux";
+import { loadCountries, useGetLocationName } from "../helpers/HTTP";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const dispatch = useDispatch();
   const context = useContext(ClockContext);
   const { countries } = useRouteLoaderData("main");
   context.stop();
+   useGetLocationName();
 
   const handleScroll = () => {
     const position = window.scrollY;
@@ -33,7 +33,8 @@ function HomePage() {
   }, [scrollPosition]);
 
   useEffect(() => {
-    dispatch(locAction.setLoc({ lon: null, lat: null }));
+    // dispatch(locAction.setLoc({ lon: null, lat: null }));
+    // userLocationData.lon === null ? setUpUserLocation() : null;
 
     let position = localStorage.getItem("position");
     if (!position) {
@@ -50,6 +51,7 @@ function HomePage() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <Suspense
       fallback={
@@ -79,21 +81,21 @@ function HomePage() {
 
 export default HomePage;
 
-async function loadCountries() {
-  const response = await fetch("https://restcountries.com/v3.1/all");
+// async function loadCountries() {
+//   const response = await fetch("https://restcountries.com/v3.1/all");
 
-  if (!response.ok) {
-    throw json(
-      { message: "Could not fetch countries." },
-      {
-        status: 500,
-      }
-    );
-  } else {
-    const resData = await response.json();
-    return resData;
-  }
-}
+//   if (!response.ok) {
+//     throw json(
+//       { message: "Could not fetch countries." },
+//       {
+//         status: 500,
+//       }
+//     );
+//   } else {
+//     const resData = await response.json();
+//     return resData;
+//   }
+// }
 
 export async function loader() {
   return {

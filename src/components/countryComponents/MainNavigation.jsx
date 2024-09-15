@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { ModeAction } from "../../store/context/mode";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { locAction } from "../../store/redux/location";
 import { getInfo, preparName } from "../../helpers/userLocation";
 const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
@@ -12,26 +12,29 @@ function MainNavigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [locationName, setLocationName] = useState(undefined);
-  useEffect(() => {
-    if (locationName === undefined) getLocationName();
-  }, []);
+  const {name} = useSelector((state) => state.location.loc);
 
-  async function getLocationName() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async function showPosition(
-        position
-      ) {
-        const { latitude: lat, longitude: lon } = position.coords;
-        dispatch(locAction.setLoc({ lon, lat }));
-        const res = await axios.get(
-          `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
-        );
-        if (res.status === 200) {
-          getLocationInfo(preparName(res.data[0].name));
-        }
-      });
-    }
-  }
+
+  // useEffect(() => {
+  //   if (locationName === undefined) getLocationName();
+  // }, []);
+
+  // async function getLocationName() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(async function showPosition(
+  //       position
+  //     ) {
+  //       const { latitude: lat, longitude: lon } = position.coords;
+  //       const res = await axios.get(
+  //         `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${key}`
+  //       );
+  //       if (res.status === 200) {
+  //         dispatch(locAction.setLoc(res.data[0]));
+  //         getLocationInfo(preparName(res.data[0].name));
+  //       }
+  //     });
+  //   }
+  // }
   async function getLocationInfo(place) {
     const res = await axios.get(
       "https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Census2016_Theme1Table2_ED/FeatureServer/0/query?where=1%3D1&outFields=ED_ENGLISH,COUNTY,CONTAE,PROVINCE,T1_1AGETT,T1_1AGETF,T1_1AGETM,T1_2SGLF,T1_2SGLM,T1_2SGLT&outSR=4326&f=json"
@@ -57,10 +60,10 @@ function MainNavigation() {
       <nav className={context.mode ? "light" : "dark"}>
         <div id="mainTxt" onClick={setNavigation}>
           <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-            {locationName != null ? (
+            {name != null ? (
               <>
                 <span>Show me </span>
-                <span style={{ color: "#f5163b" }}>{locationName}</span>
+                <span style={{ color: "#f5163b" }}>{name}</span>
               </>
             ) : (
               <span>No conection to the internet</span>
