@@ -1,7 +1,5 @@
 export function getInfo(data, place) {
   const uper = place.toUpperCase().trim();
-  // console.log('uper')
-  // console.log(uper);
   let found = null;
   const { features } = data;
 

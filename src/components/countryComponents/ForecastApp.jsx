@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TodayWeather from "../foreComp/TodayWeather/TodayWeather";
-import { fetchWeatherData } from "../api/OpenWeatherService";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
 import UTCDatetime from "../foreComp/Reusable/UTCDatetime";
 import LoadingBox from "../foreComp/Reusable/LoadingBox";
 import Logo from "../assets/logo.png";
 import ErrorBox from "../foreComp/Reusable/ErrorBox";
 import { getTodayForecastWeather } from "../../utilities/DataUtils";
-import { fetchCities } from "../api/OpenWeatherService";
+import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 function ForecastApp({ cap, location }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);

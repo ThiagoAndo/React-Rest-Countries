@@ -1,19 +1,18 @@
 import { Suspense } from "react";
-import { useRouteLoaderData, json, Await } from "react-router-dom";
+import { useRouteLoaderData, Await } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ClockContext } from "../store/context/clock";
 import CountryList from "../components/countryComponents/CountryList";
 import { Triangle } from "react-loader-spinner";
 import RegionProvider from "../store/context/fetchRegion";
-import { useSelector } from "react-redux";
-import { loadCountries, useGetLocationName } from "../helpers/HTTP";
+import { fetchCountries } from "../helpers/HTTP";
+import { usePrepareLocation } from "../hooks/usePrepareLocation";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const context = useContext(ClockContext);
   const { countries } = useRouteLoaderData("main");
   context.stop();
-   useGetLocationName();
-console.log("HOME RENDERED")
+  usePrepareLocation();
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
@@ -99,6 +98,6 @@ export default HomePage;
 
 export async function loader() {
   return {
-    countries: loadCountries(),
+    countries: fetchCountries(),
   };
 }
