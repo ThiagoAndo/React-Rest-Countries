@@ -1,15 +1,17 @@
 import { ModeAction } from "../../store/context/mode";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
+import CartNav from "./districtItemHeader";
+import Panel from "./distridtItemBody";
 import { motion } from "framer-motion";
 
-function DistrictItem({ county }) {
+export default function DistrictItem({ county }) {
+  const [tabActive, setTabActive] = useState("Description");
   const context = useContext(ModeAction);
   const initState = {
     description: "nav-link  active-dark",
     population: "nav-link",
     weather: "nav-link",
   };
-
   let obj = {
     CONTAE: "Baile Átha Cliath",
     COUNTY: "Dublin",
@@ -23,21 +25,27 @@ function DistrictItem({ county }) {
     T1_2SGLM: 1477, //Single - Males
     T1_2SGLT: 2957, //Single - Total
   };
+  function handleTabClick(id) {
+    console.log(id);
+    setTabActive(id);
+  }
 
   return (
     <div className="card">
-      <div
-        className={
-          context.mode ? "card-header active" : "card-header active-dark"
-        }
-      >
+      <div className={context.mode ? "card-header" : "card-header dark"}>
         <ul
           className="nav nav-tabs card-header-tabs"
           id="bologna-list"
           role="tablist"
         >
           {["Description", "Population", "Weather"].map((tab) => (
-            <CartNav id={tab} />
+            <CartNav
+              key={tab}
+              id={tab}
+              active={tabActive}
+              mode={context.mode}
+              handleAction={handleTabClick}
+            />
           ))}
         </ul>
       </div>
@@ -46,8 +54,8 @@ function DistrictItem({ county }) {
           context.mode ? "card-body  active" : "card-body  active-dark"
         }
       >
-        <h4 className="card-title">Fingal</h4>
-        <Panel />
+
+        <Panel data={county}/>
 
         <div className="tab-content mt-3">
           <div
@@ -70,54 +78,6 @@ function DistrictItem({ county }) {
     </div>
   );
 }
-
-function CartNav({mode, handleAction, id}) {
-  return (
-    <li className="nav-item">
-      <a
-        className="nav-link"
-        id={id}
-        href="#deals"
-        role="tab"
-        aria-controls="deals"
-        aria-selected="false"
-      >
-        {id}
-      </a>
-    </li>
-  );
-}
-
-function Panel() {
-  const context = useContext(ModeAction);
-
-  return (
-    <div className="tab-pane active " id="description" role="tabpanel">
-      <div>
-        <div className="infoBox">
-          <p>
-            <strong>Population: </strong>
-            municipium
-          </p>
-          <p>
-            <strong>Population: </strong>
-            municipium
-          </p>
-          <p>
-            <strong>Region: </strong>
-            Etruscan
-          </p>
-          <p>
-            <strong>Capital: </strong>
-            founded
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default DistrictItem;
 
 //  <Link to={`/${country.name.common}`}>
 //     <motion.article

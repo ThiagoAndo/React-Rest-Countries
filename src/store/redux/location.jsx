@@ -34,7 +34,6 @@ const locationSlice = createSlice({
       const hasLocation = action.payload.hasLoc;
       if (hasLocation) {
         const uper = action.payload.name.toUpperCase().trim();
-        console.log(action.payload);
 
         let found = [];
         found = state.data.filter((obj) => {

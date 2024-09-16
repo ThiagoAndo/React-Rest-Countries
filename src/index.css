@@ -569,6 +569,7 @@ a:hover {
   background-color: #171f27;
   display: block;
   color: white;
+  border:solid 1px #171f27 !important;
 }
 
 .card {

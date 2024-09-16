@@ -41,14 +41,15 @@ export default function DistrictList() {
 
 function List() {
   const districts = useSelector((state) => state.location.districts);
-  console.log(districts);
-  console.log("districts");
   const sl = districts.slice(0, 3);
   const context = useContext(ModeAction);
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>
       {districts.map((contae, i) => (
-        <DistrictItem key={i} county={contae} />
+        <DistrictItem
+          key={contae.attributes.ED_ENGLISH}
+          county={contae}
+        />
       ))}
     </section>
   );
