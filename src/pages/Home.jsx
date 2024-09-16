@@ -32,9 +32,6 @@ function HomePage() {
   }, [scrollPosition]);
 
   useEffect(() => {
-    // dispatch(locAction.setLoc({ lon: null, lat: null }));
-    // userLocationData.lon === null ? setUpUserLocation() : null;
-
     let position = localStorage.getItem("position");
     if (!position) {
       position = window.scrollY;

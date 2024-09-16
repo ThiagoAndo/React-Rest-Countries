@@ -13,6 +13,8 @@ const locationSlice = createSlice({
       name: null,
     },
     districts: [],
+    conName: [],
+    disName: [],
     data: [],
     count: 0,
   },
@@ -28,8 +30,7 @@ const locationSlice = createSlice({
       );
     },
 
-
-  findDistrict(state, action) {
+    findDistrict(state, action) {
       const hasLocation = action.payload.hasLoc;
       if (hasLocation) {
         const uper = action.payload.name.toUpperCase().trim();
@@ -51,6 +52,17 @@ const locationSlice = createSlice({
       } else {
         state.districts = state.data;
       }
+    },
+    setSearchValues(state, action) {
+      const allCounty = state.data.map((obj) => {
+        return obj.attributes.COUNTY;
+      });
+
+      state.data.map((obj,i) => {
+        state.disName.push({id:i,name:obj.attributes.ED_ENGLISH});
+      });
+
+      state.conName = [...new Set(allCounty)];
     },
   },
 });

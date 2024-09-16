@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { locAction } from "../store/redux/location";
-import { preparName, getInfo } from "../helpers/userLocation";
+import { preparName } from "../helpers/preparLocName";
 import { fetchCounty, fetchCountyInf } from "../helpers/HTTP";
 export async function usePrepareLocation() {
   const districts = useSelector((state) => state.location.districts);
@@ -20,10 +20,10 @@ export async function usePrepareLocation() {
 
   async function showPosition(position) {
     location = position.coords;
-    // const { latitude: lat, longitude: lon } = position.coords;
+    const { latitude: lat, longitude: lon } = position.coords;
     // Cordintation Test:(
-    const lat = 53.55254694138004;
-    const lon = -6.790924072265626;
+    // const lat = 53.55254694138004;
+    // const lon = -6.790924072265626;
     //                    )
     weatherResp = await fetchCounty(lat, lon);
     if (weatherResp != undefined) {
@@ -56,12 +56,13 @@ export async function usePrepareLocation() {
       weatherResp.data[0].name = namePrepered;
       dispatch(locAction.setLoc(weatherResp.data[0]));
       dispatch(locAction.findDistrict({ name: namePrepered, hasLoc: true }));
+      dispatch(locAction.setSearchValues())
     }
   }
 
   function setAllDistricts(weatherResp) {
-    console.log("chamo");
     dispatch(locAction.setLoc(weatherResp.data[0]));
     dispatch(locAction.findDistrict({ hasLoc: false }));
+    dispatch(locAction.setSearchValues())
   }
 }

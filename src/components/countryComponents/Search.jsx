@@ -2,11 +2,19 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { ModeAction } from "../../store/context/mode";
 import { useContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { locAction } from "../../store/redux/location";
 import { useNavigate } from "react-router-dom";
+import useThisLocation from "../../hooks/useThisLocation";
+
 import { fRegion } from "../../store/context/fetchRegion";
-function Search({ opt, call }) {
+function Search({ opt, call, holderF, holderS }) {
+  const dispatch = useDispatch();
   const context = useContext(ModeAction);
   const regionctx = useContext(fRegion);
+  const districts = useSelector((state) => state.location.disName);
+  const { path } = useThisLocation();
+  console.log();
   const { countries } = useRouteLoaderData("main");
   const [coutry, sentCountry] = useState();
   const navigate = useNavigate();
@@ -20,7 +28,6 @@ function Search({ opt, call }) {
     });
     sentCountry(count);
   }
-
   useEffect(() => {
     resolveCoutries(countries);
   }, []);
@@ -33,13 +40,22 @@ function Search({ opt, call }) {
     );
   }
   function handleOnSelect(item) {
-    navigate(`/${item.name}`);
-    console.log(item.name);
+    if (path === "/ireland") {
+      dispatch(locAction.findDistrict({ name: item.name, hasLoc: true }));
+    } else {
+      navigate(`/${item.name}`);
+    }
   }
 
   function handleEvent(e) {
-    console.log(e.target.value);
-    regionctx.changeRegion(e.target.value);
+
+    if (path === "/ireland") {
+      dispatch(locAction.findDistrict({ name: e.target.value, hasLoc: true }));
+    } else {
+          console.log(e.target.value);
+          regionctx.changeRegion(e.target.value);
+    }
+
   }
 
   return (
@@ -47,13 +63,13 @@ function Search({ opt, call }) {
       <div className="src-container">
         <ReactSearchAutocomplete
           className={"form"}
-          items={coutry}
+          items={path === "/ireland" ? districts : coutry}
           onSelect={handleOnSelect}
           formatResult={formatResult}
           onKeyDown={(e) => {
             hadleKey(e);
           }}
-          placeholder={"Search for a country..."}
+          placeholder={holderS}
           autoFocus
           styling={{
             height: "39px",
@@ -87,13 +103,13 @@ function Search({ opt, call }) {
           defaultValue={"DEFAULT"}
         >
           <option value="DEFAULT" disabled>
-            Filter by Region
+            {holderF}
           </option>
           {opt.map((reg) => (
             <option key={reg} value={reg} name={reg}>
               {call === "c"
                 ? reg[0].toUpperCase() + reg.slice(1, reg.length)
-                : null}
+                : reg}
             </option>
           ))}
         </select>

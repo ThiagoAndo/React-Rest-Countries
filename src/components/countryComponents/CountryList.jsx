@@ -18,6 +18,8 @@ function CountryList({ countries }) {
       <Search
         opt={["africa", "americas", "asia", "europe", "oceania", "all regions"]}
         call={"c"}
+        holderF={"Filter by Region"}
+        holderS={"Search for a country"}
       />
       <section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (

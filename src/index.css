@@ -40,10 +40,13 @@ nav {
 
 .mainTxt_h {
   color: #000000;
+  margin: 0;
+
 }
 
 .mainTxt_h2 {
   color: #ffffff;
+  margin: 0;
 }
 .mainTxt_h:hover {
   text-shadow: 0.5px 0 1px #000000;

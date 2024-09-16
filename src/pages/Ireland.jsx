@@ -2,31 +2,54 @@ import { ModeAction } from "../store/context/mode";
 import DistrictItem from "../components/IrelandComponents/DistrictItem";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
+import { usePrepareLocation } from "../hooks/usePrepareLocation";
 import Search from "../components/countryComponents/Search";
-export default function DistrictList() {
-  const districts = useSelector((state) => state.location.districts);
-  const sl = districts.slice(0, 3);
-  const context = useContext(ModeAction);
-  console.log("districts");
-  console.log(districts);
+import { Triangle } from "react-loader-spinner";
 
-  const arr = []
+export default function DistrictList() {
+  const conName = useSelector((state) => state.location.conName);
+  const districts = useSelector((state) => state.location.districts);
+
+  usePrepareLocation();
 
   return (
     <>
       <Search
-        opt={["africa", "americas", "asia", "europe", "oceania", "all regions"]}
-        call={"c"}
+        opt={conName}
+        call={"d"}
+        holderF={"Filter by County"}
+        holderS={"Search for a district"}
       />
-
-      <section id="main_district" className={context.mode ? "blight" : "bDark"}>
-        {
-          sl.map((contae,i) => (
-            <DistrictItem key={i} county={contae} />
-          
-          ))
-        }
-      </section>
+      {districts.length === 0 ? (
+        <div id="loading">
+          <Triangle
+            visible={true}
+            height="300"
+            width="300"
+            color="#4fa94d"
+            ariaLabel="triangle-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : (
+        <List />
+      )}
     </>
+  );
+}
+
+function List() {
+  const districts = useSelector((state) => state.location.districts);
+  console.log(districts);
+  console.log("districts");
+  const sl = districts.slice(0, 3);
+  const context = useContext(ModeAction);
+  return (
+    <section id="main_district" className={context.mode ? "blight" : "bDark"}>
+      {sl.map((contae, i) => (
+        <DistrictItem key={i} county={contae} />
+      ))}
+    </section>
   );
 }

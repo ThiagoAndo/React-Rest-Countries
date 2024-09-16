@@ -1,25 +1,27 @@
 import { useContext } from "react";
 import { ModeAction } from "../../store/context/mode";
-import { useNavigate } from "react-router-dom";
+import useThisLocation from "../../hooks/useThisLocation";
 import { useSelector } from "react-redux";
 const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
-
 function MainNavigation() {
   const context = useContext(ModeAction);
-  const navigate = useNavigate();
   const { name } = useSelector((state) => state.location.loc);
-  function setNavigation() {
-    navigate("/ireland");
-  }
+  const { path, navi } = useThisLocation();
+  const msn = path != "/ireland" ? "Show me " : "⬅ Home";
+
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt" onClick={setNavigation}>
+        <div id="mainTxt" onClick={navi}>
           <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
             {name != null ? (
               <>
-                <span>Show me </span>
-                <span style={{ color: "#f5163b" }}>{name}</span>
+                <span>
+                  {msn}
+                  {msn === "Show me " ? (
+                    <span style={{ color: "#f5163b" }}>{name}</span>
+                  ) : null}
+                </span>
               </>
             ) : (
               <span>Conecting...</span>

@@ -1,30 +1,32 @@
-export function getInfo(data, place) {
-  const uper = place.toUpperCase().trim();
-  let found = null;
-  const { features } = data;
+// export function getInfo(data, place) {
+//   const uper = place.toUpperCase().trim();
+//   let found = null;
+//   const { features } = data;
 
-  found = features
-    .map((obj) => {
-      const { attributes } = obj;
-      return attributes;
-    })
-    .filter((county) => {
-      return county.COUNTY === place;
-    });
+//   found = features
+//   setInterval(() => {
+//       .map((obj) => {
+//         const { attributes } = obj;
+//         return attributes;
+//       })
+//   }, interval);
+//     .filter((county) => {
+//       return county.COUNTY === place;
+//     });
 
-  if (found.length <= 0) {
-    found = features
-      .map((obj) => {
-        const { attributes } = obj;
-        return attributes;
-      })
-      .filter((county) => {
-        if (county.ED_ENGLISH.includes(uper)) return county;
-      });
-  }
+//   if (found.length <= 0) {
+//     found = features
+//       .map((obj) => {
+//         const { attributes } = obj;
+//         return attributes;
+//       })
+//       .filter((county) => {
+//         if (county.ED_ENGLISH.includes(uper)) return county;
+//       });
+//   }
 
-  return found;
-}
+//   return found;
+// }
 
 export function preparName(place) {
   let arr;
