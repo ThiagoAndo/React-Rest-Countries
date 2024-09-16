@@ -13,7 +13,7 @@ function HomePage() {
   const { countries } = useRouteLoaderData("main");
   context.stop();
    useGetLocationName();
-
+console.log("HOME RENDERED")
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);

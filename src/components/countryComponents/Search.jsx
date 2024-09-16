@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { fRegion } from "../../store/context/fetchRegion";
-
 function Search({ opt, call }) {
   const context = useContext(ModeAction);
   const regionctx = useContext(fRegion);

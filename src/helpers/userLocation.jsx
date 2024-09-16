@@ -1,5 +1,7 @@
 export function getInfo(data, place) {
   const uper = place.toUpperCase().trim();
+  // console.log('uper')
+  // console.log(uper);
   let found = null;
   const { features } = data;
 
@@ -12,7 +14,6 @@ export function getInfo(data, place) {
       return county.COUNTY === place;
     });
 
-
   if (found.length <= 0) {
     found = features
       .map((obj) => {
@@ -20,7 +21,7 @@ export function getInfo(data, place) {
         return attributes;
       })
       .filter((county) => {
-        if (county.ED_ENGLISH.includes(uper)) return county.ED_ENGLISH;
+        if (county.ED_ENGLISH.includes(uper)) return county;
       });
   }
 

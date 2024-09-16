@@ -10,7 +10,6 @@ import { useContext } from "react";
 function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
   const { state } = useLocation();
-
   let {
     country: [count],
   } = country;

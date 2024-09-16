@@ -1,10 +1,7 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { ModeAction } from "../../store/context/mode";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { locAction } from "../../store/redux/location";
-import { getInfo, preparName } from "../../helpers/userLocation";
+import { useSelector } from "react-redux";
 const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 
 function MainNavigation() {

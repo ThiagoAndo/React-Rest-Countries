@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 function CountryItem({ country }) {
   const context = useContext(ModeAction);
-
   return (
     <Link to={`/${country.name.common}`}>
       <motion.article
