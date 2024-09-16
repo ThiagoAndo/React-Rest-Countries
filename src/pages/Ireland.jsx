@@ -47,7 +47,7 @@ function List() {
   const context = useContext(ModeAction);
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>
-      {sl.map((contae, i) => (
+      {districts.map((contae, i) => (
         <DistrictItem key={i} county={contae} />
       ))}
     </section>
