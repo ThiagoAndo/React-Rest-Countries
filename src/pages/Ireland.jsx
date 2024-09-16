@@ -7,8 +7,8 @@ export default function DistrictList() {
   const districts = useSelector((state) => state.location.districts);
   const sl = districts.slice(0, 3);
   const context = useContext(ModeAction);
-  console.log('sl');
-  console.log(sl);
+  console.log("districts");
+  console.log(districts);
 
   const arr = []
 

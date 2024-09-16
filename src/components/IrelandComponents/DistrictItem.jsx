@@ -72,8 +72,6 @@ function DistrictItem({ county }) {
 }
 
 function CartNav({mode, handleAction, id}) {
-  console.log("id");
-  console.log(id);
   return (
     <li className="nav-item">
       <a

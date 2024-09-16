@@ -80,21 +80,6 @@ function HomePage() {
 
 export default HomePage;
 
-// async function loadCountries() {
-//   const response = await fetch("https://restcountries.com/v3.1/all");
-
-//   if (!response.ok) {
-//     throw json(
-//       { message: "Could not fetch countries." },
-//       {
-//         status: 500,
-//       }
-//     );
-//   } else {
-//     const resData = await response.json();
-//     return resData;
-//   }
-// }
 
 export async function loader() {
   return {

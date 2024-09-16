@@ -13,7 +13,8 @@ const locationSlice = createSlice({
       name: null,
     },
     districts: [],
-    locName: null,
+    data: [],
+    count: 0,
   },
 
   reducers: {
@@ -21,13 +22,36 @@ const locationSlice = createSlice({
       state.loc = action.payload;
     },
 
-    setDistricts(state, action) {
-      state.districts = action.payload.sort((a, b) =>
+    setData(state, action) {
+      state.data = action.payload.sort((a, b) =>
         a.ED_ENGLISH > b.ED_ENGLISH ? 1 : -1
       );
     },
 
 
+  findDistrict(state, action) {
+      const hasLocation = action.payload.hasLoc;
+      if (hasLocation) {
+        const uper = action.payload.name.toUpperCase().trim();
+        console.log(action.payload);
+
+        let found = [];
+        found = state.data.filter((obj) => {
+          return obj.attributes.COUNTY === action.payload.name;
+        });
+
+        if (found.length <= 0) {
+          found = state.data.filter((obj) => {
+            const { attributes } = obj;
+            if (obj.attributes.ED_ENGLISH.includes(uper)) return attributes;
+          });
+        }
+        state.count++;
+        state.districts = found;
+      } else {
+        state.districts = state.data;
+      }
+    },
   },
 });
 
