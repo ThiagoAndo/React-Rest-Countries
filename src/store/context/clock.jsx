@@ -82,6 +82,7 @@ export default function ClockProvider({ children }) {
   }
   function stop() {
     clearInterval(timeInter.current);
+    setTimer(null);
   }
 
   useEffect(() => {

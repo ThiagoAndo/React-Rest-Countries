@@ -28,7 +28,7 @@ function MainNavigation() {
             )}
           </h2>
         </div>
-        <div id="btn" onClick={context.changeMode}>
+        <div id="btn" onClick={context.changeMode }>
           <div className={context.mode ? "" : "filt"}></div>
           <div>
             <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>

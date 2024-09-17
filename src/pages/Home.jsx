@@ -7,11 +7,14 @@ import { Triangle } from "react-loader-spinner";
 import RegionProvider from "../store/context/fetchRegion";
 import { fetchCountries } from "../helpers/HTTP";
 import { usePrepareLocation } from "../hooks/usePrepareLocation";
+import { ModeAction } from "../store/context/mode";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const context = useContext(ClockContext);
+  const ctxtMode = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
   context.stop();
+  ctxtMode.unblockMode()
   usePrepareLocation();
   const handleScroll = () => {
     const position = window.scrollY;

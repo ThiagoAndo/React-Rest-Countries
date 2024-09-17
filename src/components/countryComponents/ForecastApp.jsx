@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TodayWeather from "../foreComp/TodayWeather/TodayWeather";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
@@ -6,13 +6,18 @@ import UTCDatetime from "../foreComp/Reusable/UTCDatetime";
 import LoadingBox from "../foreComp/Reusable/LoadingBox";
 import Logo from "../assets/logo.png";
 import ErrorBox from "../foreComp/Reusable/ErrorBox";
-import { getTodayForecastWeather } from "../../utilities/DataUtils";
-import { getWeekForecastWeather } from "../../utilities/DataUtils";
+import {
+  getTodayForecastWeather,
+  getWeekForecastWeather,
+} from "../../utilities/DataUtils";
 import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "../foreComp/WeeklyForecast/WeeklyForecast";
-let count = 0;
+import { ClockContext } from "../../store/context/clock";
+
 function ForecastApp({ cap, county }) {
+  const context = useContext(ClockContext);
+
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -23,8 +28,6 @@ function ForecastApp({ cap, county }) {
   const fetchPlace = async (cap) => {
     try {
       const citiesList = await fetchCities(cap);
-      console.log(citiesList);
-      console.log("citiesList");
       return citiesList;
     } catch (error) {
       return { error };
@@ -79,22 +82,18 @@ function ForecastApp({ cap, county }) {
       setIsLoading(false);
     }
   };
-  console.log("weekForecast");
-  console.log(weekForecast);
+
   useEffect(() => {
     let ret = null;
     let time = null;
 
     async function loadCoutry() {
       if (county) {
+        context.stop();
         ret = await fetchPlace(cap?.try);
-        console.log(ret);
         if (ret?.message) {
           searchChangeHandler(ret);
         }
-        // console.log("ret");
-        // console.log(ret);
-        // searchChangeHandler(ret);
 
         if (ret?.data.length > 0) {
           searchChangeHandler(ret);
@@ -116,19 +115,15 @@ function ForecastApp({ cap, county }) {
       clearInterval(time);
     };
   }, [cap]);
-  console.log("count");
-  console.log(count);
   let appContent = null;
-  // console.log(todayForecast);
-  // console.log("weekForecast");
 
   if (todayWeather && todayForecast) {
     appContent = (
       <React.Fragment>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <TodayWeather data={todayWeather} forecastList={todayForecast} />
-        </Grid> */}
-        {/* <Grid item xs={12} md={6}>
+        </Grid>
+        {/* <Grid item xs={12} >
           <WeeklyForecast data={weekForecast} />
         </Grid> */}
       </React.Fragment>
@@ -136,7 +131,6 @@ function ForecastApp({ cap, county }) {
   }
 
   if (error) {
-    console.log("r");
     appContent = (
       <ErrorBox
         margin="3rem auto"
