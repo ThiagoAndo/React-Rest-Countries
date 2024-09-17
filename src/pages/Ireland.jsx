@@ -9,7 +9,6 @@ import { Triangle } from "react-loader-spinner";
 export default function DistrictList() {
   const conName = useSelector((state) => state.location.conName);
   const districts = useSelector((state) => state.location.districts);
-
   usePrepareLocation();
 
   return (
@@ -41,13 +40,12 @@ export default function DistrictList() {
 
 function List() {
   const districts = useSelector((state) => state.location.districts);
-  const sl = districts.slice(0, 3);
   const context = useContext(ModeAction);
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>
       {districts.map((contae, i) => (
         <DistrictItem
-          key={contae.attributes.ED_ENGLISH}
+          key={contae.attributes.ED_ENGLISH + i}
           county={contae}
         />
       ))}

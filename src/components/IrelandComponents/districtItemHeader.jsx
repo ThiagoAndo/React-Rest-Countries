@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 export default function CartNav({ mode, handleAction, id, active }) {
   let thisClass = null;
 

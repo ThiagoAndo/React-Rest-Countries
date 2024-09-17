@@ -21,7 +21,7 @@ export default function ScroolBtn() {
   }, []);
   return (
     <AnimatePresence>
-      {scrollPosition >= 150 ? (
+      {scrollPosition >= 950 ? (
         <motion.button
           className="up_btn"
           onClick={handleBtn}

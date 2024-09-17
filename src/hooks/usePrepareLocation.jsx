@@ -56,13 +56,17 @@ export async function usePrepareLocation() {
       weatherResp.data[0].name = namePrepered;
       dispatch(locAction.setLoc(weatherResp.data[0]));
       dispatch(locAction.findDistrict({ name: namePrepered, hasLoc: true }));
-      dispatch(locAction.setSearchValues())
+      dispatch(locAction.setSearchValues());
     }
   }
 
-  function setAllDistricts(weatherResp) {
-    dispatch(locAction.setLoc(weatherResp.data[0]));
-    dispatch(locAction.findDistrict({ hasLoc: false }));
-    dispatch(locAction.setSearchValues())
+  async function setAllDistricts(weatherResp) {
+    censusResp = await fetchCountyInf();
+    if (censusResp.status === 200) {
+      dispatch(locAction.setData(censusResp.data.features));
+      dispatch(locAction.setLoc(weatherResp.data[0]));
+      dispatch(locAction.findDistrict({ hasLoc: false }));
+      dispatch(locAction.setSearchValues());
+    }
   }
 }
