@@ -1,4 +1,4 @@
-import { useRouteLoaderData, useLocation } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Clock from "../clock/Clock";
@@ -9,7 +9,7 @@ import { ModeAction } from "../../store/context/mode";
 import { useContext } from "react";
 function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
-  const { state } = useLocation();
+
   let {
     country: [count],
   } = country;
@@ -155,12 +155,13 @@ function CountryDetailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              <ForecastApp cap={capital} userCity={state} />
+              <div className="weather_cont">
+                <ForecastApp cap={capital} />
+              </div>
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
                 capital={capital[0].replace(" ", "_")}
-                userCity={state}
               />
             </div>
           </div>

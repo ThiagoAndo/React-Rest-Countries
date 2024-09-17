@@ -2,7 +2,6 @@ import { ModeAction } from "../../store/context/mode";
 import { useContext, useRef, useState } from "react";
 import CartNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
-import { motion } from "framer-motion";
 
 export default function DistrictItem({ county }) {
   const [tabActive, setTabActive] = useState("Description");
@@ -11,16 +10,6 @@ export default function DistrictItem({ county }) {
 
   function handleTabClick(id) {
     setTabActive(id);
-  }
-
-  let ThisPanel;
-
-  if (tabActive === "Description") {
-    ThisPanel = <Panel data={county} id={tabActive.slice(0, 3)} />;
-  } else if (tabActive === "Population") {
-    ThisPanel = <Panel data={county} id={tabActive.slice(0, 3)} />;
-
-  } else {
   }
 
     return (
@@ -47,7 +36,7 @@ export default function DistrictItem({ county }) {
             context.mode ? "card-body  active" : "card-body  active-dark"
           }
         >
-          {ThisPanel}
+          <Panel data={county} id={tabActive.slice(0, 3)}/>
         </div>
       </div>
     );

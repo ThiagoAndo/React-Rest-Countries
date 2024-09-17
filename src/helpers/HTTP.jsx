@@ -1,12 +1,14 @@
 import axios from "axios";
 const WEATHER_KEY = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 const TIME_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
+const GEO_KEY = import.meta.env.VITE_GEO_KEY;
+
 const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5";
 const GEO_API_OPTIONS = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "4f0dcce84bmshac9e329bd55fd14p17ec6fjsnff18c2e61917",
+    "X-RapidAPI-Key": GEO_KEY,
     "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
   },
 };
@@ -128,7 +130,6 @@ export async function fetchCities(input) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
-    return;
+    return error;
   }
 }
