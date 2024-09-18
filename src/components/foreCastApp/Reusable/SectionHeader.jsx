@@ -12,14 +12,13 @@ const SectionHeader = ({ title, mb, sc="1" , cl="" }) => {
       sx={{
          fontSize: { xs: "12px", sm: "17px", md: "17px" },
 
-        color: context.mode ? "black" : "white",
+        color:cl === "red"? cl : context.mode ? "black" : "white",
         fontWeight: "600",
         lineHeight: 1,
         textAlign: "center",
         fontFamily: "Roboto Condensed",
         marginBottom: mb ? mb : "1rem",
         scale:sc,
-        color : cl
       }}
     >
       {title}

@@ -5,12 +5,16 @@ export default function useThisLocation() {
   const path = location.pathname;
   const navigate = useNavigate();
   function setNavigation() {
-    const navigat = path === "/ireland" ? "/" : "/ireland";
-
-    navigate(navigat);
+    let url = null;
+    if (path === "/ireland") {
+      navigate("/");
+    }
+    if (path === "/") {
+      navigate("/ireland");
+    }
   }
-  return{
+  return {
     path,
-    navi:setNavigation
-  }
+    navi: setNavigation,
+  };
 }

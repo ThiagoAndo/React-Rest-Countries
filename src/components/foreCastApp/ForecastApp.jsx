@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import TodayWeather from "../foreComp/TodayWeather/TodayWeather";
+import TodayWeather from "./TodayWeather/TodayWeather";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
-import UTCDatetime from "../foreComp/Reusable/UTCDatetime";
-import LoadingBox from "../foreComp/Reusable/LoadingBox";
+import UTCDatetime from "./Reusable/UTCDatetime";
+import LoadingBox from "./Reusable/LoadingBox";
 import Logo from "../assets/logo.png";
-import ErrorBox from "../foreComp/Reusable/ErrorBox";
+import ErrorBox from "./Reusable/ErrorBox";
 import {
   getTodayForecastWeather,
   getWeekForecastWeather,
 } from "../../utilities/DataUtils";
 import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
-import WeeklyForecast from "../foreComp/WeeklyForecast/WeeklyForecast";
-import SectionHeader from "../foreComp/Reusable/SectionHeader";
-function ForecastApp({ cap, county }) {
-  // const context = useContext(ClockContext);
-
+import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
+import SectionHeader from "./Reusable/SectionHeader";
+function ForecastApp({ cap, call }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -87,7 +85,7 @@ function ForecastApp({ cap, county }) {
     let time = null;
 
     async function loadCoutry() {
-      if (county) {
+      if (call?.county) {
         ret = await fetchPlace(cap?.try);
         if (ret?.message) {
           searchChangeHandler(ret);
@@ -116,24 +114,38 @@ function ForecastApp({ cap, county }) {
   let appContent = null;
   console.log(todayWeather);
   console.log("todayWeather");
-  if (todayWeather && todayForecast) {
+
+  if (todayWeather && todayForecast && call === "country") {
     appContent = (
-      <React.Fragment>
-        <Grid item xs={12}>
-          {cap?.try != todayWeather.name ? (
-            <SectionHeader
-              title={`No data found for ${cap?.try}`}
-              cl={"red"}
-              sc={"0.7"}
-              mb={"-1rem"}
-            />
-          ) : null}
-          <TodayWeather data={todayWeather} forecastList={todayForecast} />
-        </Grid>
-        {/* <Grid item xs={12} >
-          <WeeklyForecast data={weekForecast} />
-        </Grid> */}
-      </React.Fragment>
+      <Container>
+        <TodayWeather data={todayWeather} forecastList={todayForecast} />
+      </Container>
+    );
+  }
+
+  if (todayWeather && todayForecast && call?.county) {
+    let thisBody = null;
+    let retName = todayWeather.name.toUpperCase();
+
+    if (call?.today) {
+      thisBody = (
+        <TodayWeather data={todayWeather} forecastList={todayForecast} />
+      );
+    } else if (call?.week) {
+      thisBody = <WeeklyForecast data={weekForecast} />;
+    }
+    appContent = (
+      <Container>
+        {cap?.try != retName ? (
+          <SectionHeader
+            title={`No data found for ${cap?.try}`}
+            cl={"red"}
+            sc={"0.7"}
+            mb={"-1rem"}
+          />
+        ) : null}
+        {thisBody}
+      </Container>
     );
   }
 
@@ -219,6 +231,16 @@ function ForecastApp({ cap, county }) {
       </Grid>
       {appContent}
     </Grid>
+  );
+}
+
+function Container({ children }) {
+  return (
+    <React.Fragment>
+      <Grid item xs={12}>
+        {children}
+      </Grid>
+    </React.Fragment>
   );
 }
 

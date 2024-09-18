@@ -1,4 +1,4 @@
-import ForecastApp from "../countryComponents/ForecastApp";
+import ForecastApp from "../foreCastApp/ForecastApp";
 export default function Panel({ data, id }) {
   const { attributes } = data;
 
@@ -50,7 +50,10 @@ function PanelText({ attributes, id }) {
   } else {
     return (
       <div className="weather_cont_county">
-        <ForecastApp cap={{ try: weather, try_2: COUNTY }} county={true} />
+        <ForecastApp
+          cap={{ try: weather, try_2: COUNTY }}
+          call={{ county: true, today: true }}
+        />
       </div>
     );
   }

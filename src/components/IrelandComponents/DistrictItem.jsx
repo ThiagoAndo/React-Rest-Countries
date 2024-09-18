@@ -49,53 +49,7 @@ export default function DistrictItem({ county }) {
     role="tabpanel"
     aria-labelledby="deals-tab"
   >
-    {/* <p className="card-text">
-              Immerse yourself in the colours, aromas and traditions of
-              Emilia-Romagna with a holiday in Bologna, and discover the city's
-              rich artistic heritage.
-            </p>
-            <a href="#" className="btn btn-danger btn-sm">
-              Get Deals
-            </a> */}
+  
   </div>
 </div>;
 
-//  <Link to={`/${country.name.common}`}>
-//     <motion.article
-//       transition={{ type: "spring" }}
-//       key={country.name.common}
-//       whileHover={{
-//         scale: [0.95, 1.3, 1],
-//         boxShadow: "0px 0px 6px 0px #888888",
-//       }}
-//       classNameName={context.mode ? "light" : "dark"}
-//       style={
-//         context.mode
-//           ? {
-//               border: "black solid 1px",
-//               boxShadow: "0px 0px 4px 0px #888888",
-//             }
-//           : null
-//       }
-//       id={country.name.common}
-//     >
-//       <div style={{ backgroundImage: `url(${country.flags.png})` }}> </div>
-//       <div>
-//         <div classNameName="infoBox">
-//           <h3>{country.name.common}</h3>
-//           <p>
-//             <strong>Population: </strong>
-//             {country.population}
-//           </p>
-//           <p>
-//             <strong>Region: </strong>
-//             {country.region}
-//           </p>
-//           <p>
-//             <strong>Capital: </strong>
-//             {country.capital}
-//           </p>
-//         </div>
-//       </div>
-//     </motion.article>
-//   </Link>
