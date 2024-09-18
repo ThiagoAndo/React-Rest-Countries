@@ -18,11 +18,12 @@ function ForecastApp({ cap, call }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
-
   const fetchPlace = async (cap) => {
+    console.log("chamo");
+
     try {
       const citiesList = await fetchCities(cap);
       return citiesList;
@@ -99,7 +100,7 @@ function ForecastApp({ cap, call }) {
           time = setTimeout(async () => {
             ret = await fetchPlace(cap?.try_2);
             searchChangeHandler(ret);
-          }, 1000);
+          }, 1200);
         }
       } else {
         ret = await fetchPlace(cap);

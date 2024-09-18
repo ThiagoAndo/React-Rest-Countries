@@ -12,11 +12,8 @@ import { useContext } from "react";
 import { ClockContext } from "../../../store/context/clock";
 
 const WeeklyForecast = ({ data }) => {
-  const context = useContext(ClockContext);
-  context.stop()
   const forecastDays = getWeekDays();
-  // console.log(data);
-  // console.log("data");
+ 
   const noDataProvided =
     !data ||
     Object.keys(data).length === 0 ||

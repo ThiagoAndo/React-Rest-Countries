@@ -19,9 +19,6 @@ import img_50n from "../../assets/icons/50n.png";
 import img_unknown from "../../assets/icons/unknown.png";
 
 export const pickImage = (img) => {
-  console.log(img);
-  console.log("img");
-  // const skillID = skill.toLowerCase();
   switch (img) {
     case "01d.png":
       return img_01d;

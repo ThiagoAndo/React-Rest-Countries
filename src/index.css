@@ -5,6 +5,8 @@
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
+  transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 body {
@@ -194,7 +196,7 @@ a:hover {
 
 .weather_cont_county {
   margin: 0;
-  height: 18rem;
+  height: fit-content;
   box-shadow: 1px 2px 30px #00000033;
   border-radius: 1rem;
 }
@@ -580,12 +582,18 @@ a:hover {
 }
 
 .card {
-  height: fit-content;
+  min-height: fit-content;
+  animation-name: example;
+  animation-duration: 3s;
 }
-
+@keyframes example {
+  from { min-height: fit-content;}
+  to { height: fit-content;}
+}
 .nav {
   flex-wrap: nowrap;
 }
+
 /* Scrool Btn ========================== */
 .up_btn {
   position: fixed;
@@ -894,6 +902,7 @@ a:hover {
   }
   .icon {
     scale: 1.5;
+    margin-bottom: 0.6rem;
   }
 }
 
@@ -933,5 +942,6 @@ a:hover {
 
   .icon {
     scale: 1.5;
+    margin-bottom: 0.6rem;
   }
 }
