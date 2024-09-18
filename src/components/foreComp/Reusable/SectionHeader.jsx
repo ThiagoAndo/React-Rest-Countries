@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { ModeAction } from '../../../store/context/mode';
 import { useContext } from "react";
 
-const SectionHeader = ({ title, mb }) => {
+const SectionHeader = ({ title, mb, sc="1" , cl="" }) => {
   const context = useContext(ModeAction);
 
   return (
@@ -18,6 +18,8 @@ const SectionHeader = ({ title, mb }) => {
         textAlign: "center",
         fontFamily: "Roboto Condensed",
         marginBottom: mb ? mb : "1rem",
+        scale:sc,
+        color : cl
       }}
     >
       {title}

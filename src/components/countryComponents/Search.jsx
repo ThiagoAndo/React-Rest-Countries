@@ -6,18 +6,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { locAction } from "../../store/redux/location";
 import { useNavigate } from "react-router-dom";
 import useThisLocation from "../../hooks/useThisLocation";
-
 import { fRegion } from "../../store/context/fetchRegion";
 function Search({ opt, call, holderF, holderS }) {
+  let options = [];
   const dispatch = useDispatch();
   const context = useContext(ModeAction);
   const regionctx = useContext(fRegion);
   const districts = useSelector((state) => state.location.disName);
   const { path } = useThisLocation();
-  console.log();
   const { countries } = useRouteLoaderData("main");
   const [coutry, sentCountry] = useState();
   const navigate = useNavigate();
+
+  if (call === "c") {
+    options = opt;
+  } else {
+    options = [...opt];
+    options.unshift("All Counties");
+  }
+
   async function resolveCoutries(con) {
     let count = await con;
     count = count.map((cnt) => {
@@ -48,14 +55,13 @@ function Search({ opt, call, holderF, holderS }) {
   }
 
   function handleEvent(e) {
-
+    context.unblockMode()
     if (path === "/ireland") {
       dispatch(locAction.findDistrict({ name: e.target.value, hasLoc: true }));
     } else {
-          console.log(e.target.value);
-          regionctx.changeRegion(e.target.value);
+      console.log(e.target.value);
+      regionctx.changeRegion(e.target.value);
     }
-
   }
 
   return (
@@ -105,7 +111,7 @@ function Search({ opt, call, holderF, holderS }) {
           <option value="DEFAULT" disabled>
             {holderF}
           </option>
-          {opt.map((reg) => (
+          {options.map((reg) => (
             <option key={reg} value={reg} name={reg}>
               {call === "c"
                 ? reg[0].toUpperCase() + reg.slice(1, reg.length)

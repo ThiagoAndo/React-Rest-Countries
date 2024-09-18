@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 export const ModeAction = createContext({
   mode: null,
+  isBlocked: false,
   changeMode: () => {},
   blockMode: () => {},
   unblockMode: () => {},
@@ -23,9 +24,10 @@ export default function ModeProvider({ children }) {
   function unblockMode() {
     setBlock(true);
   }
-// console.log(block)
+  // console.log(block)
   const ctxValue = {
     mode,
+    isBlocked: block,
     changeMode,
     unblockMode,
     blockMode,

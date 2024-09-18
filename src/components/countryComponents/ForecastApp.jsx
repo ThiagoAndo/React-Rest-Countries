@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TodayWeather from "../foreComp/TodayWeather/TodayWeather";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
@@ -13,10 +13,9 @@ import {
 import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "../foreComp/WeeklyForecast/WeeklyForecast";
-import { ClockContext } from "../../store/context/clock";
-
+import SectionHeader from "../foreComp/Reusable/SectionHeader";
 function ForecastApp({ cap, county }) {
-  const context = useContext(ClockContext);
+  // const context = useContext(ClockContext);
 
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
@@ -89,7 +88,6 @@ function ForecastApp({ cap, county }) {
 
     async function loadCoutry() {
       if (county) {
-        context.stop();
         ret = await fetchPlace(cap?.try);
         if (ret?.message) {
           searchChangeHandler(ret);
@@ -116,11 +114,20 @@ function ForecastApp({ cap, county }) {
     };
   }, [cap]);
   let appContent = null;
-
+  console.log(todayWeather);
+  console.log("todayWeather");
   if (todayWeather && todayForecast) {
     appContent = (
       <React.Fragment>
         <Grid item xs={12}>
+          {cap?.try != todayWeather.name ? (
+            <SectionHeader
+              title={`No data found for ${cap?.try}`}
+              cl={"red"}
+              sc={"0.7"}
+              mb={"-1rem"}
+            />
+          ) : null}
           <TodayWeather data={todayWeather} forecastList={todayForecast} />
         </Grid>
         {/* <Grid item xs={12} >

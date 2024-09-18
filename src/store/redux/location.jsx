@@ -32,7 +32,8 @@ const locationSlice = createSlice({
 
     findDistrict(state, action) {
       const hasLocation = action.payload.hasLoc;
-      if (hasLocation) {
+      const showAll = action.payload.name != "All Counties";
+      if (hasLocation && showAll) {
         const uper = action.payload.name.toUpperCase().trim();
 
         let found = [];
@@ -57,8 +58,8 @@ const locationSlice = createSlice({
         return obj.attributes.COUNTY;
       });
 
-      state.data.map((obj,i) => {
-        state.disName.push({id:i,name:obj.attributes.ED_ENGLISH});
+      state.data.map((obj, i) => {
+        state.disName.push({ id: i, name: obj.attributes.ED_ENGLISH });
       });
 
       state.conName = [...new Set(allCounty)];

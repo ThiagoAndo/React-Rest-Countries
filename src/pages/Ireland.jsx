@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { usePrepareLocation } from "../hooks/usePrepareLocation";
 import Search from "../components/countryComponents/Search";
 import { Triangle } from "react-loader-spinner";
+import { ClockContext } from "../store/context/clock";
 
 export default function DistrictList() {
   const conName = useSelector((state) => state.location.conName);
@@ -41,13 +42,12 @@ export default function DistrictList() {
 function List() {
   const districts = useSelector((state) => state.location.districts);
   const context = useContext(ModeAction);
+  const txtClock = useContext(ClockContext);
+  txtClock.stop();
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>
       {districts.map((contae, i) => (
-        <DistrictItem
-          key={contae.attributes.ED_ENGLISH + i}
-          county={contae}
-        />
+        <DistrictItem key={contae.attributes.ED_ENGLISH + i} county={contae} />
       ))}
     </section>
   );
