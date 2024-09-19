@@ -50,7 +50,7 @@ export async function usePrepareLocation() {
 
   async function fetchLocInf(weatherResp) {
     censusResp = await fetchCountyInf();
-    if (censusResp.status === 200) {
+    if (censusResp?.status === 200) {
       dispatch(locAction.setData(censusResp.data.features));
       const namePrepered = preparName(weatherResp.data[0].name);
       weatherResp.data[0].name = namePrepered;
@@ -62,7 +62,7 @@ export async function usePrepareLocation() {
 
   async function setAllDistricts(weatherResp) {
     censusResp = await fetchCountyInf();
-    if (censusResp.status === 200) {
+    if (censusResp?.status === 200) {
       dispatch(locAction.setData(censusResp.data.features));
       dispatch(locAction.setLoc(weatherResp.data[0]));
       dispatch(locAction.findDistrict({ hasLoc: false }));

@@ -52,7 +52,7 @@ function PanelText({ attributes, id }) {
       <div className="weather_cont_county">
         <ForecastApp
           cap={{ try: weather, try_2: COUNTY }}
-          call={{ county: true, today: true, }}
+          call={{ county: true, week: true }}
         />
       </div>
     );

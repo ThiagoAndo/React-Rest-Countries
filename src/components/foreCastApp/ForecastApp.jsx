@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TodayWeather from "./TodayWeather/TodayWeather";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
@@ -14,6 +14,20 @@ import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import SectionHeader from "./Reusable/SectionHeader";
+
+const WeatherContext = createContext({ shoDetail :undefined});
+export function useWeatherContext() {
+  const ctx = useContext(WeatherContext);
+
+  if (!ctx) {
+    throw new Error(
+      "Weather-related components must be wrapped by <Accordion>."
+    );
+  }
+
+  return ctx;
+}
+
 function ForecastApp({ cap, call }) {
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
@@ -86,25 +100,29 @@ function ForecastApp({ cap, call }) {
     let time = null;
 
     async function loadCoutry() {
-      if (call?.county) {
-        ret = await fetchPlace(cap?.try);
-        if (ret?.message) {
-          searchChangeHandler(ret);
-        }
+      if (todayWeather === null) {
+        console.log("chamo");
 
-        if (ret?.data.length > 0) {
-          searchChangeHandler(ret);
-        }
-
-        if (ret?.data.length === 0) {
-          time = setTimeout(async () => {
-            ret = await fetchPlace(cap?.try_2);
+        if (call?.county) {
+          ret = await fetchPlace(cap?.try);
+          if (ret?.message) {
             searchChangeHandler(ret);
-          }, 1200);
+          }
+
+          if (ret?.data.length > 0) {
+            searchChangeHandler(ret);
+          }
+
+          if (ret?.data.length === 0) {
+            time = setTimeout(async () => {
+              ret = await fetchPlace(cap?.try_2);
+              searchChangeHandler(ret);
+            }, 1200);
+          }
+        } else {
+          ret = await fetchPlace(cap);
+          searchChangeHandler(ret);
         }
-      } else {
-        ret = await fetchPlace(cap);
-        searchChangeHandler(ret);
       }
     }
     loadCoutry();
@@ -113,8 +131,6 @@ function ForecastApp({ cap, call }) {
     };
   }, [cap]);
   let appContent = null;
-  console.log(todayWeather);
-  console.log("todayWeather");
 
   if (todayWeather && todayForecast && call === "country") {
     appContent = (
@@ -133,7 +149,12 @@ function ForecastApp({ cap, call }) {
         <TodayWeather data={todayWeather} forecastList={todayForecast} />
       );
     } else if (call?.week) {
-      thisBody = <WeeklyForecast data={weekForecast} />;
+      thisBody = (
+        <>
+          <TodayWeather data={todayWeather} forecastList={todayForecast} />
+          <WeeklyForecast data={weekForecast} />;
+        </>
+      );
     }
     appContent = (
       <Container>
@@ -202,36 +223,40 @@ function ForecastApp({ cap, call }) {
       </Box>
     );
   }
-
+  const contextValue = {
+    shoDetail: call === "country" ? false : true,
+  };
   return (
-    <Grid container columnSpacing={4}>
-      <Grid item xs={12}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{
-            width: "100%",
-            marginBottom: "1rem",
-            padding: "1rem .3rem 0rem",
-          }}
-        >
+    <WeatherContext.Provider value={contextValue}>
+      <Grid container columnSpacing={4}>
+        <Grid item xs={12}>
           <Box
-            component="img"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
             sx={{
-              height: { xs: "9px", sm: "17px", md: "20px" },
-              width: "auto",
-              marginRight: "10px",
+              width: "100%",
+              marginBottom: "1rem",
+              padding: "1rem .3rem 0rem",
             }}
-            alt="logo"
-            src={Logo}
-          />
+          >
+            <Box
+              component="img"
+              sx={{
+                height: { xs: "9px", sm: "17px", md: "20px" },
+                width: "auto",
+                marginRight: "10px",
+              }}
+              alt="logo"
+              src={Logo}
+            />
 
-          <UTCDatetime />
-        </Box>
+            <UTCDatetime />
+          </Box>
+        </Grid>
+        {appContent}
       </Grid>
-      {appContent}
-    </Grid>
+    </WeatherContext.Provider>
   );
 }
 
@@ -244,5 +269,6 @@ function Container({ children }) {
     </React.Fragment>
   );
 }
+
 
 export default ForecastApp;

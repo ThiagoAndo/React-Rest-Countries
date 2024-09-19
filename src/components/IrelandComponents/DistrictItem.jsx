@@ -1,7 +1,9 @@
 import { ModeAction } from "../../store/context/mode";
 import { useContext, useState } from "react";
-import CartNav from "./districtItemHeader";
+import { motion } from "framer-motion";
+import CardNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
+
 
 export default function DistrictItem({ county }) {
   const [tabActive, setTabActive] = useState("Description");
@@ -12,7 +14,7 @@ export default function DistrictItem({ county }) {
   }
 
   return (
-    <div className="card">
+    <motion.div className="card">
       <div className={context.mode ? "card-header" : "card-header dark"}>
         <ul
           className="nav nav-tabs card-header-tabs"
@@ -20,7 +22,7 @@ export default function DistrictItem({ county }) {
           role="tablist"
         >
           {["Description", "Population", "Weather"].map((tab) => (
-            <CartNav
+            <CardNav
               key={tab}
               id={tab}
               active={tabActive}
@@ -37,7 +39,7 @@ export default function DistrictItem({ county }) {
       >
         <Panel data={county} id={tabActive.slice(0, 3)} />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

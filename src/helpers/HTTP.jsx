@@ -19,8 +19,8 @@ export async function fetchCountries() {
   } catch (error) {
     console.log("fetchCountries error: " + error);
   }
-  if (response.status === 200) {
-    return response.data;
+  if (response?.status === 200) {
+    return response?.data;
   }
 }
 export async function fetchRegion(region) {
@@ -35,8 +35,8 @@ export async function fetchRegion(region) {
   } catch (error) {
     console.log("fetchRegion error: " + error);
   }
-  if (response.status === 200) {
-    return response.data;
+  if (response?.status === 200) {
+    return response?.data;
   }
 }
 export async function fetchZone(coutry) {
@@ -49,7 +49,7 @@ export async function fetchZone(coutry) {
     console.log("loadZone error: " + error);
   }
   if (response?.ok) {
-    const resData = await response.json();
+    const resData = await response?.json();
     return resData;
   } else {
     return undefined;
@@ -66,7 +66,7 @@ export async function loadTimeZone(zone) {
   }
 
   if (response?.ok) {
-    const resData = await response.json();
+    const resData = await response?.json();
     return resData;
   } else {
     return undefined;
@@ -81,7 +81,7 @@ export async function fetchCounty(lat, lon) {
   } catch (error) {
     console.log(error);
   }
-  if (response.status === 200) {
+  if (response?.status === 200) {
     return response;
   } else {
     return undefined;
@@ -96,7 +96,7 @@ export async function fetchCountyInf() {
   } catch (error) {
     console.log(error);
   }
-  if (response.status === 200) {
+  if (response?.status === 200) {
     return response;
   } else {
     return undefined;
@@ -127,7 +127,7 @@ export async function fetchCities(input) {
       GEO_API_OPTIONS
     );
 
-    const data = await response.json();
+    const data = await response?.json();
     return data;
   } catch (error) {
     return error;

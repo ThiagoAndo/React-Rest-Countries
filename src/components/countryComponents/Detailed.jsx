@@ -1,12 +1,11 @@
 import { useRouteLoaderData } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Clock from "../clock/Clock";
 import Borders from "./Borders";
 import ForecastApp from "../foreCastApp/ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
-import { useContext } from "react";
 function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
 

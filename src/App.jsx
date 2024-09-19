@@ -8,6 +8,7 @@ import RootLayout from "./pages/Root";
 import DistrictList from "./pages/Ireland";
 import { useContext } from "react";
 import { ModeAction } from "./store/context/mode";
+import WeatherDetail from "./components/IrelandComponents/weatherDetail";
 
 const router = createBrowserRouter([
   {
@@ -17,25 +18,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: countriesLoader,
     children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
+      { index: true, element: <HomePage />,},
       {
         path: ":countName",
         element: <CountryDetail />,
         loader: countryDetailLoader,
       },
+      { path: "ireland", element: <DistrictList /> },
       {
-        path: "ireland",
-        element: <DistrictList />,
-        id: "userLoc",
-        children: [
-          {
-            path: ":locName",
-            element: <CountryDetail />,
-          },
-        ],
+        path: "ireland/:loocName",
+        element: <WeatherDetail />,
       },
     ],
   },

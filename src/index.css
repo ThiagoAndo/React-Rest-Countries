@@ -5,8 +5,7 @@
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
-  transition: all 200ms ease;
-  -webkit-transition: all 200ms ease;
+ 
 }
 
 body {
@@ -401,6 +400,7 @@ a:hover {
 
 .App {
   font-family: sans-serif;
+
 }
 .clock h3 {
   position: relative;
@@ -421,6 +421,8 @@ a:hover {
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
   font-size: 15px;
   text-align: center;
+     transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 .clock::after {
@@ -435,6 +437,8 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid #fff;
+     transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 .hour_hand {
@@ -444,7 +448,8 @@ a:hover {
   background: #000000;
   top: 24.5%;
   left: 48%;
-
+   transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
   transform-origin: bottom;
 }
 
@@ -456,6 +461,8 @@ a:hover {
   top: 22%;
   left: 49%;
   transform-origin: bottom;
+     transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 .sec_hand {
@@ -466,12 +473,16 @@ a:hover {
   top: 12.5%;
   left: 50%;
   transform-origin: bottom;
+     transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 .clock span {
   position: absolute;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
+     transition: all 200ms ease;
+  -webkit-transition: all 200ms ease;
 }
 
 .twelve {
@@ -583,13 +594,8 @@ a:hover {
 
 .card {
   min-height: fit-content;
-  animation-name: example;
-  animation-duration: 3s;
-}
-@keyframes example {
-  from { min-height: fit-content;}
-  to { height: fit-content;}
-}
+  } 
+
 .nav {
   flex-wrap: nowrap;
 }
