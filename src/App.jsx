@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       { path: "ireland", element: <DistrictList /> },
       {
-        path: "ireland/:loocName",
+        path: "ireland/weather",
         element: <WeatherDetail />,
       },
     ],

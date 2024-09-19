@@ -3,13 +3,18 @@ import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import CardNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
-
+import { useNavigate } from "react-router-dom";
 
 export default function DistrictItem({ county }) {
   const [tabActive, setTabActive] = useState("Description");
   const context = useContext(ModeAction);
-
+  const navigate = useNavigate();
+  const { attributes } = county;
+ 
   function handleTabClick(id) {
+    if (id === "Weather") {
+      navigate("weather", { state: attributes });
+    }
     setTabActive(id);
   }
 

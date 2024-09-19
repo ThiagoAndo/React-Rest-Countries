@@ -23,38 +23,27 @@ function PanelText({ attributes, id }) {
     weather = ED_ENGLISH;
   }
 
-  if (id != "Wea") {
-    return (
-      <>
-        <h4 className="card-title">{ED_ENGLISH}</h4>
-        <div className="infoBox">
-          <p>
-            <strong>{id === "Des" ? "Contae: " : "Single Male: "}</strong>
-            {id === "Des" ? CONTAE : T1_2SGLM.toLocaleString("en-US")}
-          </p>
-          <p>
-            <strong>{id === "Des" ? "County: " : "Total Male: "}</strong>
-            {id === "Des" ? COUNTY : T1_1AGETF.toLocaleString("en-US")}
-          </p>
-          <p>
-            <strong>{id === "Des" ? "Province: " : "Single Females: "}</strong>
-            {id === "Des" ? PROVINCE : T1_2SGLF.toLocaleString("en-US")}
-          </p>
-          <p>
-            <strong>{id === "Des" ? "Population: " : "Total Female: "}</strong>
-            {id === "Des" ? T1_1AGETT : T1_1AGETM.toLocaleString("en-US")}
-          </p>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <div className="weather_cont_county">
-        <ForecastApp
-          cap={{ try: weather, try_2: COUNTY }}
-          call={{ county: true, week: true }}
-        />
+  return (
+    <>
+      <h4 className="card-title">{ED_ENGLISH}</h4>
+      <div className="infoBox">
+        <p>
+          <strong>{id === "Des" ? "Contae: " : "Single Male: "}</strong>
+          {id === "Des" ? CONTAE : T1_2SGLM.toLocaleString("en-US")}
+        </p>
+        <p>
+          <strong>{id === "Des" ? "County: " : "Total Male: "}</strong>
+          {id === "Des" ? COUNTY : T1_1AGETF.toLocaleString("en-US")}
+        </p>
+        <p>
+          <strong>{id === "Des" ? "Province: " : "Single Females: "}</strong>
+          {id === "Des" ? PROVINCE : T1_2SGLF.toLocaleString("en-US")}
+        </p>
+        <p>
+          <strong>{id === "Des" ? "Population: " : "Total Female: "}</strong>
+          {id === "Des" ? T1_1AGETT : T1_1AGETM.toLocaleString("en-US")}
+        </p>
       </div>
-    );
-  }
+    </>
+  );
 }

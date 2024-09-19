@@ -30,8 +30,6 @@ export default function DistrictList() {
             width="300"
             color="#4fa94d"
             ariaLabel="triangle-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
           />
         </div>
       ) : (
