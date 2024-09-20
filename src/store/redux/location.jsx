@@ -22,6 +22,9 @@ const locationSlice = createSlice({
   reducers: {
     setLoc(state, action) {
       state.loc = action.payload;
+      if (action.payload.name != "Ireland") {
+        state.loc.name = action.payload.name;
+      }
     },
 
     setData(state, action) {
@@ -49,6 +52,11 @@ const locationSlice = createSlice({
         }
         state.count++;
         state.districts = found;
+        if (found?.length > 0) {
+          state.loc.name = action.payload.name;
+          console.log("state.loc.name");
+          console.log(state.loc.name);
+        }
       } else {
         state.districts = state.data;
       }

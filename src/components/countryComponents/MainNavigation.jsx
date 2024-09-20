@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { ModeAction } from "../../store/context/mode";
 import useThisLocation from "../../hooks/useThisLocation";
 import { useSelector } from "react-redux";
-const key = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 function MainNavigation() {
   const context = useContext(ModeAction);
   const { isBlocked } = useContext(ModeAction);
@@ -40,7 +39,7 @@ function MainNavigation() {
   return (
     <header>
       <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt" onClick={navi}>
+        <div id="mainTxt" onClick={name != null ? navi : null}>
           {content}
         </div>
         <div id="btn" onClick={context.changeMode}>

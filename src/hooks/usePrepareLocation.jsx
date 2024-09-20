@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { locAction } from "../store/redux/location";
 import { preparName } from "../helpers/preparLocName";
-import { fetchCounty, fetchCountyInf } from "../helpers/HTTP";
+import { fetchCounty, fetchCountyInf, fetchByCode } from "../helpers/HTTP";
 export async function usePrepareLocation() {
   const districts = useSelector((state) => state.location.districts);
   const count = useSelector((state) => state.location.count);
@@ -22,8 +22,8 @@ export async function usePrepareLocation() {
     location = position.coords;
     const { latitude: lat, longitude: lon } = position.coords;
     // Cordintation Test:(
-    // const lat = 53.55254694138004;
-    // const lon = -6.790924072265626;
+    // const lat = 38.685509760012025;
+    // const lon = -9.343872070312502;
     //                    )
     weatherResp = await fetchCounty(lat, lon);
     if (weatherResp != undefined) {
@@ -49,20 +49,35 @@ export async function usePrepareLocation() {
   }
 
   async function fetchLocInf(weatherResp) {
-    censusResp = await fetchCountyInf();
-    if (censusResp?.status === 200) {
-      dispatch(locAction.setData(censusResp.data.features));
-      const namePrepered = preparName(weatherResp.data[0].name);
-      weatherResp.data[0].name = namePrepered;
-      dispatch(locAction.setLoc(weatherResp.data[0]));
-      dispatch(locAction.findDistrict({ name: namePrepered, hasLoc: true }));
-      dispatch(locAction.setSearchValues());
+    const n = weatherResp.data[0].country;
+    if (n === "IE") {
+      censusResp = await fetchCountyInf();
+      if (censusResp?.status === 200) {
+        dispatch(locAction.setData(censusResp.data.features));
+        const namePrepered = preparName(weatherResp.data[0].name);
+        dispatch(locAction.findDistrict({ name: namePrepered, hasLoc: true }));
+        dispatch(locAction.setSearchValues());
+      }
+    } else {
+      const resp = await fetchByCode(n);
+      if (resp != undefined) {
+        console.log(resp[0]);
+      dispatch(
+        locAction.setLoc({
+          country: "IE",
+          lat: 53.3332136,
+          lon: -6.546788917958724,
+          name: resp[0].name.common,
+        })
+      );
+
+      }
     }
   }
 
   async function setAllDistricts(weatherResp) {
     censusResp = await fetchCountyInf();
-    if (censusResp?.status === 200) {
+    if (censusResp.status === 200) {
       dispatch(locAction.setData(censusResp.data.features));
       dispatch(locAction.setLoc(weatherResp.data[0]));
       dispatch(locAction.findDistrict({ hasLoc: false }));

@@ -39,7 +39,23 @@ export async function fetchRegion(region) {
     return response?.data;
   }
 }
-export async function fetchZone(coutry) {
+export async function fetchByCode(code) {
+  let response;
+
+  try {
+    response = await axios.get(
+      `https://restcountries.com/v3.1/alpha?codes=${code}`
+    );
+  } catch (error) {
+    console.log("fetchRegion error: " + error);
+  }
+  if (response?.status === 200) {
+    return response?.data;
+  }else{
+    return undefined
+  }
+}
+ export async function fetchZone(coutry) {
   let response;
   try {
     response = await fetch(
