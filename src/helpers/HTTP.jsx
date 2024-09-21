@@ -2,8 +2,9 @@ import axios from "axios";
 const WEATHER_KEY = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 const TIME_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
 const GEO_KEY = import.meta.env.VITE_GEO_KEY;
+const GEOPIFY = import.meta.env.VITE_GEOPIFY;
 
-const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
+const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo"; 
 const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5";
 const GEO_API_OPTIONS = {
   method: "GET",
@@ -24,6 +25,8 @@ export async function fetchCountries() {
   }
 }
 export async function fetchRegion(region) {
+  //API SOURCE:
+  // https://restcountries.com/
   let url;
   let response;
   if (region != "all regions")
@@ -40,8 +43,10 @@ export async function fetchRegion(region) {
   }
 }
 export async function fetchByCode(code) {
-  let response;
 
+  //API SOURCE:
+  // https://restcountries.com/
+  let response;
   try {
     response = await axios.get(
       `https://restcountries.com/v3.1/alpha?codes=${code}`
@@ -50,16 +55,19 @@ export async function fetchByCode(code) {
     console.log("fetchRegion error: " + error);
   }
   if (response?.status === 200) {
+    
     return response?.data;
-  }else{
-    return undefined
+  } else {
+    return undefined;
   }
 }
- export async function fetchZone(coutry) {
+export async function fetchZone(coutry) {
+  //API SOURCE:
+  //https://timezonedb.com/
   let response;
   try {
     response = await fetch(
-      `https://api.timezonedb.com/v2.1/list-time-zone?key=${TIME_KEY}&format=json&country=${coutry?.cca2}`
+      `https://api.timezonedb.com/v2.1/list-time-zone?key=${TIME_KEY}&format=json&country=${coutry?.cca2}` //https://timezonedb.com/
     );
   } catch (error) {
     console.log("loadZone error: " + error);
@@ -72,6 +80,8 @@ export async function fetchByCode(code) {
   }
 }
 export async function loadTimeZone(zone) {
+  //API SOURCE:
+  // https://timezonedb.com/
   let response;
   try {
     response = await fetch(
@@ -89,6 +99,8 @@ export async function loadTimeZone(zone) {
   }
 }
 export async function fetchCounty(lat, lon) {
+  //API SOURCE:
+  // https://openweathermap.org/
   let response;
   try {
     response = await axios.get(
@@ -104,6 +116,8 @@ export async function fetchCounty(lat, lon) {
   }
 }
 export async function fetchCountyInf() {
+  //API SOURCE:
+  //https://census2016.geohive.ie/datasets/geohive::population-by-sex-and-marital-status-constituencies-census-2016-theme-1-2-ireland-2016-cso-osi/explore?showTable=true
   let response;
   try {
     response = await axios.get(
@@ -119,8 +133,9 @@ export async function fetchCountyInf() {
   }
 }
 export async function fetchWeatherData(lat, lon) {
+  //API SOURCE:
+  // https://openweathermap.org/
   const url = `${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`;
-
   try {
     let [weatherPromise, forcastPromise] = await Promise.all([
       fetch(url),
@@ -128,7 +143,6 @@ export async function fetchWeatherData(lat, lon) {
         `${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
       ),
     ]);
-
     const weatherResponse = await weatherPromise.json();
     const forcastResponse = await forcastPromise.json();
     return [weatherResponse, forcastResponse];
@@ -137,6 +151,8 @@ export async function fetchWeatherData(lat, lon) {
   }
 }
 export async function fetchCities(input) {
+  //API SOURCE:
+  //https://rapidapi.com/wirefreethought/api/geodb-cities
   try {
     const response = await fetch(
       `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
@@ -147,5 +163,22 @@ export async function fetchCities(input) {
     return data;
   } catch (error) {
     return error;
+  }
+}
+export async function fetchLocationAnyWay() {
+  //API SOURCE:
+  // https://www.geoapify.com/
+  let response;
+  try {
+    response = await axios.get(
+      `https://api.geoapify.com/v1/ipinfo?&apiKey=${GEOPIFY}`
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  if (response?.status === 200) {
+    return response;
+  } else {
+    return undefined;
   }
 }

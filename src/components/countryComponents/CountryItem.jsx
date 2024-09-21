@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 function CountryItem({ country }) {
   const context = useContext(ModeAction);
   return (
-    <Link to={`/${country.name.common}`}>
+    <Link to={`/${country.cca2}`}>
       <motion.article
         transition={{ type: "spring" }}
         key={country.name.common}

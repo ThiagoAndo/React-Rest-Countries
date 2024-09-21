@@ -15,7 +15,7 @@ function HomePage() {
   const { countries } = useRouteLoaderData("main");
   context.stop();
   ctxtMode.unblockMode()
-  usePrepareLocation();
+   usePrepareLocation();
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);

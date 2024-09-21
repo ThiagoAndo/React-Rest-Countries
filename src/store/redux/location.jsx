@@ -5,10 +5,8 @@ const locationSlice = createSlice({
   name: "myLocation",
   initialState: {
     loc: {
-      count: null,
       country: null,
       lat: null,
-      local_names: null,
       lon: null,
       name: null,
     },
@@ -22,9 +20,6 @@ const locationSlice = createSlice({
   reducers: {
     setLoc(state, action) {
       state.loc = action.payload;
-      if (action.payload.name != "Ireland") {
-        state.loc.name = action.payload.name;
-      }
     },
 
     setData(state, action) {
@@ -34,9 +29,8 @@ const locationSlice = createSlice({
     },
 
     findDistrict(state, action) {
-      const hasLocation = action.payload.hasLoc;
       const showAll = action.payload.name != "All Counties";
-      if (hasLocation && showAll) {
+      if (showAll) {
         const uper = action.payload.name.toUpperCase().trim();
 
         let found = [];
@@ -54,11 +48,10 @@ const locationSlice = createSlice({
         state.districts = found;
         if (found?.length > 0) {
           state.loc.name = action.payload.name;
-          console.log("state.loc.name");
-          console.log(state.loc.name);
+        } else {
+          state.districts = state.data;
+          state.loc.name = "Ireland";
         }
-      } else {
-        state.districts = state.data;
       }
     },
     setSearchValues(state, action) {

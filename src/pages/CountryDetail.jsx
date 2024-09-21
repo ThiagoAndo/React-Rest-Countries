@@ -3,6 +3,7 @@ import { useLoaderData, json, defer, Await } from "react-router-dom";
 import { useEffect } from "react";
 import CountryDetailed from "../components/countryComponents/Detailed";
 import { Triangle } from "react-loader-spinner";
+import { fetchByCode } from "../helpers/HTTP";
 
 function CountryDetail() {
   const { country } = useLoaderData();
@@ -38,11 +39,10 @@ function CountryDetail() {
 
 export default CountryDetail;
 
-async function loadCountry(name) {
-  const response = await fetch(
-    ` https://restcountries.com/v3.1/name/${name}?fullText=true`
-  );
-  if (!response.ok) {
+async function loadCountry(code) {
+  const response = await fetchByCode(code);
+  console.log(response);
+  if (response === undefined) {
     throw json(
       { message: "Could not fetch details for selected country." },
       {
@@ -50,7 +50,7 @@ async function loadCountry(name) {
       }
     );
   } else {
-    const resData = await response.json();
+    const resData = await response;
     return resData;
   }
 }

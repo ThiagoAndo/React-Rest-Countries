@@ -36,7 +36,6 @@ function ForecastApp({ cap, call }) {
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const fetchPlace = async (cap) => {
-    console.log("chamo");
 
     try {
       const citiesList = await fetchCities(cap);
@@ -98,10 +97,8 @@ function ForecastApp({ cap, call }) {
   useEffect(() => {
     let ret = null;
     let time = null;
-
     async function loadCoutry() {
       if (todayWeather === null) {
-        console.log("chamo");
 
         if (call?.county) {
           ret = await fetchPlace(cap?.try);

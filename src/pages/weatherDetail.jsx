@@ -1,9 +1,11 @@
-import ForecastApp from "../foreCastApp/ForecastApp";
+import ForecastApp from "../components/foreCastApp/ForecastApp";
 import { useLocation } from "react-router-dom";
 export default function WeatherDetail() {
   const location = useLocation();
-  const attributes = location.state;
-  const { COUNTY, ED_ENGLISH } = attributes;
+  if (location?.attributes) {
+    const attributes = location.state;
+    const { COUNTY, ED_ENGLISH } = attributes;
+  }
 
   let weather = null;
   if (ED_ENGLISH.includes(" ")) {
@@ -14,9 +16,9 @@ export default function WeatherDetail() {
     weather = ED_ENGLISH;
   }
   return (
-      <ForecastApp
-        cap={{ try: weather, try_2: COUNTY }}
-        call={{ county: true, week: true }}
-      />
+    <ForecastApp
+      cap={{ try: weather, try_2: COUNTY }}
+      call={{ county: true, week: true }}
+    />
   );
 }

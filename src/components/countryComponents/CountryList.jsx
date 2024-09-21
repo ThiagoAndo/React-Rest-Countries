@@ -23,7 +23,7 @@ function CountryList({ countries }) {
       />
       <section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (
-          <CountryItem key={cou.name.common} country={cou} />
+          <CountryItem key={cou.name.cca2} country={cou} />
         ))}
       </section>
     </>
