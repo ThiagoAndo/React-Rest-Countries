@@ -7,12 +7,21 @@ import Search from "../components/countryComponents/Search";
 import { Triangle } from "react-loader-spinner";
 import { ClockContext } from "../store/context/clock";
 
+import { json } from "react-router-dom";
 
 export default function DistrictList() {
   const conName = useSelector((state) => state.location.conName);
   const districts = useSelector((state) => state.location.districts);
+  const location = useSelector((state) => state.location.loc.country);
   usePrepareLocation();
-
+  if (location != "IE" && location != null) {
+    throw json(
+      { message: "This page is not available for your country" },
+      {
+        status: 401,
+      }
+    );
+  }
 
   return (
     <>
@@ -44,7 +53,7 @@ function List() {
   const context = useContext(ModeAction);
   const txtClock = useContext(ClockContext);
   txtClock.stop();
-  
+
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>
       {districts.map((contae, i) => (

@@ -4,8 +4,6 @@ const TIME_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
 const GEO_KEY = import.meta.env.VITE_GEO_KEY;
 const GEOPIFY = import.meta.env.VITE_GEOPIFY;
 
-const GEO_API_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo"; 
-const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5";
 const GEO_API_OPTIONS = {
   method: "GET",
   headers: {
@@ -135,12 +133,12 @@ export async function fetchCountyInf() {
 export async function fetchWeatherData(lat, lon) {
   //API SOURCE:
   // https://openweathermap.org/
-  const url = `${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`;
   try {
     let [weatherPromise, forcastPromise] = await Promise.all([
       fetch(url),
       fetch(
-        `${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
       ),
     ]);
     const weatherResponse = await weatherPromise.json();
@@ -155,7 +153,7 @@ export async function fetchCities(input) {
   //https://rapidapi.com/wirefreethought/api/geodb-cities
   try {
     const response = await fetch(
-      `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${input}`,
+      `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?minPopulation=10000&namePrefix=${input}`,
       GEO_API_OPTIONS
     );
 

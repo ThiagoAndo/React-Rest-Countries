@@ -48,7 +48,7 @@ function Search({ opt, call, holderF, holderS }) {
   }
   function handleOnSelect(item) {
     if (path === "/ireland") {
-      dispatch(locAction.findDistrict({ name: item.name, hasLoc: true }));
+      dispatch(locAction.findDistrict({ name: item.name}));
     } else {
       navigate(`/${item.name}`);
     }

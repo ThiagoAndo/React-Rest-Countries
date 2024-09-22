@@ -7,12 +7,17 @@ function CountryList({ countries }) {
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
   let thisContries;
+  let cn = null;
   if (regionCtx.data === undefined) thisContries = countries;
   else thisContries = regionCtx.data;
 
   let coutrySort = thisContries.sort((a, b) =>
     a.name.common > b.name.common ? 1 : -1
   );
+  let val1;
+  let val2;
+
+
   return (
     <>
       <Search
@@ -23,7 +28,7 @@ function CountryList({ countries }) {
       />
       <section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (
-          <CountryItem key={cou.name.cca2} country={cou} />
+          <CountryItem key={cou.cca2} country={cou} />
         ))}
       </section>
     </>

@@ -29,7 +29,7 @@ const locationSlice = createSlice({
     },
 
     findDistrict(state, action) {
-      const showAll = action.payload.name != "All Counties";
+      const showAll = action.payload?.name != "All Counties";
       if (showAll) {
         const uper = action.payload.name.toUpperCase().trim();
 
@@ -45,13 +45,22 @@ const locationSlice = createSlice({
           });
         }
         state.count++;
-        state.districts = found;
         if (found?.length > 0) {
-          state.loc.name = action.payload.name;
+          state.districts = found;
+          if (Object.keys(action.payload).length > 2) {
+            state.loc.name = action.payload.name;
+            state.loc.country = "IE";
+          }
         } else {
           state.districts = state.data;
-          state.loc.name = "Ireland";
+
+          if (Object.keys(action.payload).length > 2) {
+            state.loc.name = "Ireland";
+            state.loc.country = "IE";
+          }
         }
+      } else {
+        state.districts = state.data;
       }
     },
     setSearchValues(state, action) {

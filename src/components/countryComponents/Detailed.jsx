@@ -9,8 +9,8 @@ import { ModeAction } from "../../store/context/mode";
 function CountryDetailed({ country }) {
   const location = useLocation();
 
-    console.log(country);
-    console.log("country");
+    console.log(location);
+    console.log("location");
 
 
   if (location?.state) {
