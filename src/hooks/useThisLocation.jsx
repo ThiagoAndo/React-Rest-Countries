@@ -7,15 +7,23 @@ export default function useThisLocation() {
   const path = location.pathname;
   const navigate = useNavigate();
   function setNavigation() {
-    if (country?.country === "IE") {
-      if (path === "/ireland") {
-        navigate("/");
-      }
-      if (path === "/") {
-        navigate("/ireland");
+    if (!path.includes("weather")) {
+      if (country?.country === "IE") {
+        if (path === "/ireland") {
+          navigate("/");
+        }
+        if (path === "/") {
+          navigate("/ireland");
+        }
+      } else {
+        navigate(country?.country, { state: country });
       }
     } else {
-      navigate(country?.country, { state: country });
+      if (path.includes("/ireland")) {
+        navigate("/ireland");
+      } else {
+        navigate(path.split("/weather")[0]);
+      }
     }
   }
 

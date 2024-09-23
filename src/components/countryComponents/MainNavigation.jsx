@@ -9,7 +9,11 @@ function MainNavigation() {
   const { isBlocked } = useContext(ModeAction);
   const { name } = useSelector((state) => state.location.loc);
   const { path, navi } = useThisLocation();
-  const msn = path != "/ireland" ? "Show me " : "⬅ Home";
+  let msn = path != "/ireland" ? "Show me " : "⬅ Home";
+
+  if (path.includes("weather")) {
+    msn = "⬅ Back";
+  }
 
   function handleAlert() {
     alert("Mode temporarily disabled");
@@ -17,7 +21,7 @@ function MainNavigation() {
 
   let content = null;
 
-  if ((path === "/ireland" || path === "/") && name != null) {
+  if (path === "/" && name != null) {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
         <>
@@ -34,7 +38,15 @@ function MainNavigation() {
     );
   }
 
-  if (name === null) {
+  if (path === "/ireland" || path === "/ireland/weather") {
+    content = (
+      <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
+        <>{<span>{path === "/ireland" ? "⬅ Home" : "⬅ Back"}</span>}</>
+      </h2>
+    );
+  }
+
+  if (name === null && path === "/") {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
         <span>

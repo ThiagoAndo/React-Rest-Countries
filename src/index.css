@@ -5,7 +5,6 @@
   margin: 0;
   box-sizing: border-box;
   text-decoration: none;
- 
 }
 
 body {
@@ -202,7 +201,7 @@ a:hover {
 #expand {
   width: 100%;
   position: relative;
-  height: 100vh;
+  height: fit-content;
 }
 
 #expand > div {
@@ -221,6 +220,19 @@ a:hover {
   cursor: pointer;
   border-radius: 0.3rem;
   box-shadow: 0px 0px 6px 0px black;
+}
+
+.btn_weather {
+  width: 8rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  box-shadow: 0px 0px 6px 0px black;
+  margin: 4rem auto 0 auto;
 }
 
 .btnExp > span:first-of-type {
@@ -400,7 +412,6 @@ a:hover {
 
 .App {
   font-family: sans-serif;
-
 }
 .clock h3 {
   position: relative;
@@ -421,7 +432,7 @@ a:hover {
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
   font-size: 15px;
   text-align: center;
-     transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
 }
 
@@ -437,7 +448,7 @@ a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid #fff;
-     transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
 }
 
@@ -448,7 +459,7 @@ a:hover {
   background: #000000;
   top: 24.5%;
   left: 48%;
-   transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
   transform-origin: bottom;
 }
@@ -461,7 +472,7 @@ a:hover {
   top: 22%;
   left: 49%;
   transform-origin: bottom;
-     transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
 }
 
@@ -473,7 +484,7 @@ a:hover {
   top: 12.5%;
   left: 50%;
   transform-origin: bottom;
-     transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
 }
 
@@ -481,7 +492,7 @@ a:hover {
   position: absolute;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
-     transition: all 200ms ease;
+  transition: all 200ms ease;
   -webkit-transition: all 200ms ease;
 }
 
@@ -594,7 +605,7 @@ a:hover {
 
 .card {
   min-height: fit-content;
-  } 
+}
 
 .nav {
   flex-wrap: nowrap;
@@ -615,7 +626,7 @@ a:hover {
   text-decoration: none;
   z-index: 1000;
 }
-#weather_detail{
+#weather_detail {
   min-height: 90vh;
 }
 @media (min-width: 330px) and (max-width: 490px) {
@@ -693,7 +704,7 @@ a:hover {
   /* Expand screen======================================= */
   #expand {
     width: 400px;
-    height: 150vh;
+    height: 210vh;
     top: -16px;
   }
   #expand > div {
@@ -733,7 +744,7 @@ a:hover {
     display: none;
   }
   #root {
-    height: 3000px;
+    height: 170vh;
   }
   #holdInf #border {
     margin-left: 0px;

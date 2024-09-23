@@ -1,4 +1,3 @@
-
 export function preparName(place) {
   let arr;
   const check =
@@ -31,25 +30,3 @@ export function preparName(place) {
 
   return place;
 }
-
-// export function totalPopulation(data, place) {
-//   {
-//     const { features } = data;
-//     const total = features
-//       .map((obj) => {
-//         const { properties } = obj;
-//         return properties;
-//       })
-//       .filter((county) => {
-//         return county.COUNTY === place;
-//       })
-//       .map((conty) => {
-//         const { T1_2T } = conty;
-//         return T1_2T;
-//       })
-//       .reduce((total, num) => {
-//         return total + num;
-//       }, 0);
-//     return total;
-//   }
-// }

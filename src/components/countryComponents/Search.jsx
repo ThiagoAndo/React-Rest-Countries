@@ -29,7 +29,7 @@ function Search({ opt, call, holderF, holderS }) {
     let count = await con;
     count = count.map((cnt) => {
       const obj = {};
-      obj.id = cnt.altSpellings[0];
+      obj.id = cnt.cca3;
       obj.name = cnt.name.common;
       return obj;
     });
@@ -50,7 +50,7 @@ function Search({ opt, call, holderF, holderS }) {
     if (path === "/ireland") {
       dispatch(locAction.findDistrict({ name: item.name}));
     } else {
-      navigate(`/${item.name}`);
+      navigate(`/${item.id}`);
     }
   }
 

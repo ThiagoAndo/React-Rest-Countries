@@ -5,29 +5,34 @@ import { ModeAction } from "../store/context/mode";
 
 export default function WeatherDetail() {
   const context = useContext(ModeAction);
+  let call = {};
+  let places = {};
+  let weather = null;
 
   const location = useLocation();
-  console.log("location")
-  console.log(location);
+  const isCounty = location?.state?.COUNTY;
+  if (isCounty) {
     const attributes = location.state;
     const { COUNTY, ED_ENGLISH } = attributes;
-
-  let weather = null;
-  if (ED_ENGLISH.includes(" ")) {
-    weather = ED_ENGLISH.split(" ")[0];
-  } else if (ED_ENGLISH.includes("-")) {
-    weather = ED_ENGLISH.split("-")[0];
-  } else {
-    weather = ED_ENGLISH;
+    if (ED_ENGLISH.includes(" ")) {
+      weather = ED_ENGLISH.split(" ")[0];
+    } else if (ED_ENGLISH.includes("-")) {
+      weather = ED_ENGLISH.split("-")[0];
+    } else {
+      weather = ED_ENGLISH;
+    }
+    places = { try: weather, try_2: COUNTY };
+    call = { county: true, full: true };
   }
+
+
+  
   return (
     <section id="weather_detail" className={context.mode ? "blight" : "bDark"}>
-    <ForecastApp
-      cap={{ try: weather, try_2: COUNTY }}
-      call={{ county: true, week: true }}
-
-    />
+      <ForecastApp
+        cap={isCounty ? { ...places } : null}
+        call={isCounty ? { ...call } : null}
+      />
     </section>
-
   );
 }

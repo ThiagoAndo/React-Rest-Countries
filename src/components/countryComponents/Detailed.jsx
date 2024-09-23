@@ -1,4 +1,4 @@
-import { useRouteLoaderData, useLocation } from "react-router-dom";
+import { useRouteLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Clock from "../clock/Clock";
@@ -6,71 +6,27 @@ import Borders from "./Borders";
 import ForecastApp from "../foreCastApp/ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
+import { prepareData, findBorders } from "../../helpers/prepareData";
 function CountryDetailed({ country }) {
   const hasPosition = useLocation().state;
-  console.log(hasPosition);
-  if (location?.state) {
-    console.log(location?.state);
-  }
-
   const context = useContext(ModeAction);
+  const { countries } = useRouteLoaderData("main");
+  const [thisCountries, setCoutries] = useState();
 
+  function handleTabClick(id) {
+    if (id === "Weather") {
+      navigate("weather", { state: attributes });
+    }
+    setTabActive(id);
+  }
   let {
     country: [count],
   } = country;
+  const [lag, crr, capital, subReg] = prepareData(country);
   let bordersArray = [];
-  const { countries } = useRouteLoaderData("main");
-  const [thisCountries, setCoutries] = useState();
-  let crrKey;
-  let crr = "No";
-  let lag = "No";
-  let langKey;
-  let subReg = "No";
-  let capital = "No";
-  if (count?.currencies) {
-    crrKey = Object.keys(count.currencies)[0];
-    crr = count.currencies[crrKey].name;
-  }
-
-  if (count?.languages) {
-    langKey = Object.keys(count?.languages)[0];
-    lag = count?.languages[langKey];
-  }
-
-  if (count?.subregion) {
-    subReg = count.subregion;
-  }
-
-  if (count?.capital) {
-    capital = count.capital;
-  }
-
-  let findCountryName = (cca3, data) => {
-    let count = -1;
-    do {
-      count++;
-    } while (data[count].cca3 !== cca3);
-    return data[count].name.common;
-  };
 
   if (count.borders && thisCountries) {
-    for (let index = 0; index < count.borders.length; index++) {
-      let name = findCountryName(count.borders[index], thisCountries);
-      let longName = "";
-
-      if (name.length > 10) {
-        for (let index = 0; index <= 10; index++) {
-          if (index <= 7) {
-            longName += name[index];
-          } else if (index === 8) {
-            longName += " ...";
-          }
-        }
-        bordersArray.push({ id: name, name: longName });
-      } else {
-        bordersArray.push({ id: name, name });
-      }
-    }
+    bordersArray = findBorders(count, thisCountries);
   }
   useEffect(() => {
     if (!thisCountries) {
@@ -100,13 +56,15 @@ function CountryDetailed({ country }) {
     return (
       <section id="expand">
         <div>
-          <Link
-            to={"/"}
-            className={context.mode ? "btnExp light" : "btnExp dark"}
-          >
-            <span>⬅ </span>
-            <span>Back</span>
-          </Link>
+          <div>
+            <Link
+              to={"/"}
+              className={context.mode ? "btnExp light" : "btnExp dark"}
+            >
+              <span>⬅ </span>
+              <span>Back</span>
+            </Link>
+          </div>
           <div id="contExp">
             <div
               id="flag"
@@ -165,11 +123,14 @@ function CountryDetailed({ country }) {
                   cap={hasPosition ? hasPosition : capital}
                   call={{ country: true }}
                 />
+              
               </div>
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
-                capital={hasPosition ? hasPosition :capital[0].replace(" ", "_")}
+                capital={
+                  hasPosition ? hasPosition : capital[0].replace(" ", "_")
+                }
               />
             </div>
           </div>

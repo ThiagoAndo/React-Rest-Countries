@@ -14,6 +14,7 @@ import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import SectionHeader from "./Reusable/SectionHeader";
+import { ModeAction } from "../../store/context/mode";
 
 const WeatherContext = createContext({ shoDetail: undefined });
 export function useWeatherContext() {
@@ -29,6 +30,8 @@ export function useWeatherContext() {
 }
 
 function ForecastApp({ cap, call }) {
+  const context = useContext(ModeAction);
+
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -36,9 +39,10 @@ function ForecastApp({ cap, call }) {
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const fetchPlace = async (cap) => {
-   
+    console.log(cap);
+    console.log("capital");
     try {
-      const citiesList = await fetchCities(cap?.city? cap?.city:cap );
+      const citiesList = await fetchCities(cap?.city ? cap?.city : cap);
       return citiesList;
     } catch (error) {
       return { error };
@@ -48,7 +52,9 @@ function ForecastApp({ cap, call }) {
   const searchChangeHandler = async (citiesList) => {
     if (citiesList?.message) {
       setError(true);
+      setIsLoading(false);
     } else if (citiesList.data.length === 0) {
+      setIsLoading(false);
       setNotFound(true);
     }
 
@@ -61,22 +67,23 @@ function ForecastApp({ cap, call }) {
           };
         }),
       };
- 
+
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
-   
+
       setIsLoading(true);
       const currentDate = transformDateFormat();
       const date = new Date();
       let dt_now = Math.floor(date.getTime() / 1000);
       try {
-        const [todayWeatherResponse, weekForecastResponse] =  await fetchWeatherData(latitude, longitude);
+        const [todayWeatherResponse, weekForecastResponse] =
+          await fetchWeatherData(latitude, longitude);
 
         const all_today_forecasts_list = getTodayForecastWeather(
           weekForecastResponse,
           currentDate,
           dt_now
         );
-             
+
         const all_week_forecasts_list = getWeekForecastWeather(
           weekForecastResponse,
           ALL_DESCRIPTIONS
@@ -132,13 +139,20 @@ function ForecastApp({ cap, call }) {
 
   if (todayWeather && todayForecast && call?.country) {
     appContent = (
-      <Container>
-        <TodayWeather data={todayWeather} forecastList={todayForecast} />
-      </Container>
+      <>
+        <Container>
+          <TodayWeather data={todayWeather} forecastList={todayForecast} />
+        </Container>
+        <button
+          className={context.mode ? "btn_weather light" : "btn_weather dark"}
+        >
+          Full Forecast
+        </button>
+      </>
     );
   }
 
-  if (todayWeather && todayForecast &&  call?.county) {
+  if (todayWeather && todayForecast && call?.county) {
     appContent = (
       <Container>
         <TodayWeather data={todayWeather} forecastList={todayForecast} />
@@ -148,13 +162,14 @@ function ForecastApp({ cap, call }) {
 
   if (todayWeather && todayForecast && call?.full) {
     let thisBody = null;
+
     let retName = todayWeather.name.toUpperCase();
-      thisBody = (
-        <>
-          <TodayWeather data={todayWeather} forecastList={todayForecast} />
-          <WeeklyForecast data={weekForecast} />;
-        </>
-      );
+    thisBody = (
+      <>
+        <TodayWeather data={todayWeather} forecastList={todayForecast} />
+        <WeeklyForecast data={weekForecast} />;
+      </>
+    );
     appContent = (
       <Container>
         {cap?.try != retName ? (
