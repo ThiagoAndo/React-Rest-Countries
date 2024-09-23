@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { ModeAction } from "../../store/context/mode";
 import useThisLocation from "../../hooks/useThisLocation";
 import { useSelector } from "react-redux";
+import { Triangle } from "react-loader-spinner";
+
 function MainNavigation() {
   const context = useContext(ModeAction);
   const { isBlocked } = useContext(ModeAction);
@@ -15,23 +17,35 @@ function MainNavigation() {
 
   let content = null;
 
-  if (path === "/ireland" || path === "/") {
+  if ((path === "/ireland" || path === "/") && name != null) {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-        {name != null ? (
-          <>
-            {
-              <span>
-                {msn}
-                {msn === "Show me " ? (
-                  <span style={{ color: "#f5163b" }}>{name}</span>
-                ) : null}
-              </span>
-            }
-          </>
-        ) : (
-          <span>Conecting...</span>
-        )}
+        <>
+          {
+            <span>
+              {msn}
+              {msn === "Show me " ? (
+                <span style={{ color: "#f5163b" }}>{name}</span>
+              ) : null}
+            </span>
+          }
+        </>
+      </h2>
+    );
+  }
+
+  if (name === null) {
+    content = (
+      <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
+        <span>
+          <Triangle
+            visible={true}
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="triangle-loading"
+          />
+        </span>
       </h2>
     );
   }

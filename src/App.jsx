@@ -24,10 +24,22 @@ const router = createBrowserRouter([
         element: <CountryDetail />,
         loader: countryDetailLoader,
       },
-      { path: "ireland", element: <DistrictList /> },
       {
-        path: "weather",
+        path: ":countName/weather",
         element: <WeatherDetail />,
+      },
+      {
+        path: "ireland",
+        children: [
+          {
+            index: true,
+            element: <DistrictList />,
+          },
+          {
+            path: "weather",
+            element: <WeatherDetail />,
+          },
+        ],
       },
     ],
   },

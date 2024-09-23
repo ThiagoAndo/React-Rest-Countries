@@ -13,7 +13,7 @@ export default function DistrictItem({ county }) {
  
   function handleTabClick(id) {
     if (id === "Weather") {
-      navigate("/weather", { state: attributes });
+      navigate("ireland/weather", { state: attributes });
     }
     setTabActive(id);
   }

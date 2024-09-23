@@ -615,7 +615,9 @@ a:hover {
   text-decoration: none;
   z-index: 1000;
 }
-
+#weather_detail{
+  min-height: 90vh;
+}
 @media (min-width: 330px) and (max-width: 490px) {
   body {
     font-size: 12px;

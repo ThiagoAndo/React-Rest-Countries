@@ -23,8 +23,6 @@ export async function usePrepareLocation() {
   }
   if (count === 1 && districts?.length === 0) {
     setIrelandData(null, false);
-    console.log(haveIt);
-    console.log("haveIt");
   }
 
   async function showPosition(position) {
@@ -40,10 +38,7 @@ export async function usePrepareLocation() {
     // const lon = -6.661148071289063;
     //                                   )
     weatherResp = await fetchCounty(lat, lon);
-  
-
     const n = weatherResp?.data[0]?.country;
-
     if (weatherResp != undefined) {
       if (n === "IE") {
         setIrelandData(weatherResp, true);
@@ -62,8 +57,6 @@ export async function usePrepareLocation() {
 
   async function positionRefused() {
      haveIt = await fetchLocationAnyWay();
-      console.log(haveIt);
-      console.log("haveIt");
     const place = haveIt?.data?.country?.iso_code;
     // const place = "ESP";
     if (place === "IE") {
@@ -71,8 +64,6 @@ export async function usePrepareLocation() {
         haveIt?.data?.location?.latitude,
         haveIt?.data?.location?.longitude
       );
-       console.log(weatherResp);
-       console.log("weatherResp");
       // Cordintation Test Ireland county(Naas):(
       // const weatherResp = await fetchCounty(
       //   53.21919081798935,

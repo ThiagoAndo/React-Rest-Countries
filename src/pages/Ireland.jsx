@@ -1,6 +1,6 @@
 import { ModeAction } from "../store/context/mode";
 import DistrictItem from "../components/IrelandComponents/DistrictItem";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { usePrepareLocation } from "../hooks/usePrepareLocation";
 import Search from "../components/countryComponents/Search";
