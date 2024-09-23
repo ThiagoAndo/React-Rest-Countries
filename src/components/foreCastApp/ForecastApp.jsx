@@ -15,7 +15,7 @@ import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import SectionHeader from "./Reusable/SectionHeader";
 
-const WeatherContext = createContext({ shoDetail :undefined});
+const WeatherContext = createContext({ shoDetail: undefined });
 export function useWeatherContext() {
   const ctx = useContext(WeatherContext);
 
@@ -36,9 +36,9 @@ function ForecastApp({ cap, call }) {
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const fetchPlace = async (cap) => {
-
+   
     try {
-      const citiesList = await fetchCities(cap);
+      const citiesList = await fetchCities(cap?.city? cap?.city:cap );
       return citiesList;
     } catch (error) {
       return { error };
@@ -61,19 +61,22 @@ function ForecastApp({ cap, call }) {
           };
         }),
       };
+ 
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
+   
       setIsLoading(true);
       const currentDate = transformDateFormat();
       const date = new Date();
       let dt_now = Math.floor(date.getTime() / 1000);
       try {
-        const [todayWeatherResponse, weekForecastResponse] =
-          await fetchWeatherData(latitude, longitude);
+        const [todayWeatherResponse, weekForecastResponse] =  await fetchWeatherData(latitude, longitude);
+
         const all_today_forecasts_list = getTodayForecastWeather(
           weekForecastResponse,
           currentDate,
           dt_now
         );
+             
         const all_week_forecasts_list = getWeekForecastWeather(
           weekForecastResponse,
           ALL_DESCRIPTIONS
@@ -93,13 +96,11 @@ function ForecastApp({ cap, call }) {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     let ret = null;
     let time = null;
     async function loadCoutry() {
       if (todayWeather === null) {
-
         if (call?.county) {
           ret = await fetchPlace(cap?.try);
           if (ret?.message) {
@@ -129,7 +130,7 @@ function ForecastApp({ cap, call }) {
   }, [cap]);
   let appContent = null;
 
-  if (todayWeather && todayForecast && call === "country") {
+  if (todayWeather && todayForecast && call?.country) {
     appContent = (
       <Container>
         <TodayWeather data={todayWeather} forecastList={todayForecast} />
@@ -137,22 +138,23 @@ function ForecastApp({ cap, call }) {
     );
   }
 
-  if (todayWeather && todayForecast && call?.county) {
+  if (todayWeather && todayForecast &&  call?.county) {
+    appContent = (
+      <Container>
+        <TodayWeather data={todayWeather} forecastList={todayForecast} />
+      </Container>
+    );
+  }
+
+  if (todayWeather && todayForecast && call?.full) {
     let thisBody = null;
     let retName = todayWeather.name.toUpperCase();
-
-    if (call?.today) {
-      thisBody = (
-        <TodayWeather data={todayWeather} forecastList={todayForecast} />
-      );
-    } else if (call?.week) {
       thisBody = (
         <>
           <TodayWeather data={todayWeather} forecastList={todayForecast} />
           <WeeklyForecast data={weekForecast} />;
         </>
       );
-    }
     appContent = (
       <Container>
         {cap?.try != retName ? (
@@ -221,7 +223,7 @@ function ForecastApp({ cap, call }) {
     );
   }
   const contextValue = {
-    shoDetail: call === "country" ? false : true,
+    shoDetail: call?.country ? false : true,
   };
   return (
     <WeatherContext.Provider value={contextValue}>
@@ -266,6 +268,5 @@ function Container({ children }) {
     </React.Fragment>
   );
 }
-
 
 export default ForecastApp;

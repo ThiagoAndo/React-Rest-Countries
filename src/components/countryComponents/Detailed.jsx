@@ -7,12 +7,8 @@ import ForecastApp from "../foreCastApp/ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 function CountryDetailed({ country }) {
-  const location = useLocation();
-
-    console.log(location);
-    console.log("location");
-
-
+  const hasPosition = useLocation().state;
+  console.log(hasPosition);
   if (location?.state) {
     console.log(location?.state);
   }
@@ -165,12 +161,15 @@ function CountryDetailed({ country }) {
                 </div>
               ) : null}
               <div className="weather_cont">
-                <ForecastApp cap={capital} call={"country"} />
+                <ForecastApp
+                  cap={hasPosition ? hasPosition : capital}
+                  call={{ country: true }}
+                />
               </div>
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
-                capital={capital[0].replace(" ", "_")}
+                capital={hasPosition ? hasPosition :capital[0].replace(" ", "_")}
               />
             </div>
           </div>

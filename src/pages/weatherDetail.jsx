@@ -2,10 +2,10 @@ import ForecastApp from "../components/foreCastApp/ForecastApp";
 import { useLocation } from "react-router-dom";
 export default function WeatherDetail() {
   const location = useLocation();
-  if (location?.attributes) {
+  console.log("location")
+  console.log(location);
     const attributes = location.state;
     const { COUNTY, ED_ENGLISH } = attributes;
-  }
 
   let weather = null;
   if (ED_ENGLISH.includes(" ")) {

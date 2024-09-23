@@ -41,7 +41,6 @@ export default CountryDetail;
 
 async function loadCountry(code) {
   const response = await fetchByCode(code);
-  console.log(response);
   if (response === undefined) {
     throw json(
       { message: "Could not fetch details for selected country." },

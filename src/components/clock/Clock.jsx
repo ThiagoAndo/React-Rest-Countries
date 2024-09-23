@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { ClockContext } from "../../../src/store/context/clock";
-let hasChanged ;
+let hasChanged;
 
 function Clock({ cca2, name, capital }) {
   const context = useContext(ClockContext);
@@ -54,7 +54,7 @@ function Clock({ cca2, name, capital }) {
       <span className="nine">9</span>
       <span className="ten">10</span>
       <span className="eleven">11</span>
-      <h3>{context.city}</h3>
+      <h3>{capital?.city ? capital?.city : context.city}</h3>
       <h5>{name}</h5>
     </div>
   );

@@ -53,7 +53,6 @@ const locationSlice = createSlice({
           }
         } else {
           state.districts = state.data;
-
           if (Object.keys(action.payload).length > 2) {
             state.loc.name = "Ireland";
             state.loc.country = "IE";
