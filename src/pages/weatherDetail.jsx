@@ -23,16 +23,14 @@ export default function WeatherDetail() {
     }
     places = { try: weather, try_2: COUNTY };
     call = { county: true, full: true };
+  } else {
+    places = location.state;
+    call = { full: true };
   }
 
-
-  
   return (
     <section id="weather_detail" className={context.mode ? "blight" : "bDark"}>
-      <ForecastApp
-        cap={isCounty ? { ...places } : null}
-        call={isCounty ? { ...call } : null}
-      />
+      <ForecastApp cap={isCounty ? { ...places } : places} call={{ ...call }} />
     </section>
   );
 }

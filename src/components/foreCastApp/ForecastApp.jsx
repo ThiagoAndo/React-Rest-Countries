@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Box, Grid, Container, Typography } from "@mui/material";
 import TodayWeather from "./TodayWeather/TodayWeather";
 import { transformDateFormat } from "../../utilities/DatetimeUtils";
 import UTCDatetime from "./Reusable/UTCDatetime";
@@ -31,16 +32,21 @@ export function useWeatherContext() {
 
 function ForecastApp({ cap, call }) {
   const context = useContext(ModeAction);
-
+  const navigate = useNavigate();
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  function handleTabClick() {
+    navigate("weather", { state: cap });
+  }
   const [notFound, setNotFound] = useState(false);
   const fetchPlace = async (cap) => {
     console.log(cap);
     console.log("capital");
+
     try {
       const citiesList = await fetchCities(cap?.city ? cap?.city : cap);
       return citiesList;
@@ -140,10 +146,11 @@ function ForecastApp({ cap, call }) {
   if (todayWeather && todayForecast && call?.country) {
     appContent = (
       <>
-        <Container>
-          <TodayWeather data={todayWeather} forecastList={todayForecast} />
-        </Container>
+        <TodayContainer>
+          <TodayWeather data={todayWeather} />
+        </TodayContainer>
         <button
+          onClick={handleTabClick}
           className={context.mode ? "btn_weather light" : "btn_weather dark"}
         >
           Full Forecast
@@ -153,25 +160,9 @@ function ForecastApp({ cap, call }) {
   }
 
   if (todayWeather && todayForecast && call?.county) {
-    appContent = (
-      <Container>
-        <TodayWeather data={todayWeather} forecastList={todayForecast} />
-      </Container>
-    );
-  }
-
-  if (todayWeather && todayForecast && call?.full) {
-    let thisBody = null;
-
     let retName = todayWeather.name.toUpperCase();
-    thisBody = (
-      <>
-        <TodayWeather data={todayWeather} forecastList={todayForecast} />
-        <WeeklyForecast data={weekForecast} />;
-      </>
-    );
     appContent = (
-      <Container>
+      <TodayContainer>
         {cap?.try != retName ? (
           <SectionHeader
             title={`No data found for ${cap?.try}`}
@@ -180,7 +171,64 @@ function ForecastApp({ cap, call }) {
             mb={"-1rem"}
           />
         ) : null}
-        {thisBody}
+        <TodayWeather data={todayWeather} />
+      </TodayContainer>
+    )
+  }
+
+  if (todayWeather && todayForecast && call?.full) {
+    appContent = (
+      <Container
+        sx={{
+          maxWidth: { xs: "95%", sm: "80%", md: "1100px" },
+          width: "100%",
+          height: "100%",
+          margin: "0 auto",
+          padding: "1rem 0 3rem",
+          marginBottom: "1rem",
+          borderRadius: {
+            xs: "none",
+            sm: "0 0 1rem 1rem",
+          },
+          boxShadow: {
+            xs: "none",
+            sm: "rgba(0,0,0, 0.5) 0px 10px 15px -3px, rgba(0,0,0, 0.5) 0px 4px 6px -2px",
+          },
+        }}
+      >
+        <Grid container columnSpacing={2}>
+          <Grid item xs={12}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                width: "100%",
+                marginBottom: "1rem",
+              }}
+            >
+              <Box
+                component="img"
+                sx={{
+                  height: { xs: "16px", sm: "22px", md: "26px" },
+                  width: "auto",
+                }}
+                alt="logo"
+                src={Logo}
+              />
+
+              <UTCDatetime />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={todayWeather ? 6 : 12}>
+            <Grid item xs={12}>
+              <TodayWeather data={todayWeather} forecastList={todayForecast} />
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <WeeklyForecast data={weekForecast} />
+          </Grid>
+        </Grid>
       </Container>
     );
   }
@@ -242,45 +290,43 @@ function ForecastApp({ cap, call }) {
   };
   return (
     <WeatherContext.Provider value={contextValue}>
-      <Grid container columnSpacing={4}>
-        <Grid item xs={12}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              width: "100%",
-              marginBottom: "1rem",
-              padding: "1rem .3rem 0rem",
-            }}
-          >
-            <Box
-              component="img"
-              sx={{
-                height: { xs: "9px", sm: "17px", md: "20px" },
-                width: "auto",
-                marginRight: "10px",
-              }}
-              alt="logo"
-              src={Logo}
-            />
-
-            <UTCDatetime />
-          </Box>
-        </Grid>
-        {appContent}
-      </Grid>
+      {appContent}
     </WeatherContext.Provider>
   );
 }
 
-function Container({ children }) {
+function TodayContainer({ children }) {
   return (
-    <React.Fragment>
+    <Grid container columnSpacing={2}>
+      <Grid item xs={12}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{
+            width: "100%",
+            marginBottom: "1rem",
+            padding: "1rem .3rem 0rem",
+          }}
+        >
+          <Box
+            component="img"
+            sx={{
+              height: { xs: "9px", sm: "17px", md: "20px" },
+              width: "auto",
+              marginRight: "10px",
+            }}
+            alt="logo"
+            src={Logo}
+          />
+
+          <UTCDatetime />
+        </Box>
+      </Grid>
       <Grid item xs={12}>
         {children}
       </Grid>
-    </React.Fragment>
+    </Grid>
   );
 }
 

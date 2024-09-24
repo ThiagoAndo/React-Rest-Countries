@@ -13,12 +13,6 @@ function CountryDetailed({ country }) {
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
 
-  function handleTabClick(id) {
-    if (id === "Weather") {
-      navigate("weather", { state: attributes });
-    }
-    setTabActive(id);
-  }
   let {
     country: [count],
   } = country;
@@ -28,6 +22,7 @@ function CountryDetailed({ country }) {
   if (count.borders && thisCountries) {
     bordersArray = findBorders(count, thisCountries);
   }
+
   useEffect(() => {
     if (!thisCountries) {
       async function parse() {
@@ -123,7 +118,6 @@ function CountryDetailed({ country }) {
                   cap={hasPosition ? hasPosition : capital}
                   call={{ country: true }}
                 />
-              
               </div>
               <Clock
                 cca2={count.cca2}
