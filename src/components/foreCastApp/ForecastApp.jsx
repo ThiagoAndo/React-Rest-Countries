@@ -31,6 +31,7 @@ export function useWeatherContext() {
 }
 
 function ForecastApp({ cap, call }) {
+
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const [todayWeather, setTodayWeather] = useState(null);
@@ -55,8 +56,7 @@ function ForecastApp({ cap, call }) {
 
     try {
       let citiesList = await fetchCities(place);
-      console.log("citiesList");
-      console.log(citiesList);
+    
       const foundPlace = {
         data: citiesList.data.filter((list) => {
           return list.city === place && list.countryCode === country;
@@ -147,7 +147,7 @@ function ForecastApp({ cap, call }) {
               searchChangeHandler(ret);
             }, 1200);
           }
-        } else {
+        } else {   
           time2 = setTimeout(async () => {
             ret = await fetchPlace(cap);
             searchChangeHandler(ret);

@@ -25,8 +25,7 @@ export function prepareData(country) {
   if (count?.capital) {
     capital = count.capital[0];
   }
-    console.log(count.cca2);
-    console.log('count.cca2');
+
 
 
   return [lag, crr, capital, subReg, count.cca2];

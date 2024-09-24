@@ -8,6 +8,8 @@ import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 function CountryDetailed({ country }) {
+  console.log(country.country);
+  console.log("country");
   const hasPosition = useLocation().state;
   const city = hasPosition?.city;
   const location = useLocation();
@@ -113,16 +115,13 @@ function CountryDetailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              <div className="weather_cont">
-                <ForecastApp
-                  cap={
-                    hasPosition != null
-                      ? { cap: city, country: cca2 }
-                      : { cap: capital, country: cca2 }
-                  }
-                  call={{ country: true }}
-                />
-              </div>
+              <ThisForeApp
+                key={cca2}
+                hasPosition={hasPosition}
+                capital={capital}
+                cca2={cca2}
+                city={city}
+              />
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
@@ -136,6 +135,21 @@ function CountryDetailed({ country }) {
       </section>
     );
   }
+}
+
+function ThisForeApp({ hasPosition, capital, cca2, city }) {
+  return (
+    <div className="weather_cont">
+      <ForecastApp
+        cap={
+          hasPosition != null
+            ? { cap: city, country: cca2 }
+            : { cap: capital, country: cca2 }
+        }
+        call={{ country: true }}
+      />
+    </div>
+  );
 }
 
 export default CountryDetailed;
