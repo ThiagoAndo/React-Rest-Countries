@@ -42,14 +42,29 @@ function ForecastApp({ cap, call }) {
   function handleTabClick() {
     navigate("weather", { state: cap });
   }
+
   const [notFound, setNotFound] = useState(false);
-  const fetchPlace = async (cap) => {
-    console.log(cap);
-    console.log("capital");
+  const fetchPlace = async (capital) => {
+    const country = capital?.country;
+    let place = null;
+    if (call.country) {
+      place = capital?.cap;
+    } else {
+      place = capital.county;
+    }
 
     try {
-      const citiesList = await fetchCities(cap?.city ? cap?.city : cap);
-      return citiesList;
+      let citiesList = await fetchCities(place);
+      console.log("citiesList");
+      console.log(citiesList);
+      const foundPlace = {
+        data: citiesList.data.filter((list) => {
+          return list.city === place && list.countryCode === country;
+        }),
+      };
+
+      const ret = foundPlace;
+      return ret;
     } catch (error) {
       return { error };
     }
@@ -112,10 +127,12 @@ function ForecastApp({ cap, call }) {
   useEffect(() => {
     let ret = null;
     let time = null;
+    let time2 = null;
     async function loadCoutry() {
       if (todayWeather === null) {
         if (call?.county) {
-          ret = await fetchPlace(cap?.try);
+          ret = await fetchPlace({ county: cap?.try, country: "IE" });
+
           if (ret?.message) {
             searchChangeHandler(ret);
           }
@@ -126,19 +143,22 @@ function ForecastApp({ cap, call }) {
 
           if (ret?.data.length === 0) {
             time = setTimeout(async () => {
-              ret = await fetchPlace(cap?.try_2);
+              ret = await fetchPlace({ county: cap?.try_2, country: "IE" });
               searchChangeHandler(ret);
             }, 1200);
           }
         } else {
-          ret = await fetchPlace(cap);
-          searchChangeHandler(ret);
+          time2 = setTimeout(async () => {
+            ret = await fetchPlace(cap);
+            searchChangeHandler(ret);
+          }, 100);
         }
       }
     }
     loadCoutry();
     return () => {
       clearInterval(time);
+      clearInterval(time2);
     };
   }, [cap]);
   let appContent = null;
@@ -173,7 +193,7 @@ function ForecastApp({ cap, call }) {
         ) : null}
         <TodayWeather data={todayWeather} />
       </TodayContainer>
-    )
+    );
   }
 
   if (todayWeather && todayForecast && call?.full) {
@@ -185,7 +205,8 @@ function ForecastApp({ cap, call }) {
           height: "100%",
           margin: "0 auto",
           padding: "1rem 0 3rem",
-          marginBottom: "1rem",
+          marginBottom: "3rem",
+          marginTop: "3rem",
           borderRadius: {
             xs: "none",
             sm: "0 0 1rem 1rem",

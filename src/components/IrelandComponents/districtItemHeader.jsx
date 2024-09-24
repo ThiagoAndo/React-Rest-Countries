@@ -10,7 +10,7 @@ export default function CartNav({ mode, handleAction, id, active }) {
   function handleClick(e) {
     e.preventDefault();
 
-    if (e.target.id === "Weather") context.blockMode();
+    // if (e.target.id === "Weather") context.blockMode();
     handleAction(e.target.id);
   }
 

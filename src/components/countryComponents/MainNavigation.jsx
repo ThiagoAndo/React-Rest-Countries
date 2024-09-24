@@ -38,7 +38,7 @@ function MainNavigation() {
     );
   }
 
-  if (path === "/ireland" || path === "/ireland/weather") {
+  if (path === "/ireland" || path.includes("weather")) {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
         <>{<span>{path === "/ireland" ? "⬅ Home" : "⬅ Back"}</span>}</>

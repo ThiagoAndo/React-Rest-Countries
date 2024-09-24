@@ -25,8 +25,11 @@ export function prepareData(country) {
   if (count?.capital) {
     capital = count.capital[0];
   }
+    console.log(count.cca2);
+    console.log('count.cca2');
 
-  return [lag, crr, capital, subReg];
+
+  return [lag, crr, capital, subReg, count.cca2];
 }
 
 export function findBorders(count, thisCountries) {
@@ -51,9 +54,9 @@ export function findBorders(count, thisCountries) {
           longName += " ...";
         }
       }
-      bordersArray.push({ id: name, name: longName });
+      bordersArray.push({ id: count.borders[index], name: longName });
     } else {
-      bordersArray.push({ id: name, name });
+      bordersArray.push({ id: count.borders[index], name });
     }
   }
   return bordersArray;

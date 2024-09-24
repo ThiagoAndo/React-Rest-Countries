@@ -9,6 +9,9 @@ import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 function CountryDetailed({ country }) {
   const hasPosition = useLocation().state;
+  const city = hasPosition?.city;
+  const location = useLocation();
+
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
@@ -16,13 +19,12 @@ function CountryDetailed({ country }) {
   let {
     country: [count],
   } = country;
-  const [lag, crr, capital, subReg] = prepareData(country);
+  const [lag, crr, capital, subReg, cca2] = prepareData(country);
   let bordersArray = [];
 
   if (count.borders && thisCountries) {
     bordersArray = findBorders(count, thisCountries);
   }
-
   useEffect(() => {
     if (!thisCountries) {
       async function parse() {
@@ -42,8 +44,6 @@ function CountryDetailed({ country }) {
           width="300"
           color="#4fa94d"
           ariaLabel="triangle-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
         />
       </div>
     );
@@ -115,7 +115,11 @@ function CountryDetailed({ country }) {
               ) : null}
               <div className="weather_cont">
                 <ForecastApp
-                  cap={hasPosition ? hasPosition : capital}
+                  cap={
+                    hasPosition != null
+                      ? { cap: city, country: cca2 }
+                      : { cap: capital, country: cca2 }
+                  }
                   call={{ country: true }}
                 />
               </div>

@@ -6,13 +6,9 @@ import TemperatureWeatherDetail from "./TemperatureWeatherDetail";
 import Layout from "../../Reusable/Layout";
 import { pickImage } from "../../../../utilities/IconsUtils";
 import WeatherIconDetail from "./WeatherIconDetail";
-import { useWeatherContext } from "../../ForecastApp";
 const dayMonth = getDayMonthFromDate();
 
 const Details = ({ data }) => {
-  const ctxWeather = useWeatherContext();
-  console.log(ctxWeather.shoDetail);
-  console.log("ctxWeather");
   const noDataProvided =
     !data || Object.keys(data).length === 0 || data.cod === '404';
 
@@ -64,6 +60,8 @@ const Details = ({ data }) => {
       sx={{
         height: "40px",
         with: "100%",
+        marginTop:"-1rem",
+        marginBottom:"1rem"
       }}
     />
   );

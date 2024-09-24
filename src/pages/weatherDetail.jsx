@@ -7,21 +7,22 @@ export default function WeatherDetail() {
   const context = useContext(ModeAction);
   let call = {};
   let places = {};
-  let weather = null;
-
+  let county = null;
   const location = useLocation();
   const isCounty = location?.state?.COUNTY;
   if (isCounty) {
     const attributes = location.state;
     const { COUNTY, ED_ENGLISH } = attributes;
     if (ED_ENGLISH.includes(" ")) {
-      weather = ED_ENGLISH.split(" ")[0];
+      county = ED_ENGLISH.split(" ")[0];
     } else if (ED_ENGLISH.includes("-")) {
-      weather = ED_ENGLISH.split("-")[0];
+      county = ED_ENGLISH.split("-")[0];
     } else {
-      weather = ED_ENGLISH;
+      county = ED_ENGLISH;
     }
-    places = { try: weather, try_2: COUNTY };
+    county = county[0] + county.slice(1, county.length).toLowerCase();
+
+    places = { try: county, try_2: COUNTY };
     call = { county: true, full: true };
   } else {
     places = location.state;
