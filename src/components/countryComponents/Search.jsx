@@ -48,16 +48,16 @@ function Search({ opt, call, holderF, holderS }) {
   }
   function handleOnSelect(item) {
     if (path === "/ireland") {
-      dispatch(locAction.findDistrict({ name: item.name}));
+      dispatch(locAction.findDistrict({ name: item.name }));
     } else {
       navigate(`/${item.id}`);
     }
   }
 
   function handleEvent(e) {
-    context.unblockMode()
+    context.unblockMode();
     if (path === "/ireland") {
-      dispatch(locAction.findDistrict({ name: e.target.value, hasLoc: true }));
+      dispatch(locAction.setFilterDistricts({ name: e.target.value }));
     } else {
       console.log(e.target.value);
       regionctx.changeRegion(e.target.value);

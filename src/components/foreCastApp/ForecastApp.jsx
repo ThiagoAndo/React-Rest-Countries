@@ -15,6 +15,10 @@ import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ModeAction } from "../../store/context/mode";
+export let count = 0;
+export function resetCount() {
+  count = 0;
+}
 
 function ForecastApp({ cap, call }) {
   const context = useContext(ModeAction);
@@ -24,27 +28,24 @@ function ForecastApp({ cap, call }) {
   const [weekForecast, setWeekForecast] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   function handleTabClick() {
     navigate("weather", { state: cap });
   }
 
-  const [notFound, setNotFound] = useState(false);
   const fetchPlace = async (capital) => {
-    const country = capital?.country;
-    let place = null;
-    if (call.country) {
-      place = capital?.cap;
-    } else {
-      place = capital.county;
-    }
-
+    console.log("capital");
+    console.log(capital);
     try {
-      let citiesList = await fetchCities(place);
+      let citiesList = await fetchCities(capital.county);
 
       const foundPlace = {
         data: citiesList.data.filter((list) => {
-          return list.city === place && list.countryCode === country;
+          return (
+            list.city === capital.county &&
+            list.countryCode === capital?.country
+          );
         }),
       };
 
@@ -56,8 +57,6 @@ function ForecastApp({ cap, call }) {
   };
 
   const searchChangeHandler = async (citiesList) => {
-    console.log(citiesList);
-    console.log("citiesList");
     if (citiesList?.message) {
       setError(true);
       setIsLoading(false);
@@ -111,35 +110,36 @@ function ForecastApp({ cap, call }) {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     let ret = null;
     let time = null;
     let time2 = null;
+
     async function loadCoutry() {
-      if (todayWeather === null) {
-        if (call?.county) {
-          ret = await fetchPlace({ county: cap?.try, country: "IE" });
-
-          if (ret?.message) {
-            searchChangeHandler(ret);
-          }
-
-          if (ret?.data.length > 0) {
-            searchChangeHandler(ret);
-          }
-
-          if (ret?.data.length === 0) {
-            time = setTimeout(async () => {
-              ret = await fetchPlace({ county: cap?.try_2, country: "IE" });
-              searchChangeHandler(ret);
-            }, 1200);
-          }
-        } else {
-          time2 = setTimeout(async () => {
-            ret = await fetchPlace(cap);
-            searchChangeHandler(ret);
-          }, 100);
+      if (call?.county) {
+        if (count === 0) {
+          count++;
+          ret = await fetchPlace({ county: cap?.try, country: cap.country });
         }
+        if (ret?.data.length > 0) {
+          searchChangeHandler(ret);
+        }
+
+        if (ret?.data.length === 0) {
+          time = setTimeout(async () => {
+            ret = await fetchPlace({
+              county: cap?.try_2,
+              country: cap.country,
+            });
+            searchChangeHandler(ret);
+          }, 1200);
+        }
+      } else {
+        time2 = setTimeout(async () => {
+          ret = await fetchPlace({ county: cap.try, country: cap.country });
+          searchChangeHandler(ret);
+        }, 100);
       }
     }
     loadCoutry();
@@ -150,7 +150,7 @@ function ForecastApp({ cap, call }) {
   }, [cap]);
   let appContent = null;
 
-  if (todayWeather && todayForecast && call?.country) {
+  if (todayWeather && todayForecast && (call?.county || call?.country)) {
     appContent = (
       <>
         <TodayContainer>
@@ -163,16 +163,6 @@ function ForecastApp({ cap, call }) {
           Full Forecast
         </button>
       </>
-    );
-  }
-
-  if (todayWeather && todayForecast && call?.county) {
-    let retName = todayWeather.name.toUpperCase();
-    console.log(cap?.try != retName);
-    appContent = (
-      <TodayContainer>
-        <TodayWeather data={todayWeather} />
-      </TodayContainer>
     );
   }
 
@@ -223,7 +213,11 @@ function ForecastApp({ cap, call }) {
           </Grid>
           <Grid item xs={12} md={todayWeather ? 6 : 12}>
             <Grid item xs={12}>
-              <TodayWeather data={todayWeather} forecastList={todayForecast} padding="2rem"/>
+              <TodayWeather
+                data={todayWeather}
+                forecastList={todayForecast}
+                padding="2rem"
+              />
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>

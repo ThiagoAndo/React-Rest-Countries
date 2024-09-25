@@ -7,11 +7,12 @@ import ForecastApp from "../foreCastApp/ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
+import { useDispatch, useSelector } from "react-redux";
+import { locAction } from "../../store/redux/location";
 function CountryDetailed({ country }) {
-  console.log(country.country);
-  console.log("country");
   const hasPosition = useLocation().state;
-  const city = hasPosition?.city;
+  const locDetail = useSelector((state) => state?.location?.locDetail);
+  let places = null;
 
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
@@ -21,8 +22,13 @@ function CountryDetailed({ country }) {
     country: [count],
   } = country;
   const [lag, crr, capital, subReg, cca2] = prepareData(country);
-  let bordersArray = [];
+  if (hasPosition) {
+    places = { try: locDetail?.city, try_2: capital, country: cca2 };
+  } else {
+    places = { try: capital, country: cca2 };
+  }
 
+  let bordersArray = [];
   if (count.borders && thisCountries) {
     bordersArray = findBorders(count, thisCountries);
   }
@@ -119,13 +125,13 @@ function CountryDetailed({ country }) {
                 hasPosition={hasPosition}
                 capital={capital}
                 cca2={cca2}
-                city={city}
+                places={places}
               />
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
                 capital={
-                  hasPosition ? hasPosition : capital[0].replace(" ", "_")
+                  hasPosition ? places.try : capital[0].replace(" ", "_")
                 }
               />
             </div>
@@ -136,16 +142,12 @@ function CountryDetailed({ country }) {
   }
 }
 
-function ThisForeApp({ hasPosition, capital, cca2, city }) {
+function ThisForeApp({ hasPosition, capital, cca2, places }) {
   return (
     <div className="weather_cont">
       <ForecastApp
-        cap={
-          hasPosition != null
-            ? { cap: city, country: cca2 }
-            : { cap: capital, country: cca2 }
-        }
-        call={{ country: true }}
+        cap={{ ...places }}
+        call={hasPosition != null ? { county: true } : { country: true }}
       />
     </div>
   );

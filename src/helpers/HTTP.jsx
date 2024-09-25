@@ -41,7 +41,6 @@ export async function fetchRegion(region) {
   }
 }
 export async function fetchByCode(code) {
-
   //API SOURCE:
   // https://restcountries.com/
   let response;
@@ -53,7 +52,6 @@ export async function fetchByCode(code) {
     console.log("fetchRegion error: " + error);
   }
   if (response?.status === 200) {
-    
     return response?.data;
   } else {
     return undefined;
@@ -98,11 +96,12 @@ export async function loadTimeZone(zone) {
 }
 export async function fetchCounty(lat, lon) {
   //API SOURCE:
-  // https://openweathermap.org/
+  // https://www.geoapify.com/
   let response;
+
   try {
     response = await axios.get(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${WEATHER_KEY}`
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${GEOPIFY}`
     );
   } catch (error) {
     console.log(error);

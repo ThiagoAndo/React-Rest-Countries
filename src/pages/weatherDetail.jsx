@@ -2,8 +2,10 @@ import ForecastApp from "../components/foreCastApp/ForecastApp";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { ModeAction } from "../store/context/mode";
+import { resetCount } from "../components/foreCastApp/ForecastApp";
 
 export default function WeatherDetail() {
+  resetCount();
   const context = useContext(ModeAction);
   let call = {};
   let places = {};
@@ -22,13 +24,12 @@ export default function WeatherDetail() {
     }
     county = county[0] + county.slice(1, county.length).toLowerCase();
 
-    places = { try: county, try_2: COUNTY };
+    places = { try: county, try_2: COUNTY, country: "IE" };
     call = { county: true, full: true };
   } else {
     places = location.state;
     call = { country: true, full: true };
   }
-
   return (
     <section id="weather_detail" className={context.mode ? "blight" : "bDark"}>
       <ForecastApp cap={isCounty ? { ...places } : places} call={{ ...call }} />

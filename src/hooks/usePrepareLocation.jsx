@@ -1,107 +1,175 @@
 import { useDispatch, useSelector } from "react-redux";
 import { locAction } from "../store/redux/location";
 import { preparName } from "../helpers/preparLocName";
+import { useRef } from "react";
 import {
   fetchCounty,
   fetchCountyInf,
   fetchLocationAnyWay,
 } from "../helpers/HTTP";
 let haveIt = null;
-let weatherResp = null;
+let myObj = {};
 export async function usePrepareLocation() {
-  const districts = useSelector((state) => state?.location?.districts);
+  const geoResp = useRef();
   const count = useSelector((state) => state?.location?.count);
   const loc = useSelector((state) => state?.location?.loc);
+  const locDetail = useSelector((state) => state?.location?.locDetail);
   const dispatch = useDispatch();
   let censusResp = null;
   let location = null;
-  if (loc.name === null) {
+
+  if (count >= 1 && count <= 2 && loc.name === null) {
+    let place = null;
+    switch (count) {
+      case 1:
+        place = geoResp.current?.city ? geoResp.current.city : "Ireland";
+        break;
+      case 2:
+        place = geoResp.current?.state ? geoResp.current.state : "Ireland";
+        break;
+      default:
+        "";
+        break;
+    }
+
+    setIrelandData(
+      {
+        country: geoResp.current.country_code.toUpperCase(),
+        lat: geoResp.current.lat,
+        lon: geoResp.current.lon,
+        name: place,
+      },
+      true
+    );
+  }
+
+  if (locDetail.name === null) {
     if (navigator?.geolocation) {
       navigator?.geolocation?.getCurrentPosition(
         (position) => showPosition(position),
         positionRefused
       );
     }
-    if (count === 1 && districts?.length === 0) {
-      setIrelandData(null, false);
-    }
+  }
+  async function showPosition(position) {
+    location = position?.coords;
+    const { latitude: lat, longitude: lon } = position?.coords;
+    // Cordintation Test Espain (Vaència city):(
+    // const lat = 39.45104033807325;
+    // const lon = -0.35980224609375006;
+    //                                         )
 
-    async function showPosition(position) {
-      location = position?.coords;
-      const { latitude: lat, longitude: lon } = position?.coords;
-      // Cordintation Test Portugal (Porto city):(
-      // const lat = 41.11246878918088;
-      // const lon = -8.585815429687502;
-      //                                         )
+    // Cordintation Test Ireland county(Naas):(
+    // const lat = 53.21960194869829
+    // const lon =-6.654281616210938
+    //                                   )
 
-      // Cordintation Test Ireland county(Naas):(
-      // const lat = 53.21919081798935;
-      // const lon = -6.661148071289063;
-      //                                   )
-      weatherResp = await fetchCounty(lat, lon);
-      const n = weatherResp?.data[0]?.country;
-      if (weatherResp != undefined) {
-        if (n === "IE") {
-          setIrelandData(weatherResp, true);
-        } else {
-          dispatch(
-            locAction?.setLoc({
-              country: weatherResp?.data[0]?.country,
-              lat: weatherResp?.data[0]?.lat,
-              lon: weatherResp?.data[0]?.lon,
-              name: weatherResp?.data[0]?.name,
-            })
-          );
+    const {
+      data: {
+        features: [properties],
+      },
+    } = await fetchCounty(lat, lon);
+    const content = properties["properties"];
+
+    for (let key in content) {
+      if (content.hasOwnProperty(key)) {
+        if (typeof content[key] != "object") {
+          var value = content[key];
+          myObj[key] = value;
         }
       }
     }
+    myObj.country_code = myObj.country_code.toUpperCase();
 
-    async function positionRefused() {
-      haveIt = await fetchLocationAnyWay();
-      const place = haveIt?.data?.country?.iso_code;
-      // const place = "ESP";
-      if (place === "IE") {
-        const weatherResp = await fetchCounty(
-          haveIt?.data?.location?.latitude,
-          haveIt?.data?.location?.longitude
-        );
-        // Cordintation Test Ireland county(Naas):(
-        // const weatherResp = await fetchCounty(
-        //   53.21919081798935,
-        //   -6.661148071289063
-        // );
-        //                                   )
-        setIrelandData(weatherResp, true);
+    geoResp.current = myObj;
+    dispatch(locAction?.setFullLoc({ ...myObj }));
+    let preparPlace = null;
+    // const n = myObj.country_code;
+    const n = "ES";
+    if (n === "IE") {
+      if (myObj?.district) {
+        preparPlace = myObj.district;
+        return;
+      } else if (myObj?.state) {
+        preparPlace = myObj.state;
+        return;
       } else {
-        const fakeResp = {
-          country: haveIt?.data?.country?.iso_code,
-          lat: haveIt?.data?.location?.latitude,
-          lon: haveIt?.data?.location?.longitude,
-          name: haveIt?.data?.country?.name,
-        };
-        // Cordintation Test Espain(Palencia city):(
-        // const fakeResp = {
-        //   country: "ESP",
-        //   lat: 41.95131994679697,
-        //   lon: -4.526367187500001,
-        //   name: "Espain",
-        //   city: "Palencia",
-        // };
-        //
-        //                                         )
-        dispatch(locAction.setLoc(fakeResp));
+        preparPlace = myObj.country;
       }
-    }
 
-    async function setIrelandData(weatherResp, hasIt) {
-      const data = { ...weatherResp?.data[0] };
-      data.name = preparName(hasIt ? data.name : "Ireland");
-      censusResp = await fetchCountyInf();
-      if (censusResp?.status === 200) {
-        dispatch(locAction?.setData(censusResp?.data?.features));
-        dispatch(locAction?.setSearchValues());
-        dispatch(locAction?.findDistrict(data));
+      setIrelandData(
+        {
+          country: myObj.country_code.toUpperCase(),
+          lat: myObj.lat,
+          lon: myObj.lon,
+          name: preparPlace,
+        },
+        true
+      );
+    } else {
+      if (myObj?.city) {
+        preparPlace = myObj.city;
+        return;
+      } else if (myObj?.state) {
+        preparPlace = myObj.state;
       }
+
+      dispatch(
+        locAction?.setLoc({
+          country: n,
+          lat: myObj.lat,
+          lon: myObj.lon,
+          name: myObj.city,
+        })
+      );
+    }
+  }
+
+  async function positionRefused() {
+    haveIt = await fetchLocationAnyWay();
+    const place = haveIt?.data?.country?.iso_code;
+    // const place = "ESP";
+    if (place === "IE") {
+      const weatherResp = await fetchCounty(
+        haveIt?.data?.location?.latitude,
+        haveIt?.data?.location?.longitude
+      );
+      // Cordintation Test Ireland county(Naas):(
+      // const weatherResp = await fetchCounty(
+      //   53.21919081798935,
+      //   -6.661148071289063
+      // );
+      //                                   )
+      setIrelandData(weatherResp, true);
+    } else {
+      const fakeResp = {
+        country: haveIt?.data?.country?.iso_code,
+        lat: haveIt?.data?.location?.latitude,
+        lon: haveIt?.data?.location?.longitude,
+        name: haveIt?.data?.country?.name,
+      };
+      // Cordintation Test Espain(Palencia city):(
+      // const fakeResp = {
+      //   country: "ESP",
+      //   lat: 41.95131994679697,
+      //   lon: -4.526367187500001,
+      //   name: "Espain",
+      //   city: "València",
+      // };
+      //
+      //                                         )
+      dispatch(locAction.setLoc(fakeResp));
+    }
+  }
+
+  async function setIrelandData(weatherResp) {
+    const data = weatherResp;
+    data.name = preparName(data.name);
+    censusResp = await fetchCountyInf();
+    if (censusResp?.status === 200) {
+      dispatch(locAction?.setData(censusResp?.data?.features));
+      dispatch(locAction?.setSearchValues());
+      dispatch(locAction?.findDistrict(data));
     }
   }
 }

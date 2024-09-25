@@ -16,7 +16,7 @@ export default function useThisLocation() {
           navigate("/ireland");
         }
       } else {
-        navigate(country?.country, { state: country });
+        navigate(country?.country, { state: true });
       }
     } else {
       if (path.includes("/ireland")) {
