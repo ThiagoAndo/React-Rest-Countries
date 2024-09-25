@@ -20,7 +20,6 @@ function MainNavigation() {
   }
 
   let content = null;
-
   if (path === "/" && name != null) {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>

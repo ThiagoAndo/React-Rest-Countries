@@ -3,6 +3,7 @@ import Search from "./Search";
 import { ModeAction } from "../../store/context/mode";
 import { fRegion } from "../../store/context/fetchRegion";
 import { useContext } from "react";
+import { motion } from "framer-motion";
 function CountryList({ countries }) {
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
@@ -17,7 +18,6 @@ function CountryList({ countries }) {
   let val1;
   let val2;
 
-
   return (
     <>
       <Search
@@ -26,11 +26,11 @@ function CountryList({ countries }) {
         holderF={"Filter by Region"}
         holderS={"Search for a country"}
       />
-      <section id="main" className={context.mode ? "blight" : "bDark"}>
+      <motion.section id="main" className={context.mode ? "blight" : "bDark"}>
         {coutrySort.map((cou) => (
           <CountryItem key={cou.cca2} country={cou} />
         ))}
-      </section>
+      </motion.section>
     </>
   );
 }

@@ -11,11 +11,9 @@ import { ModeAction } from "../store/context/mode";
 function HomePage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const context = useContext(ClockContext);
-  const ctxtMode = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
-  context.stop();
-  ctxtMode.unblockMode()
-   usePrepareLocation();
+
+  usePrepareLocation();
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
@@ -35,6 +33,7 @@ function HomePage() {
   }, [scrollPosition]);
 
   useEffect(() => {
+    context.stop();
     let position = localStorage.getItem("position");
     if (!position) {
       position = window.scrollY;
@@ -79,7 +78,6 @@ function HomePage() {
 }
 
 export default HomePage;
-
 
 export async function loader() {
   return {
