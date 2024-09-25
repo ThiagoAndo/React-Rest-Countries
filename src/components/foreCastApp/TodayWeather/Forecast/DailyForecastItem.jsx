@@ -1,8 +1,12 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
-import { pickImage } from '../../../../utilities/IconsUtils';
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import { pickImage } from "../../../../utilities/IconsUtils";
+import { ModeAction } from "../../../../store/context/mode";
+import { useContext } from "react";
 
 const DailyForecastItem = (props) => {
+  const context = useContext(ModeAction);
+
   return (
     <Box
       sx={{
@@ -22,7 +26,7 @@ const DailyForecastItem = (props) => {
         sx={{
           fontWeight: "400",
           fontSize: { xs: "10px", sm: "12px" },
-          color: "rgba(255, 255, 255, .7)",
+          color: context.mode ? "black" : "white",
           lineHeight: 1,
           padding: "4px",
           fontFamily: "Poppins",
@@ -34,7 +38,7 @@ const DailyForecastItem = (props) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          color: "white",
+          color: context.mode ? "black" : "white",
           padding: "4px",
         }}
       >
@@ -59,7 +63,7 @@ const DailyForecastItem = (props) => {
         sx={{
           fontWeight: "600",
           fontSize: { xs: "12px", sm: "14px" },
-          color: "white",
+          color: context.mode ? "black" : "white",
           textTransform: "uppercase",
           lineHeight: 1,
           marginBottom: { xs: "8px", md: "0" },

@@ -8,12 +8,14 @@ import DayWeatherDetails from "./DayWeatherDetails";
 import Layout from "../Reusable/Layout";
 import img from "../../assets/icons/01d.png";
 import { pickImage } from "../../../utilities/IconsUtils";
+import { ModeAction } from "../../../store/context/mode";
 import { useContext } from "react";
-import { ClockContext } from "../../../store/context/clock";
 
 const WeeklyForecast = ({ data }) => {
+  const context = useContext(ModeAction);
+
   const forecastDays = getWeekDays();
- 
+
   const noDataProvided =
     !data ||
     Object.keys(data).length === 0 ||
@@ -35,6 +37,7 @@ const WeeklyForecast = ({ data }) => {
         flexDirection="column"
         xs={12}
         gap="4px"
+        // sx={{background:"red"}}
       >
         {data.list.map((item, idx) => {
           return (
@@ -45,6 +48,7 @@ const WeeklyForecast = ({ data }) => {
               display="flex"
               alignItems="center"
               sx={{
+
                 padding: "2px 0 2px",
                 background:
                   "linear-gradient(0deg, rgba(255, 255, 255, .05) 0%, rgba(171, 203, 222, .05) 100%) 0% 0%",
@@ -71,13 +75,8 @@ const WeeklyForecast = ({ data }) => {
                 <WeeklyForecastItem
                   type="temperature"
                   value={Math.round(item.temp) + " °C"}
-                  color="black"
                 />
-                <WeeklyForecastItem
-                  type="clouds"
-                  value={item.clouds + " %"}
-                  color="black"
-                />
+                <WeeklyForecastItem type="clouds" value={item.clouds + " %"} />
               </Grid>
 
               <Grid
@@ -89,15 +88,10 @@ const WeeklyForecast = ({ data }) => {
                   justifyContent: "center",
                 }}
               >
-                <WeeklyForecastItem
-                  type="wind"
-                  value={item.wind + " m/s"}
-                  color="green"
-                />
+                <WeeklyForecastItem type="wind" value={item.wind + " m/s"} />
                 <WeeklyForecastItem
                   type="humidity"
                   value={item.humidity + " %"}
-                  color="green"
                 />
               </Grid>
             </Grid>
@@ -134,8 +128,10 @@ const WeeklyForecast = ({ data }) => {
         alignItems: "center",
         flexDirection: "column",
         justifyContent: "center",
-        padding: "3rem 0 0",
+        padding: "2rem ",
+        borderRadius: "1rem",
         marginTop: { xs: "1rem", sm: "1rem", md: "-1.5rem" },
+        background: context.mode ? "#0000001a" : null,
       }}
     />
   );

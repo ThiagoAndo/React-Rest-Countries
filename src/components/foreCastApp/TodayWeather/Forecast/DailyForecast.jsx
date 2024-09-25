@@ -3,8 +3,13 @@ import { Grid, Typography } from '@mui/material';
 import DailyForecastItem from './DailyForecastItem';
 import ErrorBox from '../../Reusable/ErrorBox';
 import Layout from '../../Reusable/Layout';
+import { ModeAction } from "../../../../store/context/mode";
+import { useContext } from "react";
+
 
 const DailyForecast = ({ data, forecastList }) => {
+  const context = useContext(ModeAction);
+
   const noDataProvided =
     !data ||
     !forecastList ||
@@ -20,16 +25,16 @@ const DailyForecast = ({ data, forecastList }) => {
         variant="h5"
         component="h5"
         sx={{
-          fontSize: { xs: '10px', sm: '12px' },
-          textAlign: 'center',
+          fontSize: { xs: "10px", sm: "12px" },
+          textAlign: "center",
           lineHeight: 1,
-          color: '#04C4E0',
-          fontFamily: 'Roboto Condensed',
-          marginBottom: '1rem',
+          color: context.mode ? "black" : "white",
+          fontFamily: "Roboto Condensed",
+          marginBottom: "1rem",
         }}
       >
         {forecastList.length === 1
-          ? '1 available forecast'
+          ? "1 available forecast"
           : `${forecastList.length} available forecasts`}
       </Typography>
     );

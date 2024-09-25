@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Grid, Container, Typography } from "@mui/material";
 import TodayWeather from "./TodayWeather/TodayWeather";
@@ -14,24 +14,9 @@ import {
 import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
-import SectionHeader from "./Reusable/SectionHeader";
 import { ModeAction } from "../../store/context/mode";
 
-const WeatherContext = createContext({ shoDetail: undefined });
-export function useWeatherContext() {
-  const ctx = useContext(WeatherContext);
-
-  if (!ctx) {
-    throw new Error(
-      "Weather-related components must be wrapped by <Accordion>."
-    );
-  }
-
-  return ctx;
-}
-
 function ForecastApp({ cap, call }) {
-
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const [todayWeather, setTodayWeather] = useState(null);
@@ -56,7 +41,7 @@ function ForecastApp({ cap, call }) {
 
     try {
       let citiesList = await fetchCities(place);
-    
+
       const foundPlace = {
         data: citiesList.data.filter((list) => {
           return list.city === place && list.countryCode === country;
@@ -71,6 +56,8 @@ function ForecastApp({ cap, call }) {
   };
 
   const searchChangeHandler = async (citiesList) => {
+    console.log(citiesList);
+    console.log("citiesList");
     if (citiesList?.message) {
       setError(true);
       setIsLoading(false);
@@ -147,7 +134,7 @@ function ForecastApp({ cap, call }) {
               searchChangeHandler(ret);
             }, 1200);
           }
-        } else {   
+        } else {
           time2 = setTimeout(async () => {
             ret = await fetchPlace(cap);
             searchChangeHandler(ret);
@@ -181,16 +168,9 @@ function ForecastApp({ cap, call }) {
 
   if (todayWeather && todayForecast && call?.county) {
     let retName = todayWeather.name.toUpperCase();
+    console.log(cap?.try != retName);
     appContent = (
       <TodayContainer>
-        {cap?.try != retName ? (
-          <SectionHeader
-            title={`No data found for ${cap?.try}`}
-            cl={"red"}
-            sc={"0.7"}
-            mb={"-1rem"}
-          />
-        ) : null}
         <TodayWeather data={todayWeather} />
       </TodayContainer>
     );
@@ -202,10 +182,10 @@ function ForecastApp({ cap, call }) {
         sx={{
           maxWidth: { xs: "95%", sm: "80%", md: "1100px" },
           width: "100%",
-          height: "100%",
+          height: "95%",
           margin: "0 auto",
-          padding: "1rem 0 3rem",
-          marginBottom: "3rem",
+          padding: "2rem 0 3rem",
+          marginBottom: "4rem",
           marginTop: "3rem",
           borderRadius: {
             xs: "none",
@@ -243,7 +223,7 @@ function ForecastApp({ cap, call }) {
           </Grid>
           <Grid item xs={12} md={todayWeather ? 6 : 12}>
             <Grid item xs={12}>
-              <TodayWeather data={todayWeather} forecastList={todayForecast} />
+              <TodayWeather data={todayWeather} forecastList={todayForecast} padding="2rem"/>
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -306,14 +286,7 @@ function ForecastApp({ cap, call }) {
       </Box>
     );
   }
-  const contextValue = {
-    shoDetail: call?.country ? false : true,
-  };
-  return (
-    <WeatherContext.Provider value={contextValue}>
-      {appContent}
-    </WeatherContext.Provider>
-  );
+  return appContent;
 }
 
 function TodayContainer({ children }) {

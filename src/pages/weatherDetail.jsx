@@ -26,7 +26,7 @@ export default function WeatherDetail() {
     call = { county: true, full: true };
   } else {
     places = location.state;
-    call = { full: true };
+    call = { country: true, full: true };
   }
 
   return (

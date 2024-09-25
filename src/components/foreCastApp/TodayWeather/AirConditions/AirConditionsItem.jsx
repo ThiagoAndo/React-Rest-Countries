@@ -1,12 +1,11 @@
-import { Box, Grid, SvgIcon } from '@mui/material';
-import { ModeAction } from '../../../../store/context/mode';
+import { Box, Grid } from '@mui/material';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AirIcon from '@mui/icons-material/Air';
 import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import OpacityIcon from "@mui/icons-material/Opacity";
+import { ModeAction } from '../../../../store/context/mode';
 import { useContext } from "react";
 
-// import { ReactComponent as HumidityIcon } from '../../../assets/humidity.svg';
 
 const AirConditionsItem = (props) => {
   let iconContent;

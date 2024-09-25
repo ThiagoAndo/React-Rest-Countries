@@ -12,7 +12,6 @@ function CountryDetailed({ country }) {
   console.log("country");
   const hasPosition = useLocation().state;
   const city = hasPosition?.city;
-  const location = useLocation();
 
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");

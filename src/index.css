@@ -122,12 +122,12 @@ nav {
 
 /* Main & Cards========================== */
 
-
 #main > a:hover {
   color: inherit;
 }
 
-#main , #main_district {
+#main,
+#main_district {
   padding: 1rem;
   width: 90%;
   min-height: 100vh;
@@ -176,7 +176,7 @@ a:hover {
 /* Expand Section========================== */
 .weather_cont {
   width: 17rem;
-  height: 18rem;
+  height: 20rem;
   box-shadow: 1px 2px 30px #00000033;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -619,7 +619,7 @@ a:hover {
   z-index: 1000;
 }
 #weather_detail {
-  height: 100vh;
+  height: 110vh;
 }
 @media (min-width: 330px) and (max-width: 490px) {
   body {
@@ -843,9 +843,6 @@ a:hover {
   .btnExp {
     width: 7rem;
   }
-  .btn_weather {
-    margin: 2rem auto;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1400px) {
@@ -918,10 +915,6 @@ a:hover {
     scale: 1.5;
     margin-bottom: 0.2em;
   }
-  .btn_weather {
-     margin: 2rem auto;
-
-  }
 }
 
 @media (min-width: 1400px) {
@@ -961,9 +954,5 @@ a:hover {
   .icon {
     scale: 1.5;
     margin-bottom: 0.2rem;
-  }
-  .btn_weather {
-      margin: 2rem auto;
-
   }
 }
