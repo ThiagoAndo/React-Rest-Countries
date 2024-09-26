@@ -44,7 +44,6 @@ const locationSlice = createSlice({
     },
     setFullLoc(state, action) {
       state.locDetail = action.payload;
-      state.count++;
     },
 
     setData(state, action) {
@@ -55,13 +54,10 @@ const locationSlice = createSlice({
 
     findDistrict(state, action) {
       const uper = action.payload.name.toUpperCase().trim();
+
       let found = [];
       found = state.data.filter((obj) => {
         return obj.attributes.COUNTY === action.payload.name;
-      });
-
-      found = state.data.filter((obj) => {
-        return obj.attributes.PROVINCE === action.payload.name;
       });
 
       if (found.length <= 0) {
@@ -70,14 +66,23 @@ const locationSlice = createSlice({
           if (obj.attributes.ED_ENGLISH.includes(uper)) return attributes;
         });
       }
+
+      if (found.length <= 0) {
+        found = state.data.filter((obj) => {
+          return obj.attributes.PROVINCE === action.payload.name;
+        });
+      }
+
       state.count++;
+      console.log(state.count);
+      console.log("state.count");
       if (found?.length > 0 && state.loc.name === null) {
         state.districts = found;
         state.loc.name = action.payload.name;
         state.loc.country = action.payload.country;
         state.loc.lon = action.payload.lon;
         state.loc.lat = action.payload.lat;
-      } else if (found?.length === 0 && state.count > 3) {
+      } else if (found?.length === 0 && state.count === 3) {
         state.districts = state.data;
         state.loc.name = "Ireland";
         state.loc.country = "IE";
@@ -115,6 +120,7 @@ export const locAction = locationSlice.actions;
 
 export default store;
 
+// GEOPIFY location responses:
 // const allInfo = {
 //   address_line1: "Amado Granell Mesado (imparell) - Antonio Ferrandis",
 //   address_line2:

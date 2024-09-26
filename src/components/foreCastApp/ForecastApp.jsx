@@ -35,8 +35,6 @@ function ForecastApp({ cap, call }) {
   }
 
   const fetchPlace = async (capital) => {
-    console.log("capital");
-    console.log(capital);
     try {
       let citiesList = await fetchCities(capital.county);
 
