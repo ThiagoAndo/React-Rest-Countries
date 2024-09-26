@@ -48,16 +48,17 @@ function Search({ opt, call, holderF, holderS }) {
   }
   function handleOnSelect(item) {
     if (path === "/ireland") {
-      dispatch(locAction.setFilterDistricts({ name: item.name }));
+      dispatch(locAction.setFilterDistricts({ name: item.name , call:"county"}));
     } else {
       navigate(`/${item.id}`);
     }
   }
 
   function handleEvent(e) {
-    context.unblockMode();
     if (path === "/ireland") {
-      dispatch(locAction.setFilterDistricts({ name: e.target.value }));
+      dispatch(
+        locAction.setFilterDistricts({ name: e.target.value, call: "state" })
+      );
     } else {
       console.log(e.target.value);
       regionctx.changeRegion(e.target.value);

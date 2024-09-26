@@ -1,12 +1,11 @@
 import { ModeAction } from "../store/context/mode";
 import DistrictItem from "../components/IrelandComponents/DistrictItem";
-import { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useContext, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { usePrepareLocation } from "../hooks/usePrepareLocation";
 import Search from "../components/countryComponents/Search";
 import { Triangle } from "react-loader-spinner";
 import { ClockContext } from "../store/context/clock";
-
 import { json } from "react-router-dom";
 
 export default function DistrictList() {
@@ -52,7 +51,9 @@ function List() {
   const districts = useSelector((state) => state.location.districts);
   const context = useContext(ModeAction);
   const txtClock = useContext(ClockContext);
-  txtClock.stop();
+  useEffect(() => {
+    txtClock.stop();
+  }, []);
 
   return (
     <section id="main_district" className={context.mode ? "blight" : "bDark"}>

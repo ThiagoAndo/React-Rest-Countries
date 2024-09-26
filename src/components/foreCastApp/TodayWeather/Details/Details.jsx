@@ -10,7 +10,7 @@ const dayMonth = getDayMonthFromDate();
 
 const Details = ({ data }) => {
   const noDataProvided =
-    !data || Object.keys(data).length === 0 || data.cod === '404';
+    !data || Object.keys(data).length === 0 || data.cod === "404";
 
   let content = <ErrorBox flex="1" type="error" />;
 
@@ -21,7 +21,7 @@ const Details = ({ data }) => {
           item
           xs={4}
           sx={{
-            height: '80px',
+            height: "80px",
           }}
         >
           <CityDateDetail city={data.city} date={dayMonth} />
@@ -30,7 +30,7 @@ const Details = ({ data }) => {
           item
           xs={4}
           sx={{
-            height: '80px',
+            height: "80px",
           }}
         >
           <TemperatureWeatherDetail
@@ -42,10 +42,10 @@ const Details = ({ data }) => {
           item
           xs={4}
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '80px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80px",
           }}
         >
           <WeatherIconDetail src={pickImage(`${data.weather[0].icon}.png`)} />
@@ -60,8 +60,8 @@ const Details = ({ data }) => {
       sx={{
         height: "40px",
         with: "100%",
-        marginTop:"-1rem",
-        marginBottom:"1rem"
+        marginTop: "-1rem",
+        marginBottom: "1rem",
       }}
     />
   );

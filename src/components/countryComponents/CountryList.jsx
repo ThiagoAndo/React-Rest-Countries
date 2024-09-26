@@ -2,22 +2,29 @@ import CountryItem from "./CountryItem";
 import Search from "./Search";
 import { ModeAction } from "../../store/context/mode";
 import { fRegion } from "../../store/context/fetchRegion";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
+import { locAction } from "../../store/redux/location";
+import { useSelector, useDispatch } from "react-redux";
+
 function CountryList({ countries }) {
+  const backup = useSelector((state) => state.location.backup);
+  const dispatch = useDispatch();
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
   let thisContries;
-  let cn = null;
   if (regionCtx.data === undefined) thisContries = countries;
   else thisContries = regionCtx.data;
 
   let coutrySort = thisContries.sort((a, b) =>
     a.name.common > b.name.common ? 1 : -1
   );
-  let val1;
-  let val2;
-
+  useEffect(() => {
+    if (backup != null) {
+      console.log(backup);
+      dispatch(locAction.setLocDistricts());
+    }
+  }, []);
   return (
     <>
       <Search

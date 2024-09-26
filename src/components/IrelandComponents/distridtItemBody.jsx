@@ -1,4 +1,3 @@
-import ForecastApp from "../foreCastApp/ForecastApp";
 export default function Panel({ data, id }) {
   const { attributes } = data;
 

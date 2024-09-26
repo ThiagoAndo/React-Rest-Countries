@@ -36,6 +36,8 @@ const locationSlice = createSlice({
     disName: [],
     data: [],
     count: 0,
+    notFound: null,
+    backup: [],
   },
 
   reducers: {
@@ -43,6 +45,7 @@ const locationSlice = createSlice({
       state.loc = action.payload;
     },
     setFullLoc(state, action) {
+      console.log(action.payload);
       state.locDetail = action.payload;
     },
 
@@ -74,15 +77,15 @@ const locationSlice = createSlice({
       }
 
       state.count++;
-      console.log(state.count);
-      console.log("state.count");
       if (found?.length > 0 && state.loc.name === null) {
+        state.backup = found;
         state.districts = found;
         state.loc.name = action.payload.name;
         state.loc.country = action.payload.country;
         state.loc.lon = action.payload.lon;
         state.loc.lat = action.payload.lat;
       } else if (found?.length === 0 && state.count === 3) {
+        state.backup = state.data;
         state.districts = state.data;
         state.loc.name = "Ireland";
         state.loc.country = "IE";
@@ -91,12 +94,21 @@ const locationSlice = createSlice({
       }
     },
     setFilterDistricts(state, action) {
-      if (action.payload.name != "All Counties") {
-        state.districts = state.data.filter((obj) => {
-          return obj.attributes.COUNTY === action.payload.name;
-        });
+      if (state.backup) {
+      }
+
+      if (action.payload.call != "county") {
+        if (action.payload.name != "All Counties") {
+          state.districts = state.data.filter((obj) => {
+            return obj.attributes.COUNTY === action.payload.name;
+          });
+        } else {
+          state.districts = state.data;
+        }
       } else {
-        state.districts = state.data;
+        state.districts = state.data.filter((obj) => {
+          return obj.attributes.ED_ENGLISH === action.payload.name;
+        });
       }
     },
     setSearchValues(state, action) {
@@ -109,6 +121,12 @@ const locationSlice = createSlice({
       });
 
       state.conName = [...new Set(allCounty)].sort((a, b) => (a > b ? 1 : -1));
+    },
+    setNotFound(state, action) {
+      state.notFound = action.payload;
+    },
+    setLocDistricts(state, action) {
+      state.districts = state.backup;
     },
   },
 });

@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography } from "@mui/material";
 import { ModeAction } from "../../../../store/context/mode";
 import { useContext } from "react";
 
@@ -22,7 +22,7 @@ const CityDateDetail = (props) => {
         sx={{
           fontFamily: "Poppins",
           fontWeight: "600",
-          fontSize: { xs: "12px", sm: "17px", md: "17px" },
+          fontSize: { xs: "12px", sm: "15px", md: "17px" },
 
           color: context.mode ? "black" : "white",
           textTransform: "uppercase",
@@ -36,7 +36,7 @@ const CityDateDetail = (props) => {
         variant="h4"
         component="h4"
         sx={{
-          fontSize: { xs: "12px", sm: "17px", md: "12px" },
+          fontSize: { xs: "12px", sm: "12px", md: "12px" },
 
           color: context.mode ? "black" : "white",
           lineHeight: 1,

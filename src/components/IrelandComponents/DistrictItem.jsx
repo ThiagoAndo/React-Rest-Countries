@@ -48,11 +48,3 @@ export default function DistrictItem({ county }) {
   );
 }
 
-<div className="tab-content mt-3">
-  <div
-    className="tab-pane"
-    id="deals"
-    role="tabpanel"
-    aria-labelledby="deals-tab"
-  ></div>
-</div>;

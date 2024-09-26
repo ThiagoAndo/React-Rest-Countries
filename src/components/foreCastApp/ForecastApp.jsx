@@ -15,6 +15,8 @@ import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ModeAction } from "../../store/context/mode";
+import { useDispatch } from "react-redux";
+import { locAction } from "../../store/redux/location";
 export let count = 0;
 export function resetCount() {
   count = 0;
@@ -23,6 +25,7 @@ export function resetCount() {
 function ForecastApp({ cap, call }) {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -125,6 +128,7 @@ function ForecastApp({ cap, call }) {
         }
 
         if (ret?.data.length === 0) {
+          dispatch(locAction.setNotFound(cap?.try));
           time = setTimeout(async () => {
             ret = await fetchPlace({
               county: cap?.try_2,
@@ -140,12 +144,18 @@ function ForecastApp({ cap, call }) {
         }, 100);
       }
     }
-    loadCoutry();
+    if (todayWeather === null) loadCoutry();
     return () => {
       clearInterval(time);
       clearInterval(time2);
     };
   }, [cap]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(locAction.setNotFound(null));
+    };
+  }, []);
   let appContent = null;
 
   if (todayWeather && todayForecast && (call?.county || call?.country)) {
@@ -170,11 +180,10 @@ function ForecastApp({ cap, call }) {
         sx={{
           maxWidth: { xs: "95%", sm: "80%", md: "1100px" },
           width: "100%",
-          height: "95%",
+          height: { xs: "fit-content", sm: "fit-content", md: "fit-content" },
           margin: "0 auto",
           padding: "2rem 0 3rem",
-          marginBottom: "4rem",
-          marginTop: "3rem",
+          marginTop: "1rem",
           borderRadius: {
             xs: "none",
             sm: "0 0 1rem 1rem",

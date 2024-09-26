@@ -3,20 +3,15 @@ import { ModeAction } from "../../store/context/mode";
 import useThisLocation from "../../hooks/useThisLocation";
 import { useSelector } from "react-redux";
 import { Triangle } from "react-loader-spinner";
-
 function MainNavigation() {
   const context = useContext(ModeAction);
-  const { isBlocked } = useContext(ModeAction);
   const { name } = useSelector((state) => state.location.loc);
+  const isFound = useSelector((state) => state.location.notFound);
   const { path, navi } = useThisLocation();
   let msn = path != "/ireland" ? "Show me " : "⬅ Home";
 
   if (path.includes("weather")) {
     msn = "⬅ Back";
-  }
-
-  function handleAlert() {
-    alert("Mode temporarily disabled");
   }
 
   let content = null;
@@ -68,24 +63,12 @@ function MainNavigation() {
           {content}
         </div>
         <div id="btn" onClick={context.changeMode}>
-          {isBlocked ? (
-            <>
-              <div className={context.mode ? "icon" : "icon filt"}></div>
-              <div>
-                <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-                  Light Mode
-                </p>
-              </div>
-            </>
-          ) : (
-            <p
-              onClick={handleAlert}
-              style={{ scale: "2" }}
-              className="mainTxt_h"
-            >
-              🚫
+          <div className={context.mode ? "icon" : "icon filt"}></div>
+          <div>
+            <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
+              Light Mode
             </p>
-          )}
+          </div>
         </div>
       </nav>
     </header>

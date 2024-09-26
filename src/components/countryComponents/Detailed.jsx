@@ -1,4 +1,4 @@
-import { useRouteLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { useRouteLoaderData, useLocation } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Clock from "../clock/Clock";
@@ -7,8 +7,7 @@ import ForecastApp from "../foreCastApp/ForecastApp";
 import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
-import { useDispatch, useSelector } from "react-redux";
-import { locAction } from "../../store/redux/location";
+import { useSelector } from "react-redux";
 function CountryDetailed({ country }) {
   const hasPosition = useLocation().state;
   const locDetail = useSelector((state) => state?.location?.locDetail);

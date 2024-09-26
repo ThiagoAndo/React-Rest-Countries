@@ -1,7 +1,4 @@
-import { useContext } from "react";
-import { ModeAction } from "../../store/context/mode";
 export default function CartNav({ mode, handleAction, id, active }) {
-  const context = useContext(ModeAction);
   let thisClass = null;
 
   if (active === id) {
@@ -9,8 +6,6 @@ export default function CartNav({ mode, handleAction, id, active }) {
   }
   function handleClick(e) {
     e.preventDefault();
-
-    // if (e.target.id === "Weather") context.blockMode();
     handleAction(e.target.id);
   }
 

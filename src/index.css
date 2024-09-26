@@ -597,6 +597,7 @@ a:hover {
 
 .card {
   min-height: fit-content;
+  max-height: 290px;
 }
 
 .nav {
@@ -619,7 +620,15 @@ a:hover {
   z-index: 1000;
 }
 #weather_detail {
-  height: 110vh;
+  min-height: 81vh;
+  max-height: fit-content;
+  padding-bottom: 2rem;
+}
+.not_found {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
 }
 @media (min-width: 330px) and (max-width: 490px) {
   body {
@@ -752,10 +761,6 @@ a:hover {
     margin-bottom: 18px;
   }
 
-  .src-container {
-    width: 80%;
-    margin: auto;
-  }
   #holdInf .inf {
     margin-left: 0px;
     gap: 1rem;
@@ -781,6 +786,9 @@ a:hover {
 
   .nav-tabs .nav-link {
     padding: 12px;
+  }
+  #weather_detail {
+    height: 165vh;
   }
 }
 
@@ -811,15 +819,23 @@ a:hover {
     width: 255px;
   }
 
-  #main {
-    width: 90%;
-    padding-bottom: 5.625rem;
-    overflow: hidden;
-    margin: auto;
-  }
+
+
 
   #formSelec select {
     margin-right: 3rem;
+  }
+  #expand {
+    height: 150vh;
+  }
+  #expand #contExp {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 3fr;
+    gap: 1rem;
+    width: 100%;
+    height: 1100px;
+    margin-top: 70px;
   }
 
   #expand #flag {
@@ -827,7 +843,7 @@ a:hover {
   }
 
   #holdInf .inf {
-    font-size: 0.7rem;
+    /* font-size: 0.9rem; */
     margin-left: 1rem;
   }
 
@@ -843,6 +859,16 @@ a:hover {
   .btnExp {
     width: 7rem;
   }
+  .btn_weather {
+    margin: 3.5rem auto;
+  }
+  #weather_detail {
+    height: 160vh;
+  }
+  .card{
+  width: 70%;
+  margin: auto;
+}
 }
 
 @media (min-width: 769px) and (max-width: 1400px) {
@@ -954,5 +980,8 @@ a:hover {
   .icon {
     scale: 1.5;
     margin-bottom: 0.2rem;
+  }
+  #weather_detail {
+    height: 130vh;
   }
 }

@@ -1,25 +1,23 @@
-import { Box, Grid } from '@mui/material';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import AirIcon from '@mui/icons-material/Air';
-import FilterDramaIcon from '@mui/icons-material/FilterDrama';
+import { Box, Grid } from "@mui/material";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import AirIcon from "@mui/icons-material/Air";
+import FilterDramaIcon from "@mui/icons-material/FilterDrama";
 import OpacityIcon from "@mui/icons-material/Opacity";
-import { ModeAction } from '../../../../store/context/mode';
+import { ModeAction } from "../../../../store/context/mode";
 import { useContext } from "react";
-
 
 const AirConditionsItem = (props) => {
   let iconContent;
   const context = useContext(ModeAction);
 
-  if (props.type === 'temperature')
-    iconContent = <ThermostatIcon sx={{ fontSize: '12px' }} />;
-  else if (props.type === 'wind')
-    iconContent = <AirIcon sx={{ fontSize: '12px' }} />;
-  else if (props.type === 'clouds')
-    iconContent = <FilterDramaIcon sx={{ fontSize: '12px' }} />;
-  else if (props.type === 'humidity')
-     iconContent = <OpacityIcon sx={{ fontSize: "12px" }} />;
-
+  if (props.type === "temperature")
+    iconContent = <ThermostatIcon sx={{ fontSize: "12px" }} />;
+  else if (props.type === "wind")
+    iconContent = <AirIcon sx={{ fontSize: "12px" }} />;
+  else if (props.type === "clouds")
+    iconContent = <FilterDramaIcon sx={{ fontSize: "12px" }} />;
+  else if (props.type === "humidity")
+    iconContent = <OpacityIcon sx={{ fontSize: "12px" }} />;
 
   return (
     <Grid
@@ -55,7 +53,7 @@ const AirConditionsItem = (props) => {
         <Box
           sx={{
             color: context.mode ? "black" : "white",
-            fontSize: { xs: "12px", sm: "17px", md: "10px" },
+            fontSize: { xs: "12px", sm: "10px", md: "12px" },
             paddingLeft: { xs: "0px", sm: "4px", md: "6px" },
             paddingTop: { xs: "2px", sm: "0px" },
             display: "flex",
@@ -77,7 +75,7 @@ const AirConditionsItem = (props) => {
           sx={{
             fontFamily: "Poppins",
             fontWeight: "600",
-            fontSize: { xs: "12px", sm: "17px", md: "13px" },
+            fontSize: { xs: "13px", sm: "13px", md: "13px" },
 
             color: context.mode ? "black" : "white",
             lineHeight: 1,
