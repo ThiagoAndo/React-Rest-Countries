@@ -620,7 +620,7 @@ a:hover {
   z-index: 1000;
 }
 #weather_detail {
-  min-height: 81vh;
+  min-height: 90vh;
   max-height: fit-content;
   padding-bottom: 2rem;
 }
@@ -819,9 +819,6 @@ a:hover {
     width: 255px;
   }
 
-
-
-
   #formSelec select {
     margin-right: 3rem;
   }
@@ -865,10 +862,10 @@ a:hover {
   #weather_detail {
     height: 160vh;
   }
-  .card{
-  width: 70%;
-  margin: auto;
-}
+  .card {
+    width: 70%;
+    margin: auto;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1400px) {
@@ -941,6 +938,9 @@ a:hover {
     scale: 1.5;
     margin-bottom: 0.2em;
   }
+  .not_found {
+    font-size: 1.5rem;
+  }
 }
 
 @media (min-width: 1400px) {
@@ -983,5 +983,8 @@ a:hover {
   }
   #weather_detail {
     height: 130vh;
+  }
+  .not_found {
+    font-size: 1.5rem;
   }
 }

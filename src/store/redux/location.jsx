@@ -45,7 +45,6 @@ const locationSlice = createSlice({
       state.loc = action.payload;
     },
     setFullLoc(state, action) {
-      console.log(action.payload);
       state.locDetail = action.payload;
     },
 

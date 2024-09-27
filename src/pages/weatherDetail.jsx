@@ -14,7 +14,7 @@ export default function WeatherDetail() {
   const isCounty = location?.state?.COUNTY;
   if (isCounty) {
     const attributes = location.state;
-    const { COUNTY, ED_ENGLISH } = attributes;
+    const { COUNTY, ED_ENGLISH, PROVINCE } = attributes;
     if (ED_ENGLISH.includes(" ")) {
       county = ED_ENGLISH.split(" ")[0];
     } else if (ED_ENGLISH.includes("-")) {
@@ -24,7 +24,7 @@ export default function WeatherDetail() {
     }
     county = county[0] + county.slice(1, county.length).toLowerCase();
 
-    places = { try: county, try_2: COUNTY, country: "IE" };
+    places = { try: county, try_2: COUNTY, try_3: PROVINCE ,country: "IE" };
     call = { county: true, full: true };
   } else {
     places = location.state;

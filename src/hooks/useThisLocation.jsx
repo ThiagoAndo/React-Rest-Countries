@@ -7,7 +7,7 @@ export default function useThisLocation() {
   const path = location.pathname;
   const navigate = useNavigate();
   function setNavigation() {
-    if (!path.includes("weather")) { 
+    if (!path.includes("weather")) {
       if (country?.country === "IE") {
         if (path === "/ireland") {
           navigate("/");
@@ -32,3 +32,7 @@ export default function useThisLocation() {
     navi: setNavigation,
   };
 }
+
+
+
+const n = { thiago: { ns: 23, nh: 23 } };

@@ -7,6 +7,7 @@ function MainNavigation() {
   const context = useContext(ModeAction);
   const { name } = useSelector((state) => state.location.loc);
   const isFound = useSelector((state) => state.location.notFound);
+
   const { path, navi } = useThisLocation();
   let msn = path != "/ireland" ? "Show me " : "⬅ Home";
 
@@ -57,21 +58,30 @@ function MainNavigation() {
   }
 
   return (
-    <header>
-      <nav className={context.mode ? "light" : "dark"}>
-        <div id="mainTxt" onClick={name != null ? navi : null}>
-          {content}
-        </div>
-        <div id="btn" onClick={context.changeMode}>
-          <div className={context.mode ? "icon" : "icon filt"}></div>
-          <div>
-            <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-              Light Mode
-            </p>
+    <>
+      {" "}
+      <header>
+        <nav className={context.mode ? "light" : "dark"}>
+          <div id="mainTxt" onClick={name != null ? navi : null}>
+            {content}
           </div>
-        </div>
-      </nav>
-    </header>
+          <div id="btn" onClick={context.changeMode}>
+            <div className={context.mode ? "icon" : "icon filt"}></div>
+            <div>
+              <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
+                Light Mode
+              </p>
+            </div>
+          </div>
+        </nav>
+      </header>
+      {isFound && (
+        <p className="not_found">
+          No weather data found for
+          <span style={{ color: "#f5163b" }}>{isFound}</span>
+        </p>
+      )}
+    </>
   );
 }
 

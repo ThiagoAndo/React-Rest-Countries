@@ -38,6 +38,8 @@ function ForecastApp({ cap, call }) {
   }
 
   const fetchPlace = async (capital) => {
+   
+
     try {
       let citiesList = await fetchCities(capital.county);
 
@@ -58,6 +60,7 @@ function ForecastApp({ cap, call }) {
   };
 
   const searchChangeHandler = async (citiesList) => {
+    console.log(citiesList)
     if (citiesList?.message) {
       setError(true);
       setIsLoading(false);
@@ -75,7 +78,8 @@ function ForecastApp({ cap, call }) {
           };
         }),
       };
-
+ console.log("dataRet");
+ console.log(dataRet);
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
 
       setIsLoading(true);
@@ -134,8 +138,20 @@ function ForecastApp({ cap, call }) {
               county: cap?.try_2,
               country: cap.country,
             });
-            searchChangeHandler(ret);
-          }, 1200);
+            if (ret?.data.length != 0) searchChangeHandler(ret);
+          }, 1500);
+        }
+        if (cap.try_3) {
+          time = setTimeout(async () => {
+            if(ret?.data.length === 0 ){
+              ret = await fetchPlace({
+                county: cap?.try_3,
+                country: cap.country,
+              });
+
+              searchChangeHandler(ret);
+            }
+          }, 3000);
         }
       } else {
         time2 = setTimeout(async () => {
