@@ -82,9 +82,7 @@ function CountryDetailed({ country }) {
       clearTimeout(time);
     };
   }, []);
-
   console.log(data);
-
   if (thisCountries === null) {
     return (
       <div id="loading">
@@ -163,13 +161,9 @@ function CountryDetailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              {/* <ThisForeApp
-                key={cca2}
-                hasPosition={hasPosition}
-                capital={capital}
-                cca2={cca2}
-                places={places}
-              /> */}
+              {data?.data.length > 0 ? (
+                <ThisForeApp key={cca2}  place={data} />
+              ) : null}
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
@@ -185,13 +179,10 @@ function CountryDetailed({ country }) {
   }
 }
 
-function ThisForeApp({ hasPosition, capital, cca2, places }) {
+function ThisForeApp({ place }) {
   return (
     <div className="weather_cont">
-      <ForecastApp
-        cap={{ ...places }}
-        call={hasPosition != null ? { county: true } : { country: true }}
-      />
+      <ForecastApp cap={place} call={{ country: true }} />
     </div>
   );
 }

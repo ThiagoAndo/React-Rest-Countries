@@ -11,6 +11,24 @@ const GEO_API_OPTIONS = {
     "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
   },
 };
+
+// export async function fetchSelected(lat, lon) {
+//   //API SOURCE:
+//   // https://www.geoapify.com/
+//   let response;
+//   try {
+//     response = await axios.get(
+//       `https: //api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   if (response?.status === 200) {
+//     return response;
+//   } else {
+//     return undefined;
+//   }
+// }
 export async function fetchCountries() {
   let response = null;
   try {

@@ -32,7 +32,6 @@ function ForecastApp({ cap, call }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [notFound, setNotFound] = useState(false);
-
   function handleTabClick() {
     navigate("weather", { state: cap });
   }
@@ -76,8 +75,8 @@ function ForecastApp({ cap, call }) {
           };
         }),
       };
-      console.log("dataRet");
-      console.log(dataRet);
+      // console.log("dataRet");
+      // console.log(dataRet);
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
 
       setIsLoading(true);
@@ -176,7 +175,7 @@ function ForecastApp({ cap, call }) {
   }, []);
   let appContent = null;
 
-  if (todayWeather && todayForecast && (call?.county || call?.country)) {
+  if (todayWeather && todayForecast && call?.country) {
     appContent = (
       <>
         <TodayContainer>

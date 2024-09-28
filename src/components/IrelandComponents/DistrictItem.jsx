@@ -1,21 +1,37 @@
 import { ModeAction } from "../../store/context/mode";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import CardNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
 import { useNavigate } from "react-router-dom";
+import { prepareCountyName } from "../../helpers/preparLocName";
 
 export default function DistrictItem({ county }) {
   const [tabActive, setTabActive] = useState("Description");
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const { attributes } = county;
-  
- 
+  const {
+    geometry: { rings },
+  } = county;
+  console.log(rings[0][0][1]);
   function handleTabClick(id) {
     if (id === "Weather") {
-      navigate("weather", { state: attributes });
+      const county = prepareCountyName(attributes.ED_ENGLISH);
+      navigate("weather", {
+        state: {
+          data: [
+            {
+              latitude: rings[0][0][1],
+              longitude: rings[0][0][0],
+              name: county,
+              countryCode: "IE",
+            },
+          ],
+        },
+      });
     }
+
     setTabActive(id);
   }
 
@@ -48,4 +64,3 @@ export default function DistrictItem({ county }) {
     </motion.div>
   );
 }
-

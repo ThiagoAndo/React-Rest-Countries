@@ -161,7 +161,6 @@ export async function usePrepareLocation() {
       //                                         )
       dispatch(locAction.setLoc(fakeResp));
       dispatch(locAction?.setFullLoc({ ...fakeResp }));
-
     }
   }
 
