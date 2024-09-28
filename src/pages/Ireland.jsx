@@ -51,6 +51,7 @@ function List() {
   const districts = useSelector((state) => state.location.districts);
   const context = useContext(ModeAction);
   const txtClock = useContext(ClockContext);
+  console.log(districts)
   useEffect(() => {
     txtClock.stop();
   }, []);

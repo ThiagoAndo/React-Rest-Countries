@@ -10,6 +10,7 @@ export default function DistrictItem({ county }) {
   const context = useContext(ModeAction);
   const navigate = useNavigate();
   const { attributes } = county;
+  
  
   function handleTabClick(id) {
     if (id === "Weather") {

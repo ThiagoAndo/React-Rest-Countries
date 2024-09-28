@@ -8,7 +8,11 @@ import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 import { useSelector } from "react-redux";
+import { fetchPlace } from "../../helpers/getPlaces";
+
 function CountryDetailed({ country }) {
+  const [data, setData] = useState({ data: [] });
+  const [isFetching, setIsFetching] = useState(true);
   const hasPosition = useLocation().state;
   const locDetail = useSelector((state) => state?.location?.locDetail);
   let places = null;
@@ -21,11 +25,11 @@ function CountryDetailed({ country }) {
     country: [count],
   } = country;
   const [lag, crr, capital, subReg, cca2] = prepareData(country);
-  if (hasPosition) {
-    places = { try: locDetail?.city, try_2: capital, country: cca2 };
-  } else {
-    places = { try: capital, country: cca2 };
-  }
+  // if (hasPosition) {
+  //   places = { try: locDetail?.city, try_2: capital, country: cca2 };
+  // } else {
+  //   places = { try: capital, country: cca2 };
+  // }
 
   let bordersArray = [];
   if (count.borders && thisCountries) {
@@ -40,6 +44,46 @@ function CountryDetailed({ country }) {
       parse();
     }
   }, []);
+
+  useEffect(() => {
+    let city = [];
+    let time = null;
+    async function getPlace() {
+      if (data?.data.length === 0) {
+        setIsFetching(false);
+        if (hasPosition) {
+          city = await fetchPlace(locDetail?.city, cca2);
+
+          if (city?.data.length > 0) {
+            setData(city);
+          } else {
+            time = setTimeout(async () => {
+              city = await fetchPlace(capital, cca2);
+              if (city?.data.length > 0) {
+                setIsFetching(false);
+                setData(city);
+              }
+            }, 1500);
+          }
+        } else {
+          city = await fetchPlace(capital, cca2);
+          if (city?.data.length > 0) {
+            setIsFetching(false);
+            setData(city);
+          }
+        }
+        count++;
+      }
+    }
+
+    getPlace();
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, []);
+
+  console.log(data);
 
   if (thisCountries === null) {
     return (
@@ -119,18 +163,18 @@ function CountryDetailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              <ThisForeApp
+              {/* <ThisForeApp
                 key={cca2}
                 hasPosition={hasPosition}
                 capital={capital}
                 cca2={cca2}
                 places={places}
-              />
+              /> */}
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
                 capital={
-                  hasPosition ? places.try : capital[0].replace(" ", "_")
+                  hasPosition ? locDetail?.city : capital[0].replace(" ", "_")
                 }
               />
             </div>

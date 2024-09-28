@@ -21,7 +21,6 @@ function CountryList({ countries }) {
   );
   useEffect(() => {
     if (backup != null) {
-      console.log(backup);
       dispatch(locAction.setLocDistricts());
     }
   }, []);
