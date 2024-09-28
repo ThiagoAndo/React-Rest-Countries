@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Grid, Container, Typography } from "@mui/material";
 import TodayWeather from "./TodayWeather/TodayWeather";
@@ -57,7 +57,8 @@ function ForecastApp({ cap, call }) {
   };
 
   const searchChangeHandler = async (citiesList) => {
-    console.log(citiesList);
+          console.log(citiesList);
+          console.log("citiesList");
     if (citiesList?.message) {
       setError(true);
       setIsLoading(false);
@@ -75,8 +76,6 @@ function ForecastApp({ cap, call }) {
           };
         }),
       };
-      // console.log("dataRet");
-      // console.log(dataRet);
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
 
       setIsLoading(true);

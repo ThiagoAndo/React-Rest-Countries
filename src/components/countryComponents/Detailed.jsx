@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 import { fetchPlace } from "../../helpers/getPlaces";
 
 function CountryDetailed({ country }) {
-  const [data, setData] = useState({ data: [] });
-  const [isFetching, setIsFetching] = useState(true);
+  // const [isFetching, setIsFetching] = useState(true);
+
   const hasPosition = useLocation().state;
   const locDetail = useSelector((state) => state?.location?.locDetail);
   let places = null;
@@ -45,44 +45,6 @@ function CountryDetailed({ country }) {
     }
   }, []);
 
-  useEffect(() => {
-    let city = [];
-    let time = null;
-    async function getPlace() {
-      if (data?.data.length === 0) {
-        setIsFetching(false);
-        if (hasPosition) {
-          city = await fetchPlace(locDetail?.city, cca2);
-
-          if (city?.data.length > 0) {
-            setData(city);
-          } else {
-            time = setTimeout(async () => {
-              city = await fetchPlace(capital, cca2);
-              if (city?.data.length > 0) {
-                setIsFetching(false);
-                setData(city);
-              }
-            }, 1500);
-          }
-        } else {
-          city = await fetchPlace(capital, cca2);
-          if (city?.data.length > 0) {
-            setIsFetching(false);
-            setData(city);
-          }
-        }
-        count++;
-      }
-    }
-
-    getPlace();
-
-    return () => {
-      clearTimeout(time);
-    };
-  }, []);
-  console.log(data);
   if (thisCountries === null) {
     return (
       <div id="loading">
@@ -161,9 +123,13 @@ function CountryDetailed({ country }) {
                   </div>
                 </div>
               ) : null}
-              {data?.data.length > 0 ? (
-                <ThisForeApp key={cca2}  place={data} />
-              ) : null}
+              <ThisForeApp
+                key={cca2}
+                cca2={cca2}
+                capital={capital}
+                hasPosition={hasPosition}
+                locDetail={locDetail}
+              />
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
@@ -179,12 +145,44 @@ function CountryDetailed({ country }) {
   }
 }
 
-function ThisForeApp({ place }) {
-  return (
+function ThisForeApp({ capital, hasPosition, locDetail, cca2 }) {
+  const [data, setData] = useState({ data: ["data", "data"] });
+  useEffect(() => {
+    let city = [];
+    let time = null;
+    async function getPlace() {
+      if (data?.data.length === 2) {
+        if (hasPosition) {
+          city = await fetchPlace(locDetail?.city, cca2);
+
+          if (city?.data.length > 0) {
+            setData(city);
+          } else {
+            time = setTimeout(async () => {
+              city = await fetchPlace(capital, cca2);
+              setData(city);
+            }, 1500);
+          }
+        } else {
+          city = await fetchPlace(capital, cca2);
+
+          setData(city);
+        }
+      }
+    }
+
+    getPlace();
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, []);
+
+  return data.data.length != 2 ? (
     <div className="weather_cont">
-      <ForecastApp cap={place} call={{ country: true }} />
+      <ForecastApp cap={data} call={{ country: true }} />
     </div>
-  );
+  ) : null;
 }
 
 export default CountryDetailed;
