@@ -22,7 +22,7 @@ function CountryDetailed({ country }) {
   let {
     country: [count],
   } = country;
-  const [lag, crr, capital, subReg, cca2] = prepareData(country);
+  const [lag, crr, capital, subReg, cca2, latlng] = prepareData(country);
 
   let bordersArray = [];
   if (count.borders && thisCountries) {
@@ -89,7 +89,11 @@ function CountryDetailed({ country }) {
                 id="flag"
                 style={{ backgroundImage: `url(${count.flags.png})` }}
               ></div>
-              <Leaflet />
+              <Leaflet
+                key={capital}
+                coordinates={latlng}
+                capital={hasPosition ? locDetail?.city : capital}
+              />
             </div>
             <div id="holdInf">
               <div className="inf">
@@ -126,7 +130,7 @@ function CountryDetailed({ country }) {
                   {lag}
                 </p>
               </div>
-              {bordersArray.length > 0 ? (
+              {bordersArray?.length > 0 ? (
                 <div id="border">
                   <span id="noBtn">
                     <strong>Border countries: </strong>
@@ -144,6 +148,7 @@ function CountryDetailed({ country }) {
                 capital={capital}
                 hasPosition={hasPosition}
                 locDetail={locDetail}
+                coordinates={latlng}
               />
               <Clock
                 cca2={count.cca2}
@@ -154,24 +159,23 @@ function CountryDetailed({ country }) {
               />
             </div>
           </div>
-
         </div>
       </section>
     );
   }
 }
 
-function ThisForeApp({ capital, hasPosition, locDetail, cca2 }) {
+function ThisForeApp({ capital, hasPosition, locDetail, cca2, coordinates }) {
   const [data, setData] = useState({ data: ["data", "data"] });
   useEffect(() => {
     let city = [];
     let time = null;
     async function getPlace() {
-      if (data?.data.length === 2) {
+      if (data?.data?.length === 2) {
         if (hasPosition) {
           city = await fetchPlace(locDetail?.city, cca2);
 
-          if (city?.data.length > 0) {
+          if (city?.data?.length > 0) {
             setData(city);
           } else {
             time = setTimeout(async () => {
@@ -181,8 +185,26 @@ function ThisForeApp({ capital, hasPosition, locDetail, cca2 }) {
           }
         } else {
           city = await fetchPlace(capital, cca2);
-
-          setData(city);
+          if (city?.data?.length != 0) {
+            setData(city);
+          } else {
+            if (coordinates) {
+              setData({
+                data: [
+                  {
+                    latitude: coordinates[0],
+                    longitude: coordinates[1],
+                    name: capital,
+                    countryCode: cca2,
+                  },
+                ],
+              });
+            } else {
+              setData({
+                data: [],
+              });
+            }
+          }
         }
       }
     }
@@ -194,7 +216,7 @@ function ThisForeApp({ capital, hasPosition, locDetail, cca2 }) {
     };
   }, []);
 
-  return data.data.length != 2 ? (
+  return data?.data?.length != 2 ? (
     <div className="weather_cont">
       <ForecastApp cap={data} call={{ country: true }} />
     </div>

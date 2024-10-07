@@ -36,26 +36,6 @@ function ForecastApp({ cap, call }) {
     navigate("weather", { state: cap });
   }
 
-  const fetchPlace = async (capital) => {
-    try {
-      let citiesList = await fetchCities(capital.county);
-
-      const foundPlace = {
-        data: citiesList.data.filter((list) => {
-          return (
-            list.city === capital.county &&
-            list.countryCode === capital?.country
-          );
-        }),
-      };
-
-      const ret = foundPlace;
-      return ret;
-    } catch (error) {
-      return { error };
-    }
-  };
-
   const searchChangeHandler = async (citiesList) => {
     if (citiesList?.message) {
       setError(true);
@@ -109,7 +89,6 @@ function ForecastApp({ cap, call }) {
       setIsLoading(false);
     }
   };
-
 
   useEffect(() => {
     if (todayWeather === null) searchChangeHandler(cap);
