@@ -9,6 +9,7 @@ import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 import { useSelector } from "react-redux";
 import { fetchPlace } from "../../helpers/getPlaces";
+import Leaflet from "../ui/Leaflet";
 
 function CountryDetailed({ country }) {
   const hasPosition = useLocation().state;
@@ -35,28 +36,25 @@ function CountryDetailed({ country }) {
     </Link>
   );
 
-    if (location != "IE" && url === "/IRL") {
-      controlers = (
-        <>
-          <Link
-            to={"/"}
-            className={context.mode ? "btnExp light" : "btnExp dark"}
-          >
-            <span>⬅ </span>
-            <span>Back</span>
-          </Link>
-          <Link
-            to={"/Ireland"}
-            className={context.mode ? "btn_ie light" : "btn_ie dark "}
-          >
-            <span>Irland Counties</span>
-          </Link>
-        </>
-      );
-    }
-
-
-
+  if (location != "IE" && url === "/IRL") {
+    controlers = (
+      <>
+        <Link
+          to={"/"}
+          className={context.mode ? "btnExp light" : "btnExp dark"}
+        >
+          <span>⬅ </span>
+          <span>Back</span>
+        </Link>
+        <Link
+          to={"/Ireland"}
+          className={context.mode ? "btn_ie light" : "btn_ie dark "}
+        >
+          <span>Irland Counties</span>
+        </Link>
+      </>
+    );
+  }
 
   useEffect(() => {
     if (!thisCountries) {
@@ -86,10 +84,13 @@ function CountryDetailed({ country }) {
         <div>
           <div className="btn_control">{controlers}</div>
           <div id="contExp">
-            <div
-              id="flag"
-              style={{ backgroundImage: `url(${count.flags.png})` }}
-            ></div>
+            <div className="flag_map">
+              <div
+                id="flag"
+                style={{ backgroundImage: `url(${count.flags.png})` }}
+              ></div>
+              <Leaflet />
+            </div>
             <div id="holdInf">
               <div className="inf">
                 <h1>{count.name.common}</h1>
@@ -153,6 +154,7 @@ function CountryDetailed({ country }) {
               />
             </div>
           </div>
+
         </div>
       </section>
     );
