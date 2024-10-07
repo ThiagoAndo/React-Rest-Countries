@@ -9,18 +9,20 @@ export default function useThisLocation() {
   function setNavigation() {
     if (!path.includes("weather")) {
       if (country?.country === "IE") {
-        if (path === "/ireland") {
+        if (path === "/Ireland") {
           navigate("/");
         }
         if (path === "/") {
-          navigate("/ireland");
+          navigate("/Ireland");
         }
+      } else if (country?.country != "IE" && path === "/Ireland") {
+        navigate("/");
       } else {
         navigate(country?.country, { state: true });
       }
     } else {
-      if (path.includes("/ireland")) {
-        navigate("/ireland");
+      if (path.includes("/Ireland")) {
+        navigate("/Ireland");
       } else {
         navigate(path.split("/weather")[0]);
       }
@@ -32,7 +34,3 @@ export default function useThisLocation() {
     navi: setNavigation,
   };
 }
-
-
-
-const n = { thiago: { ns: 23, nh: 23 } };

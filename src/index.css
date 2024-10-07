@@ -175,13 +175,12 @@ a:hover {
 
 /* Expand Section========================== */
 .weather_cont {
-  width: 17rem;
+  width: 19rem;
   height: 20rem;
   box-shadow: 1px 2px 30px #00000033;
   border-radius: 1rem;
   padding: 0.5rem;
   grid-area: 1/4/3/3;
-  margin-left: 1rem;
 }
 
 .weather_cont_county {
@@ -202,6 +201,13 @@ a:hover {
   padding-top: 3.5rem;
 }
 
+#expand .btn_control {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  width: 90%;
+}
+
 .btnExp {
   width: 8rem;
   height: 2.5rem;
@@ -212,6 +218,23 @@ a:hover {
   cursor: pointer;
   border-radius: 0.3rem;
   box-shadow: 0px 0px 6px 0px black;
+}
+
+.btn_ie {
+  width: 9rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  font-weight: 500;
+  box-shadow: 0px 0px 6px 0px black;
+}
+
+.btn_ie:hover {
+  font-weight: bold;
 }
 
 .btn_weather {
@@ -225,6 +248,11 @@ a:hover {
   border-radius: 0.3rem;
   box-shadow: 0px 0px 6px 0px black;
   margin: 4rem auto;
+}
+
+.btn_weather:hover {
+  font-weight: bold;
+  transition: font-weight 0.2s ease;
 }
 
 .btnExp > span:first-of-type {
@@ -736,6 +764,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     width: 300px;
+    gap: 2rem;
   }
   .weather_cont {
     width: 100%;
@@ -947,12 +976,13 @@ a:hover {
   body {
     font-size: 1rem;
   }
-  .clock {
-    right: 100px;
-    top: 140px;
-  }
+
   #btnBor {
     grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  }
+
+  #expand {
+    height: 100vh;
   }
   #expand #holdInf {
     margin-left: 2rem;

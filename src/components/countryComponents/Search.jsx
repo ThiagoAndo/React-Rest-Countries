@@ -47,7 +47,7 @@ function Search({ opt, call, holderF, holderS }) {
     );
   }
   function handleOnSelect(item) {
-    if (path === "/ireland") {
+    if (path === "/Ireland") {
       dispatch(locAction.setFilterDistricts({ name: item.name , call:"county"}));
     } else {
       navigate(`/${item.id}`);
@@ -55,7 +55,7 @@ function Search({ opt, call, holderF, holderS }) {
   }
 
   function handleEvent(e) {
-    if (path === "/ireland") {
+    if (path === "/Ireland") {
       dispatch(
         locAction.setFilterDistricts({ name: e.target.value, call: "state" })
       );
@@ -70,7 +70,7 @@ function Search({ opt, call, holderF, holderS }) {
       <div className="src-container">
         <ReactSearchAutocomplete
           className={"form"}
-          items={path === "/ireland" ? districts : coutry}
+          items={path === "/Ireland" ? districts : coutry}
           onSelect={handleOnSelect}
           formatResult={formatResult}
           onKeyDown={(e) => {

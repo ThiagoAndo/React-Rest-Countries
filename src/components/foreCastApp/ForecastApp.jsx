@@ -57,8 +57,6 @@ function ForecastApp({ cap, call }) {
   };
 
   const searchChangeHandler = async (citiesList) => {
-          console.log(citiesList);
-          console.log("citiesList");
     if (citiesList?.message) {
       setError(true);
       setIsLoading(false);
@@ -112,56 +110,6 @@ function ForecastApp({ cap, call }) {
     }
   };
 
-  // useEffect(() => {
-  //   let ret = null;
-  //   let time = null;
-  //   let time2 = null;
-
-  //   async function loadCoutry() {
-  //     if (call?.county) {
-  //       if (count === 0) {
-  //         count++;
-  //         ret = await fetchPlace({ county: cap?.try, country: cap.country });
-  //       }
-  //       if (ret?.data.length > 0) {
-  //         searchChangeHandler(ret);
-  //       }
-
-  //       if (ret?.data.length === 0) {
-  //         dispatch(locAction.setNotFound(cap?.try));
-  //         time = setTimeout(async () => {
-  //           ret = await fetchPlace({
-  //             county: cap?.try_2,
-  //             country: cap.country,
-  //           });
-  //           if (ret?.data.length != 0) searchChangeHandler(ret);
-  //         }, 1500);
-  //       }
-  //       if (cap.try_3) {
-  //         time = setTimeout(async () => {
-  //           if(ret?.data.length === 0 ){
-  //             ret = await fetchPlace({
-  //               county: cap?.try_3,
-  //               country: cap.country,
-  //             });
-
-  //             searchChangeHandler(ret);
-  //           }
-  //         }, 3000);
-  //       }
-  //     } else {
-  //       time2 = setTimeout(async () => {
-  //         ret = await fetchPlace({ county: cap.try, country: cap.country });
-  //         searchChangeHandler(ret);
-  //       }, 100);
-  //     }
-  //   }
-  //   if (todayWeather === null) loadCoutry();
-  //   return () => {
-  //     clearInterval(time);
-  //     clearInterval(time2);
-  //   };
-  // }, [cap]);
 
   useEffect(() => {
     if (todayWeather === null) searchChangeHandler(cap);

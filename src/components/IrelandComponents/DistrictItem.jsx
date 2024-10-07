@@ -1,5 +1,5 @@
 import { ModeAction } from "../../store/context/mode";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import CardNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
@@ -14,7 +14,6 @@ export default function DistrictItem({ county }) {
   const {
     geometry: { rings },
   } = county;
-  console.log(rings[0][0][1]);
   function handleTabClick(id) {
     if (id === "Weather") {
       const county = prepareCountyName(attributes.ED_ENGLISH);

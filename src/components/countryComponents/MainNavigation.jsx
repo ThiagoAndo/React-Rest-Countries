@@ -11,7 +11,7 @@ function MainNavigation() {
   const { path, navi } = useThisLocation();
   let msn = path != "/ireland" ? "Show me " : "⬅ Home";
 
-  if (path.includes("weather")) {
+  if (path.includes("weather") ) {
     msn = "⬅ Back";
   }
 
@@ -33,7 +33,8 @@ function MainNavigation() {
     );
   }
 
-  if (path === "/ireland" || path.includes("weather")) {
+  if (path === "/Ireland" || path.includes("weather")) {
+  
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
         <>{<span>{path === "/ireland" ? "⬅ Home" : "⬅ Back"}</span>}</>
@@ -59,7 +60,6 @@ function MainNavigation() {
 
   return (
     <>
-      {" "}
       <header>
         <nav className={context.mode ? "light" : "dark"}>
           <div id="mainTxt" onClick={name != null ? navi : null}>

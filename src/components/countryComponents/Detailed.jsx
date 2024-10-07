@@ -11,30 +11,53 @@ import { useSelector } from "react-redux";
 import { fetchPlace } from "../../helpers/getPlaces";
 
 function CountryDetailed({ country }) {
-  // const [isFetching, setIsFetching] = useState(true);
-
   const hasPosition = useLocation().state;
+  const url = useLocation().pathname;
   const locDetail = useSelector((state) => state?.location?.locDetail);
-  let places = null;
-
+  const location = useSelector((state) => state.location.loc.country);
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
-
   let {
     country: [count],
   } = country;
   const [lag, crr, capital, subReg, cca2] = prepareData(country);
-  // if (hasPosition) {
-  //   places = { try: locDetail?.city, try_2: capital, country: cca2 };
-  // } else {
-  //   places = { try: capital, country: cca2 };
-  // }
 
   let bordersArray = [];
   if (count.borders && thisCountries) {
     bordersArray = findBorders(count, thisCountries);
   }
+
+  let controlers = (
+    <Link to={"/"} className={context.mode ? "btnExp light" : "btnExp dark"}>
+      <span>⬅ </span>
+      <span>Back</span>
+    </Link>
+  );
+
+    if (location != "IE" && url === "/IRL") {
+      controlers = (
+        <>
+          <Link
+            to={"/"}
+            className={context.mode ? "btnExp light" : "btnExp dark"}
+          >
+            <span>⬅ </span>
+            <span>Back</span>
+          </Link>
+          <Link
+            to={"/Ireland"}
+            className={context.mode ? "btn_ie light" : "btn_ie dark "}
+          >
+            <span>Irland Counties</span>
+          </Link>
+        </>
+      );
+    }
+
+
+
+
   useEffect(() => {
     if (!thisCountries) {
       async function parse() {
@@ -61,15 +84,7 @@ function CountryDetailed({ country }) {
     return (
       <section id="expand">
         <div>
-          <div>
-            <Link
-              to={"/"}
-              className={context.mode ? "btnExp light" : "btnExp dark"}
-            >
-              <span>⬅ </span>
-              <span>Back</span>
-            </Link>
-          </div>
+          <div className="btn_control">{controlers}</div>
           <div id="contExp">
             <div
               id="flag"
@@ -96,8 +111,7 @@ function CountryDetailed({ country }) {
                 </p>
               </div>
               <div className="inf">
-                <h1> </h1>
-                <h1> </h1>
+                <h1 style={{ color: "transparent" }}>asdfsadf </h1>
                 <p>
                   <strong>Top Level Domain: </strong>
                   {count.tld}

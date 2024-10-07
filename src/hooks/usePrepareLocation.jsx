@@ -21,6 +21,7 @@ export async function usePrepareLocation() {
   let place = null;
 
   if (count >= 1 && count <= 2 && loc.name === null) {
+  
     if (refPosition.current === "ok") {
       switch (count) {
         case 1:
@@ -45,12 +46,13 @@ export async function usePrepareLocation() {
         country: "IE",
         lat: 53.350551318399916,
         lon: -6.328125000000001,
-        name: "Ireland",
+        name: "ireland",
       });
     }
   }
 
   if (locDetail.name === null) {
+
     if (navigator?.geolocation) {
       navigator?.geolocation?.getCurrentPosition(
         (position) => showPosition(position),
@@ -59,6 +61,7 @@ export async function usePrepareLocation() {
     }
   }
   async function showPosition(position) {
+
     refPosition.current = "ok";
     location = position?.coords;
     const { latitude: lat, longitude: lon } = position?.coords;
@@ -123,6 +126,14 @@ export async function usePrepareLocation() {
           name: myObj.city,
         })
       );
+         
+         setIrelandData({
+          country: "IE",
+          lat: 53.350551318399916,
+          lon: -6.328125000000001,
+          name: "Dublin",
+        });
+  
     }
   }
 
@@ -161,6 +172,12 @@ export async function usePrepareLocation() {
       //                                         )
       dispatch(locAction.setLoc(fakeResp));
       dispatch(locAction?.setFullLoc({ ...fakeResp }));
+      setIrelandData({
+        country: "IE",
+        lat: 53.350551318399916,
+        lon: -6.328125000000001,
+        name: "Dublin",
+      });
     }
   }
 

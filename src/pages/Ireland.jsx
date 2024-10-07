@@ -1,26 +1,19 @@
 import { ModeAction } from "../store/context/mode";
 import DistrictItem from "../components/IrelandComponents/DistrictItem";
 import { useContext, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { usePrepareLocation } from "../hooks/usePrepareLocation";
 import Search from "../components/countryComponents/Search";
 import { Triangle } from "react-loader-spinner";
 import { ClockContext } from "../store/context/clock";
-import { json } from "react-router-dom";
 
 export default function DistrictList() {
   const conName = useSelector((state) => state.location.conName);
   const districts = useSelector((state) => state.location.districts);
-  const location = useSelector((state) => state.location.loc.country);
+  console.log(districts);
+  console.log("districts");
   usePrepareLocation();
-  if (location != "IE" && location != null) {
-    throw json(
-      { message: "This page is not available for your country" },
-      {
-        status: 401,
-      }
-    );
-  }
+
 
   return (
     <>

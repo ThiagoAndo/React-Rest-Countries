@@ -32,10 +32,8 @@ export function preparName(place) {
 }
 
 export function prepareCountyName(ED_ENGLISH) {
-  let county
-  if (ED_ENGLISH.includes(" ")) {
-    county = ED_ENGLISH.split(" ")[0];
-  } else if (ED_ENGLISH.includes("-")) {
+  let county;
+  if (ED_ENGLISH.includes("-")) {
     county = ED_ENGLISH.split("-")[0];
   } else {
     county = ED_ENGLISH;

@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 function CountryList({ countries }) {
   const backup = useSelector((state) => state.location.backup);
+  const loc = useSelector((state) => state.location.loc.country);
   const dispatch = useDispatch();
   const context = useContext(ModeAction);
   const regionCtx = useContext(fRegion);
@@ -20,7 +21,7 @@ function CountryList({ countries }) {
     a.name.common > b.name.common ? 1 : -1
   );
   useEffect(() => {
-    if (backup != null) {
+    if (backup != null && loc === "IE") {
       dispatch(locAction.setLocDistricts());
     }
   }, []);

@@ -89,18 +89,22 @@ const locationSlice = createSlice({
         state.loc.name = "Ireland";
         state.loc.country = "IE";
       } else {
-        state.districts = state.data;
+        state.districts = found = state.data.filter((obj) => {
+          return obj.attributes.COUNTY === "Dublin";
+        });
       }
     },
     setFilterDistricts(state, action) {
-      if (state.backup) {
-      }
-
+  
       if (action.payload.call != "county") {
         if (action.payload.name != "All Counties") {
+        console.log("chamo");
+
           state.districts = state.data.filter((obj) => {
             return obj.attributes.COUNTY === action.payload.name;
           });
+
+
         } else {
           state.districts = state.data;
         }
