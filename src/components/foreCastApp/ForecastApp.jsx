@@ -12,7 +12,7 @@ import {
   getWeekForecastWeather,
 } from "../../utilities/DataUtils";
 import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
-import { fetchCities, fetchWeatherData } from "../../helpers/HTTP";
+import {  fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ModeAction } from "../../store/context/mode";
 import { useDispatch } from "react-redux";

@@ -8,7 +8,7 @@ import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 import { useSelector } from "react-redux";
-import { fetchPlace } from "../../helpers/getPlaces";
+// import { fetchPlace } from "../../helpers/getPlaces";
 import Leaflet from "../ui/Leaflet";
 
 function CountryDetailed({ country }) {
@@ -19,6 +19,8 @@ function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
+  console.log(locDetail);
+  console.log("hasPosition");
   let {
     country: [count],
   } = country;
@@ -153,9 +155,7 @@ function CountryDetailed({ country }) {
               <Clock
                 cca2={count.cca2}
                 name={count.name.common}
-                capital={
-                  hasPosition ? locDetail?.city : capital[0].replace(" ", "_")
-                }
+                capital={hasPosition ? locDetail?.city : null}
               />
             </div>
           </div>
@@ -166,61 +166,31 @@ function CountryDetailed({ country }) {
 }
 
 function ThisForeApp({ capital, hasPosition, locDetail, cca2, coordinates }) {
-  const [data, setData] = useState({ data: ["data", "data"] });
-  useEffect(() => {
-    let city = [];
-    let time = null;
-    async function getPlace() {
-      if (data?.data?.length === 2) {
-        if (hasPosition) {
-          city = await fetchPlace(locDetail?.city, cca2);
+  const countryObj = { data: [] };
 
-          if (city?.data?.length > 0) {
-            setData(city);
-          } else {
-            time = setTimeout(async () => {
-              city = await fetchPlace(capital, cca2);
-              setData(city);
-            }, 1500);
-          }
-        } else {
-          city = await fetchPlace(capital, cca2);
-          if (city?.data?.length != 0) {
-            setData(city);
-          } else {
-            if (coordinates) {
-              setData({
-                data: [
-                  {
-                    latitude: coordinates[0],
-                    longitude: coordinates[1],
-                    name: capital,
-                    countryCode: cca2,
-                  },
-                ],
-              });
-            } else {
-              setData({
-                data: [],
-              });
-            }
-          }
-        }
-      }
-    }
-
-    getPlace();
-
-    return () => {
-      clearTimeout(time);
+  if (hasPosition) {
+    countryObj.data[0] = {
+      latitude: locDetail.lat,
+      longitude: locDetail.lon,
+      name: locDetail.city,
+      countryCode: locDetail?.country_code || locDetail?.country,
     };
-  }, []);
+  } else {
+    if (coordinates) {
+      countryObj.data[0] = {
+        latitude: coordinates[0],
+        longitude: coordinates[1],
+        name: capital,
+        countryCode: cca2,
+      };
+    }
+  }
 
-  return data?.data?.length != 2 ? (
+  return (
     <div className="weather_cont">
-      <ForecastApp cap={data} call={{ country: true }} />
+      <ForecastApp cap={{ ...countryObj }} call={{ country: true }} />
     </div>
-  ) : null;
+  );
 }
 
 export default CountryDetailed;

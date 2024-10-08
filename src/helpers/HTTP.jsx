@@ -1,34 +1,9 @@
 import axios from "axios";
 const WEATHER_KEY = import.meta.env.VITE_WEATHER_SECRETE_KEY;
 const TIME_KEY = import.meta.env.VITE_TIME_ZONE_KEY;
-const GEO_KEY = import.meta.env.VITE_GEO_KEY;
+// const GEO_KEY = import.meta.env.VITE_GEO_KEY;
 const GEOPIFY = import.meta.env.VITE_GEOPIFY;
 
-const GEO_API_OPTIONS = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": GEO_KEY,
-    "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-  },
-};
-
-// export async function fetchSelected(lat, lon) {
-//   //API SOURCE:
-//   // https://www.geoapify.com/
-//   let response;
-//   try {
-//     response = await axios.get(
-//       `https: //api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   if (response?.status === 200) {
-//     return response;
-//   } else {
-//     return undefined;
-//   }
-// }
 export async function fetchCountries() {
   let response = null;
   try {
@@ -165,21 +140,6 @@ export async function fetchWeatherData(lat, lon) {
     console.log(error);
   }
 }
-export async function fetchCities(input) {
-  //API SOURCE:
-  //https://rapidapi.com/wirefreethought/api/geodb-cities
-  try {
-    const response = await fetch(
-      `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?minPopulation=10000&namePrefix=${input}`,
-      GEO_API_OPTIONS
-    );
-
-    const data = await response?.json();
-    return data;
-  } catch (error) {
-    return error;
-  }
-}
 export async function fetchLocationAnyWay() {
   //API SOURCE:
   // https://www.geoapify.com/
@@ -197,3 +157,43 @@ export async function fetchLocationAnyWay() {
     return undefined;
   }
 }
+
+// export async function fetchSelected(lat, lon) {
+//   //API SOURCE:
+//     // https://openweathermap.org/
+//   let response;
+//   try {
+//     response = await axios.get(
+//       `https: //api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   if (response?.status === 200) {
+//     return response;
+//   } else {
+//     return undefined;
+//   }
+// }
+// const GEO_API_OPTIONS = {
+//   method: "GET",
+//   headers: {
+//     "X-RapidAPI-Key": GEO_KEY,
+//     "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+//   },
+// };
+// export async function fetchCities(input) {
+//   //API SOURCE:
+//   //https://rapidapi.com/wirefreethought/api/geodb-cities
+//   try {
+//     const response = await fetch(
+//       `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?minPopulation=10000&namePrefix=${input}`,
+//       GEO_API_OPTIONS
+//     );
+
+//     const data = await response?.json();
+//     return data;
+//   } catch (error) {
+//     return error;
+//   }
+// }
