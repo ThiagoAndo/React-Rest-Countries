@@ -4,7 +4,6 @@ import { useContext } from "react";
 
 const TemperatureWeatherDetail = (props) => {
   const context = useContext(ModeAction);
-
   return (
     <Box
       sx={{

@@ -9,7 +9,6 @@ export function preparName(place) {
     place.includes("East") ||
     place.includes("South") ||
     place.includes("West");
-
   if (check) {
     arr = place.split(" ").filter((lett) => {
       return (
@@ -27,7 +26,6 @@ export function preparName(place) {
     const [name] = arr;
     return name;
   }
-
   return place;
 }
 

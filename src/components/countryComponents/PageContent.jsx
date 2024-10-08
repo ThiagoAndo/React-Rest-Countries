@@ -1,4 +1,3 @@
-
 function PageContent({ title, children }) {
   return (
     <div className={"content"}>
@@ -7,5 +6,4 @@ function PageContent({ title, children }) {
     </div>
   );
 }
-
 export default PageContent;

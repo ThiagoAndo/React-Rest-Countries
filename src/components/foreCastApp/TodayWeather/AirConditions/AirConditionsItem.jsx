@@ -9,7 +9,6 @@ import { useContext } from "react";
 const AirConditionsItem = (props) => {
   let iconContent;
   const context = useContext(ModeAction);
-
   if (props.type === "temperature")
     iconContent = <ThermostatIcon sx={{ fontSize: "12px" }} />;
   else if (props.type === "wind")
@@ -18,7 +17,6 @@ const AirConditionsItem = (props) => {
     iconContent = <FilterDramaIcon sx={{ fontSize: "12px" }} />;
   else if (props.type === "humidity")
     iconContent = <OpacityIcon sx={{ fontSize: "12px" }} />;
-
   return (
     <Grid
       item

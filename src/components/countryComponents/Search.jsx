@@ -17,14 +17,12 @@ function Search({ opt, call, holderF, holderS }) {
   const { countries } = useRouteLoaderData("main");
   const [coutry, sentCountry] = useState();
   const navigate = useNavigate();
-
   if (call === "c") {
     options = opt;
   } else {
     options = [...opt];
     options.unshift("All Counties");
   }
-
   async function resolveCoutries(con) {
     let count = await con;
     count = count.map((cnt) => {
@@ -53,18 +51,15 @@ function Search({ opt, call, holderF, holderS }) {
       navigate(`/${item.id}`);
     }
   }
-
   function handleEvent(e) {
     if (path === "/Ireland") {
       dispatch(
         locAction.setFilterDistricts({ name: e.target.value, call: "state" })
       );
     } else {
-      console.log(e.target.value);
       regionctx.changeRegion(e.target.value);
     }
   }
-
   return (
     <section id="srch" className="marg">
       <div className="src-container">

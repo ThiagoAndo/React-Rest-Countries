@@ -8,7 +8,6 @@ import { Triangle } from "react-loader-spinner";
 import { ModeAction } from "../../store/context/mode";
 import { prepareData, findBorders } from "../../helpers/prepareData";
 import { useSelector } from "react-redux";
-// import { fetchPlace } from "../../helpers/getPlaces";
 import Leaflet from "../ui/Leaflet";
 
 function CountryDetailed({ country }) {
@@ -19,25 +18,25 @@ function CountryDetailed({ country }) {
   const context = useContext(ModeAction);
   const { countries } = useRouteLoaderData("main");
   const [thisCountries, setCoutries] = useState();
-  console.log(locDetail);
-  console.log("hasPosition");
+  let code = locDetail.country_code || locDetail.country;
   let {
     country: [count],
   } = country;
-  const [lag, crr, capital, subReg, cca2, latlng] = prepareData(country);
+  let [lag, crr, capital, subReg, cca2, latlng] = prepareData(country);
 
+  if (hasPosition && url === "/" + code) {
+    latlng = [locDetail.lat, locDetail.lon];
+  }
   let bordersArray = [];
   if (count.borders && thisCountries) {
     bordersArray = findBorders(count, thisCountries);
   }
-
   let controlers = (
     <Link to={"/"} className={context.mode ? "btnExp light" : "btnExp dark"}>
       <span>⬅ </span>
       <span>Back</span>
     </Link>
   );
-
   if (location != "IE" && url === "/IRL") {
     controlers = (
       <>
@@ -57,7 +56,6 @@ function CountryDetailed({ country }) {
       </>
     );
   }
-
   useEffect(() => {
     if (!thisCountries) {
       async function parse() {
@@ -67,7 +65,6 @@ function CountryDetailed({ country }) {
       parse();
     }
   }, []);
-
   if (thisCountries === null) {
     return (
       <div id="loading">
@@ -164,7 +161,6 @@ function CountryDetailed({ country }) {
     );
   }
 }
-
 function ThisForeApp({ capital, hasPosition, locDetail, cca2, coordinates }) {
   const countryObj = { data: [] };
 

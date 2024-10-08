@@ -10,7 +10,6 @@ const TodayWeather = ({
   padding = "2rem 0.3rem 1rem",
 }) => {
   const context = useContext(ModeAction);
-
   return (
     <Grid
       container

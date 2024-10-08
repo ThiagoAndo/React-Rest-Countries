@@ -28,7 +28,6 @@ export default function useThisLocation() {
       }
     }
   }
-
   return {
     path,
     navi: setNavigation,

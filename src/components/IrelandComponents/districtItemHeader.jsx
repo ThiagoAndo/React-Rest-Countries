@@ -1,6 +1,5 @@
 export default function CartNav({ mode, handleAction, id, active }) {
   let thisClass = null;
-
   if (active === id) {
     thisClass = mode ? "nav-link active" : "nav-link active-dark";
   }
@@ -8,7 +7,6 @@ export default function CartNav({ mode, handleAction, id, active }) {
     e.preventDefault();
     handleAction(e.target.id);
   }
-
   return (
     <li className="nav-item">
       <a

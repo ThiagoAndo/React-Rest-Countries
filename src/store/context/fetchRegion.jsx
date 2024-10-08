@@ -8,7 +8,6 @@ export const fRegion = createContext({
 
 export default function RegionProvider({ children }) {
   const [data, setData] = useState(undefined);
-
   async function changeRegion(region) {
       console.log(region);
       console.log("egionCtx.data");

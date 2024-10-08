@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 export default function ScroolBtn() {
   const [scrollPosition, setScrollPosition] = useState(0);
-
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);

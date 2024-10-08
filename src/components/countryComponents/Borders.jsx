@@ -3,7 +3,6 @@ import { ModeAction } from "../../store/context/mode";
 import { useContext } from "react";
 function Borders({ id, name }) {
   const context = useContext(ModeAction);
-
   return (
     <Link to={`/${id}`}>
       <p

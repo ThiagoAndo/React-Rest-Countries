@@ -12,11 +12,9 @@ export default function ModeProvider({ children }) {
       return (prev = !prev);
     });
   }
-
   const ctxValue = {
     mode,
     changeMode,
   };
-
   return <ModeAction.Provider value={ctxValue}>{children}</ModeAction.Provider>;
 }

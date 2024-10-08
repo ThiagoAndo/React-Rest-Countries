@@ -1,10 +1,8 @@
 import { useContext, useEffect } from "react";
 import { ClockContext } from "../../../src/store/context/clock";
 let hasChanged;
-
 function Clock({ cca2, name, capital }) {
   const context = useContext(ClockContext);
-
   useEffect(() => {
     hasChanged = false;
     setTimeout(() => {

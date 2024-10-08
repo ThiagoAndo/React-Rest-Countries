@@ -18,7 +18,6 @@ export function getAverage(array, isRound = true) {
       average = 0;
     }
   } else average = (array.reduce((a, b) => a + b, 0) / array.length).toFixed(2);
-
   return average;
 }
 
@@ -40,7 +39,6 @@ export const descriptionToIconName = (desc, descriptions_list) => {
 export const getWeekForecastWeather = (response, descriptions_list) => {
   let foreacast_data = [];
   let descriptions_data = [];
-
   if (!response || Object.keys(response).length === 0 || response.cod === "404")
     return [];
   else
@@ -56,18 +54,14 @@ export const getWeekForecastWeather = (response, descriptions_list) => {
         wind: item.wind.speed,
         clouds: item.clouds.all,
       });
-
       return { idx, item };
     });
 
   const groupByDate = groupBy("date");
   let grouped_forecast_data = groupByDate(foreacast_data);
   let grouped_forecast_descriptions = groupByDate(descriptions_data);
-
   const description_keys = Object.keys(grouped_forecast_descriptions);
-
   let dayDescList = [];
-
   description_keys.forEach((key) => {
     let singleDayDescriptions = grouped_forecast_descriptions[key].map(
       (item) => item.description
@@ -75,23 +69,19 @@ export const getWeekForecastWeather = (response, descriptions_list) => {
     let mostFrequentDescription = getMostFrequentWeather(singleDayDescriptions);
     dayDescList.push(mostFrequentDescription);
   });
-
   const forecast_keys = Object.keys(grouped_forecast_data);
   let dayAvgsList = [];
-
   forecast_keys.forEach((key, idx) => {
     let dayTempsList = [];
     let dayHumidityList = [];
     let dayWindList = [];
     let dayCloudsList = [];
-
     for (let i = 0; i < grouped_forecast_data[key].length; i++) {
       dayTempsList.push(grouped_forecast_data[key][i].temp);
       dayHumidityList.push(grouped_forecast_data[key][i].humidity);
       dayWindList.push(grouped_forecast_data[key][i].wind);
       dayCloudsList.push(grouped_forecast_data[key][i].clouds);
     }
-
     dayAvgsList.push({
       date: key,
       temp: getAverage(dayTempsList),
@@ -102,7 +92,6 @@ export const getWeekForecastWeather = (response, descriptions_list) => {
       icon: descriptionToIconName(dayDescList[idx], descriptions_list),
     });
   });
-
   return dayAvgsList;
 };
 
@@ -112,7 +101,6 @@ export const getTodayForecastWeather = (
   current_datetime
 ) => {
   let all_today_forecasts = [];
-
   if (!response || Object.keys(response).length === 0 || response.cod === "404")
     return [];
   else
@@ -128,7 +116,6 @@ export const getTodayForecastWeather = (
       }
       return all_today_forecasts;
     });
-
   if (all_today_forecasts.length < 7) {
     return [...all_today_forecasts];
   } else {

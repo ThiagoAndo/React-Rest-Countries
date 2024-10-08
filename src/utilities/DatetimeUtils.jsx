@@ -1,5 +1,4 @@
 import { MONTHS, DAYS } from "./DateConstants";
-
 const date = new Date();
 
 export function getWeekDays() {
@@ -13,7 +12,6 @@ export function getWeekDays() {
 export function getDayMonthFromDate() {
   const month = MONTHS[date.getMonth()].slice(0, 3);
   const day = date.getUTCDate();
-
   return day + " " + month;
 }
 
@@ -27,7 +25,6 @@ export function transformDateFormat() {
     second: "2-digit",
     hourCycle: "h23",
   });
-
   const newFormatDate = year.toString().concat("-", month, "-", day, " ", time);
   return newFormatDate;
 }
@@ -39,7 +36,6 @@ export function getUTCDatetime() {
     hourCycle: "h23",
     timeZone: "UTC",
   });
-
   const isoDateString = new Date().toISOString();
   const utcDate = isoDateString.split("T")[0].concat(" ", utcTime);
   return utcDate;
@@ -53,6 +49,5 @@ export function getUTCTime() {
     hourCycle: "h23",
     timeZone: "UTC",
   });
-
   return utcTime;
 }

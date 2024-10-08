@@ -1,5 +1,4 @@
 export function prepareData(country) {
-
   let {
     country: [count],
   } = country;
@@ -12,32 +11,25 @@ export function prepareData(country) {
   const {
     capitalInfo: { latlng },
   } = count;
- 
-
   if (count?.currencies) {
     crrKey = Object.keys(count.currencies)[0];
     crr = count.currencies[crrKey].name;
   }
-
   if (count?.languages) {
     langKey = Object.keys(count?.languages)[0];
     lag = count?.languages[langKey];
   }
-
   if (count?.subregion) {
     subReg = count.subregion;
   }
-
   if (count?.capital) {
     capital = count.capital[0];
   }
-
   return [lag, crr, capital, subReg, count.cca2, latlng];
 }
 
 export function findBorders(count, thisCountries) {
   let bordersArray = [];
-
   let findCountryName = (cca3, data) => {
     let count = -1;
     do {
@@ -48,7 +40,6 @@ export function findBorders(count, thisCountries) {
   for (let index = 0; index < count?.borders?.length; index++) {
     let name = findCountryName(count.borders[index], thisCountries);
     let longName = "";
-
     if (name?.length > 10) {
       for (let index = 0; index <= 10; index++) {
         if (index <= 7) {

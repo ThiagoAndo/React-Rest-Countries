@@ -15,34 +15,28 @@ export default function ClockProvider({ children }) {
   const [country, setCountry] = useState(null);
   const [change, setChange] = useState(false);
   let timeInter = useRef();
-
   const loadZoneName = useCallback(async function loadZoneName(coutry) {
     let time = null;
     let zone = null;
     let resData;
-
     resData = await fetchZone(coutry);
     if (resData != undefined) {
       const cities = resData.zones.map((zn) => {
         const cts = zn.zoneName.split("/");
         return cts[cts.length - 1];
       });
-
       if (cities.includes(coutry?.capital)) {
         const zn = cities.indexOf(coutry?.capital);
         zone = resData?.zones[zn]?.zoneName;
-
         city = coutry.capital;
       } else {
         zone = resData?.zones[0]?.zoneName;
         city = resData?.zones[0]?.zoneName.split("/")[1];
       }
-
       if (city?.includes("_") || city?.includes("-")) {
         city = city.replaceAll("_", " ");
         city = city.replaceAll("-", " ");
       }
-
       if (zone === undefined) {
         time = "NOT AVAILABLE";
       } else {
@@ -56,13 +50,11 @@ export default function ClockProvider({ children }) {
     let resData;
     let time = null;
     resData = await loadTimeZone(zone);
-
     if (resData != undefined) {
       time = new Date(resData.formatted);
       return time;
     }
   }
-
   const run = useCallback(function run(timer) {
     if (timer != null) timer.setSeconds(timer.getSeconds() + 1);
     const thisTime = new Date(
@@ -70,7 +62,6 @@ export default function ClockProvider({ children }) {
         timer.getMonth() + 1
       }-${timer.getDate()} ${timer.getHours()}:${timer.getMinutes()}:${timer.getSeconds()}`
     );
-
     setTimer(thisTime);
   }, []);
 
@@ -80,6 +71,7 @@ export default function ClockProvider({ children }) {
     setChange(false);
     clearInterval(timeInter.current);
   }
+
   function stop() {
     clearInterval(timeInter.current);
     setTimer(null);
@@ -89,7 +81,6 @@ export default function ClockProvider({ children }) {
     async function getTime() {
       if (!change) {
         const timeComp = await loadZoneName(country);
-
         if (timeComp !== undefined) {
           setTimer(timeComp);
           setChange(true);
@@ -112,7 +103,6 @@ export default function ClockProvider({ children }) {
     setCode,
     stop,
   };
-
   return (
     <ClockContext.Provider value={ctxValue}>{children}</ClockContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Grid, Container, Typography } from "@mui/material";
 import TodayWeather from "./TodayWeather/TodayWeather";
@@ -15,17 +15,10 @@ import { ALL_DESCRIPTIONS } from "../../utilities/DateConstants";
 import {  fetchWeatherData } from "../../helpers/HTTP";
 import WeeklyForecast from "./WeeklyForecast/WeeklyForecast";
 import { ModeAction } from "../../store/context/mode";
-import { useDispatch } from "react-redux";
-import { locAction } from "../../store/redux/location";
-export let count = 0;
-export function resetCount() {
-  count = 0;
-}
-
 function ForecastApp({ cap, call }) {
+  let appContent = null;
   const context = useContext(ModeAction);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
@@ -35,7 +28,6 @@ function ForecastApp({ cap, call }) {
   function handleTabClick() {
     navigate("weather", { state: cap });
   }
-
   const searchChangeHandler = async (citiesList) => {
     if (citiesList?.message) {
       setError(true);
@@ -44,7 +36,6 @@ function ForecastApp({ cap, call }) {
       setIsLoading(false);
       setNotFound(true);
     }
-
     if (citiesList?.data?.length > 0) {
       const dataRet = {
         options: citiesList?.data.map((city) => {
@@ -55,7 +46,6 @@ function ForecastApp({ cap, call }) {
         }),
       };
       const [latitude, longitude] = dataRet?.options[0]?.value.split(" ");
-
       setIsLoading(true);
       const currentDate = transformDateFormat();
       const date = new Date();
@@ -63,13 +53,11 @@ function ForecastApp({ cap, call }) {
       try {
         const [todayWeatherResponse, weekForecastResponse] =
           await fetchWeatherData(latitude, longitude);
-
         const all_today_forecasts_list = getTodayForecastWeather(
           weekForecastResponse,
           currentDate,
           dt_now
         );
-
         const all_week_forecasts_list = getWeekForecastWeather(
           weekForecastResponse,
           ALL_DESCRIPTIONS
@@ -89,18 +77,9 @@ function ForecastApp({ cap, call }) {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     if (todayWeather === null) searchChangeHandler(cap);
   }, [cap]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(locAction.setNotFound(null));
-    };
-  }, []);
-  let appContent = null;
-
   if (todayWeather && todayForecast && call?.country) {
     appContent = (
       <>
@@ -116,7 +95,6 @@ function ForecastApp({ cap, call }) {
       </>
     );
   }
-
   if (todayWeather && todayForecast && call?.full) {
     appContent = (
       <Container
@@ -177,7 +155,6 @@ function ForecastApp({ cap, call }) {
       </Container>
     );
   }
-
   if (error) {
     appContent = (
       <ErrorBox
@@ -187,7 +164,6 @@ function ForecastApp({ cap, call }) {
       />
     );
   }
-
   if (notFound) {
     appContent = (
       <ErrorBox
@@ -198,7 +174,6 @@ function ForecastApp({ cap, call }) {
       />
     );
   }
-
   if (isLoading) {
     appContent = (
       <Box
@@ -232,7 +207,6 @@ function ForecastApp({ cap, call }) {
   }
   return appContent;
 }
-
 function TodayContainer({ children }) {
   return (
     <Grid container columnSpacing={2}>

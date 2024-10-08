@@ -9,12 +9,9 @@ export default function ErrorContent({ title, message, status }) {
               <div className="four_zero_four_bg">
                 <h1 className="text-center ">{status}</h1>
               </div>
-
               <div className="contant_box_404">
                 <h3 className="h2">{title}</h3>
-
                 <p>{message}</p>
-
                 <Link href="/" className="link_404">
                   Go to Home
                 </Link>

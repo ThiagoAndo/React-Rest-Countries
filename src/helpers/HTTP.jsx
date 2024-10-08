@@ -91,7 +91,6 @@ export async function fetchCounty(lat, lon) {
   //API SOURCE:
   // https://www.geoapify.com/
   let response;
-
   try {
     response = await axios.get(
       `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${GEOPIFY}`

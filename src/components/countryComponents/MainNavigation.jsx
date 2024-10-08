@@ -6,15 +6,11 @@ import { Triangle } from "react-loader-spinner";
 function MainNavigation() {
   const context = useContext(ModeAction);
   const { name } = useSelector((state) => state.location.loc);
-  const isFound = useSelector((state) => state.location.notFound);
-
   const { path, navi } = useThisLocation();
   let msn = path != "/ireland" ? "Show me " : "⬅ Home";
-
-  if (path.includes("weather") ) {
+  if (path.includes("weather")) {
     msn = "⬅ Back";
   }
-
   let content = null;
   if (path === "/" && name != null) {
     content = (
@@ -32,16 +28,13 @@ function MainNavigation() {
       </h2>
     );
   }
-
   if (path === "/Ireland" || path.includes("weather")) {
-  
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
         <>{<span>{path === "/ireland" ? "⬅ Home" : "⬅ Back"}</span>}</>
       </h2>
     );
   }
-
   if (name === null && path === "/") {
     content = (
       <h2 className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
@@ -57,31 +50,22 @@ function MainNavigation() {
       </h2>
     );
   }
-
   return (
-    <>
-      <header>
-        <nav className={context.mode ? "light" : "dark"}>
-          <div id="mainTxt" onClick={name != null ? navi : null}>
-            {content}
+    <header>
+      <nav className={context.mode ? "light" : "dark"}>
+        <div id="mainTxt" onClick={name != null ? navi : null}>
+          {content}
+        </div>
+        <div id="btn" onClick={context.changeMode}>
+          <div className={context.mode ? "icon" : "icon filt"}></div>
+          <div>
+            <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
+              Light Mode
+            </p>
           </div>
-          <div id="btn" onClick={context.changeMode}>
-            <div className={context.mode ? "icon" : "icon filt"}></div>
-            <div>
-              <p className={context.mode ? "mainTxt_h" : " mainTxt_h2"}>
-                Light Mode
-              </p>
-            </div>
-          </div>
-        </nav>
-      </header>
-      {isFound && (
-        <p className="not_found">
-          No weather data found for
-          <span style={{ color: "#f5163b" }}>{isFound}</span>
-        </p>
-      )}
-    </>
+        </div>
+      </nav>
+    </header>
   );
 }
 

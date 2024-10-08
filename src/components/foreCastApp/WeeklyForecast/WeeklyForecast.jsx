@@ -13,9 +13,7 @@ import { useContext } from "react";
 
 const WeeklyForecast = ({ data }) => {
   const context = useContext(ModeAction);
-
   const forecastDays = getWeekDays();
-
   const noDataProvided =
     !data ||
     Object.keys(data).length === 0 ||
@@ -27,7 +25,6 @@ const WeeklyForecast = ({ data }) => {
       <ErrorBox type="error" />
     </div>
   );
-
   if (!noDataProvided)
     content = (
       <Grid
@@ -117,7 +114,6 @@ const WeeklyForecast = ({ data }) => {
         )}
       </Grid>
     );
-
   return (
     <Layout
       title="WEEKLY FORECAST"

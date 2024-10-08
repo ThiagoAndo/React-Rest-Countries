@@ -5,20 +5,15 @@ import ErrorBox from '../../Reusable/ErrorBox';
 import Layout from '../../Reusable/Layout';
 import { ModeAction } from "../../../../store/context/mode";
 import { useContext } from "react";
-
-
 const DailyForecast = ({ data, forecastList }) => {
   const context = useContext(ModeAction);
-
   const noDataProvided =
     !data ||
     !forecastList ||
     Object.keys(data).length === 0 ||
     data.cod === '404' ||
     forecastList.cod === '404';
-
   let subHeader;
-
   if (!noDataProvided && forecastList.length > 0)
     subHeader = (
       <Typography
@@ -38,11 +33,8 @@ const DailyForecast = ({ data, forecastList }) => {
           : `${forecastList.length} available forecasts`}
       </Typography>
     );
-
   let content;
-
   if (noDataProvided) content = <ErrorBox flex="1" type="error" />;
-
   if (!noDataProvided && forecastList.length > 0)
     content = (
       <Grid
@@ -74,7 +66,6 @@ const DailyForecast = ({ data, forecastList }) => {
         ))}
       </Grid>
     );
-
   if (!noDataProvided && forecastList && forecastList.length === 0)
     subHeader = (
       <ErrorBox
@@ -84,7 +75,6 @@ const DailyForecast = ({ data, forecastList }) => {
         errorMessage="No available forecasts for tonight."
       />
     );
-
   return (
     <Layout
       title="TODAY'S FORECAST"

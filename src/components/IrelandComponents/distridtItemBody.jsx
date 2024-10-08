@@ -1,6 +1,5 @@
 export default function Panel({ data, id }) {
   const { attributes } = data;
-
   return (
     <div className="tab-pane active " id={id} role="tabpanel">
       <div>
@@ -9,7 +8,6 @@ export default function Panel({ data, id }) {
     </div>
   );
 }
-
 function PanelText({ attributes, id }) {
   const { CONTAE, COUNTY, ED_ENGLISH, PROVINCE, T1_1AGETT } = attributes;
   const { T1_1AGETF, T1_1AGETM, T1_2SGLF, T1_2SGLM } = attributes;
@@ -21,7 +19,6 @@ function PanelText({ attributes, id }) {
   } else {
     weather = ED_ENGLISH;
   }
-
   return (
     <>
       <h4 className="card-title">{ED_ENGLISH}</h4>

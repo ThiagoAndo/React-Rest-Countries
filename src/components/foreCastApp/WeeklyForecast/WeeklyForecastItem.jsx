@@ -8,9 +8,7 @@ import { ModeAction } from "../../../store/context/mode";
 import { useContext } from "react";
 const WeeklyForecastItem = ({ value, type }) => {
   const context = useContext(ModeAction);
-
   let iconContent;
-
   if (type === "temperature")
     iconContent = (
       <ThermostatIcon

@@ -4,7 +4,6 @@ import { useContext } from "react";
 
 const CityDateDetail = (props) => {
   const context = useContext(ModeAction);
-
   return (
     <Box
       sx={{

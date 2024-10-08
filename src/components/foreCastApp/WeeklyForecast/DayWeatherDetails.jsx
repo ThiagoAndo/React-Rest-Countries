@@ -4,7 +4,6 @@ import { ModeAction } from '../../../store/context/mode';
 import { useContext } from "react";
 const DayWeatherDetails = (props) => {
   const context = useContext(ModeAction);
-
   return (
     <Grid
       container

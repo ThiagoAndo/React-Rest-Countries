@@ -6,7 +6,6 @@ import { useContext } from "react";
 
 const DailyForecastItem = (props) => {
   const context = useContext(ModeAction);
-
   return (
     <Box
       sx={{

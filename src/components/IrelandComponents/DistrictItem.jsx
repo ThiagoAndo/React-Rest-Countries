@@ -5,7 +5,6 @@ import CardNav from "./districtItemHeader";
 import Panel from "./distridtItemBody";
 import { useNavigate } from "react-router-dom";
 import { prepareCountyName } from "../../helpers/preparLocName";
-
 export default function DistrictItem({ county }) {
   const [tabActive, setTabActive] = useState("Description");
   const context = useContext(ModeAction);
