@@ -10,10 +10,7 @@ import { ClockContext } from "../store/context/clock";
 export default function DistrictList() {
   const conName = useSelector((state) => state.location.conName);
   const districts = useSelector((state) => state.location.districts);
-  console.log(districts);
-  console.log("districts");
   usePrepareLocation();
-
 
   return (
     <>
@@ -21,7 +18,7 @@ export default function DistrictList() {
         opt={conName}
         call={"d"}
         holderF={"Filter by County"}
-        holderS={"Search for a district"}
+        holderS={"Search for a County"}
       />
       {districts.length === 0 ? (
         <div id="loading">
